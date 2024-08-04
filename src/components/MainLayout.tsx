@@ -116,7 +116,7 @@ export default function MainLayout({
     <>
       Powered by
       {' '}
-      <a className="no-underline" href="https://w4games.com">W4Games</a>
+      <a className="no-underline" href="https://deadline-entertainment.com">Deadline Entertainment</a>
     </>
   )
 

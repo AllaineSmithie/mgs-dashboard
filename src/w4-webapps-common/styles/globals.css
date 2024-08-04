@@ -30,7 +30,14 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-
+/* center-container */
+.center-container {
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+}
+.login-spacer {
+    height: 40px; /* Adjust the value as needed */
+}
 /*
 Make sure toastify notifications appear above the Modals' background.
 (!important is necessary here because toastify css is imported in MainLayout.tsx,

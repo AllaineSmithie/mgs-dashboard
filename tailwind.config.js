@@ -6,35 +6,35 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 
 // Common colors used across all the themes
 const brand = {
-  50: '#EAE8F2',
-  100: '#D8D4E8',
-  200: '#B1A9D0',
-  300: '#8A7EB9',
-  400: '#65569F',
-  500: '#483E72',
-  600: '#3B325C',
-  700: '#2C2645',
-  800: '#1D192E',
-  900: '#0F0D17',
-  950: '#06050A',
+  50: '#f2e8e8',
+  100: '#e8d4d4',
+  200: '#d0a9a9',
+  300: '#ba9c9c',
+  400: '#9f5656',
+  500: '#722929',
+  600: '#383232',
+  700: '#452626',
+  800: '#391616',
+  900: '#0f0c0c',
+  950: '#0a0505',
 }
 // Monochrome tinted gray colors
 // https://www.tints.dev/red/27252E
 const scale = {
   0: '#FFFFFF',
-  25: '#F1F1F4',
-  50: '#eeeef1',
-  100: '#E4E3E8',
-  200: '#C6C4CF',
-  300: '#ABA7B8',
-  400: '#8D889F',
-  500: '#736D88',
-  600: '#595469',
-  700: '#413D4C',
-  800: '#27252E',
-  900: '#1E1D24',
-  950: '#18171C',
-  1000: '#131217',
+  25: '#F4F1F1',
+  50: '#f1eeee',
+  100: '#e8e6e6',
+  200: '#cfcdcc',
+  300: '#b8b3b2',
+  400: '#aeacab',
+  500: '#878483',
+  600: '#696563',
+  700: '#4d4948',
+  800: '#2e2c2b',
+  900: '#242221',
+  950: '#1c1a1a',
+  1000: '#171515',
   1100: '#000',
 }
 
@@ -133,9 +133,9 @@ module.exports = {
         invert: {
           // https://github.com/tailwindlabs/tailwindcss-typography/blob/master/src/styles.js
           css: {
-            '--prose-code': '#e685b5',
+            '--prose-code': '#e68585',
             a: {
-              color: '#928caa',
+              color: '#aa8c8c',
             },
           },
         },
@@ -167,7 +167,7 @@ module.exports = {
         'scrollbar-thumb': '#C1C1C1',
         'scrollbar-track': '#FAFAFA',
         // Link
-        'link': '#493f72',
+        'link': '#727c7f',
       },
       dark: {
         // Text colors
@@ -190,7 +190,7 @@ module.exports = {
         'scrollbar-thumb': '#6B6B6B',
         'scrollbar-track': '#2C2C2C',
         // Link
-        'link': '#493f72',
+        'link': '#727c7f',
       },
     }),
     require('@tailwindcss/typography'), require('@tailwindcss/forms')],

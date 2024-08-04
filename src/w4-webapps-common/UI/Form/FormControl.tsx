@@ -27,7 +27,7 @@ function useFormControl({ isInvalid, isValid, disabled }:UseFormControl) {
     }
   }, [isInvalid, setIsInvalid])
 
-  const baseClassNames = 'block h-full w-full rounded-md border py-2 px-3 text-foreground-secondary shadow-sm ring-inset border-border placeholder:text-foreground-muted focus:ring-2 focus:ring-inset focus:border-brand-600 focus:ring-brand-600 bg-control'
+  const baseClassNames = 'block h-full w-full rounded-md border py-2 px-3 text-foreground-secondary shadow-sm ring-inset border-border placeholder:text-foreground-muted focus:ring-2 focus:ring-inset focus:border-brand-600 focus:ring-brand-600 bg-scale-700'
 
   let classNames = baseClassNames
   if (isInvalid) {

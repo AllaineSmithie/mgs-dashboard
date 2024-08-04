@@ -1,7 +1,7 @@
 /*************************************************************************/
 /*  login.tsx                                                            */
 /*************************************************************************/
-/* Copyright W4 Games Limited                                            */
+/* Copyright MGS Games Limited                                            */
 /* SPDX-License-Identifier: AGPL-3.0-only                                */
 /*************************************************************************/
 
@@ -11,7 +11,7 @@ export default function Login() {
   return (
     <AuthLayout
       appTitle="Workspace Dashboard"
-      headTitle="W4 Workspace Dashboard"
+      headTitle="MGS Workspace Dashboard"
       title="Login"
     >
       <LoginForm

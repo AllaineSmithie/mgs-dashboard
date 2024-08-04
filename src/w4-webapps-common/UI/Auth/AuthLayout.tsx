@@ -23,7 +23,7 @@ export function AuthLayout({
   headTitle = appTitle,
   title,
   logoHref = '/assets/brand/w4games.svg',
-  backgroundImageHref = '/assets/img/snes-controllers.jpg',
+  backgroundImageHref = '/assets/img/mgs-background.png',
   children,
 } : AuthLayoutProps) {
   const contentBackground = addBasePath(backgroundImageHref)
@@ -33,13 +33,13 @@ export function AuthLayout({
     <>
       <Head>
         <title>{headTitle}</title>
-        <meta name="description" content="W4 Dashboard" />
+        <meta name="description" content="MGS Dashboard" />
         <link rel="icon" href={addBasePath('/favicon.ico')} />
       </Head>
       <div
         className={`
-          dark:bg-[radial-gradient(circle_at_center,_rgb(46,44,59)_0%,_rgb(34,33,41)_100%)]
-          bg-[radial-gradient(circle_at_center,_rgb(195,194,200)_0%,_rgb(163,161,175)_100%)]
+          dark:bg-[linear-gradient(to_right,_rgb(19,16,14)_35%,_rgb(44,43,43)_75%)]
+          bg-[radial-gradient(circle_at_center,_rgb(200,194,194)_0%,_rgb(175,163,161)_100%)]
           bg-[position:center]
           bg-[length:100%]
           bg-no-repeat
@@ -65,24 +65,27 @@ export function AuthLayout({
             hidden
             md:flex flex-col
             items-center
+            justify-center
             `}
           >
             <div
               className="p-7 flex flex-col items-center"
             >
+            <div className="center-container">
               <Image
                 src={logo}
-                width={200}
+                width={240}
                 height={50}
-                alt="W4Games logo"
+                alt="Metro Gaya Systems logo"
               />
               <h2 className="mt-6 font-bold text-scale-300 text-2xl">
                 {appTitle}
               </h2>
             </div>
+            </div>
           </div>
 
-          <div className="flex-1 bg-surface-100">
+          <div className="flex-1 bg-scale-900">
             <div
               style={{
                 '--content-background': `url(${contentBackground})`,
@@ -93,6 +96,7 @@ export function AuthLayout({
               bg-cover
               flex flex-col
               items-center
+              justify-center
               flex-1
               md:hidden
               visible
@@ -102,13 +106,14 @@ export function AuthLayout({
                 src={logo}
                 width={200}
                 height={50}
-                alt="W4Games logo"
+                alt="Metro Gaya Systems logo"
               />
             </div>
-            <div className="p-7 h-full flex flex-col">
+            <div className="p-7 h-full flex flex-col justify-center items-center">
               <h3 className="mb-2 flex-none font-bold text-2xl">{title}</h3>
               <div className="mb-3 flex-none text-center border-t-2 border-scale-500" />
               {children}
+              <div class="login-spacer"></div>
             </div>
           </div>
         </div>
