@@ -113,7 +113,7 @@ export function AuthLayout({
               <h3 className="mb-2 flex-none font-bold text-2xl">{title}</h3>
               <div className="mb-3 flex-none text-center border-t-2 border-scale-500" />
               {children}
-              <div className="login-spacer"></div>
+              <div className="login-spacer" />
             </div>
           </div>
         </div>
