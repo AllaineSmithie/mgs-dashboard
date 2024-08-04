@@ -71,17 +71,17 @@ export function AuthLayout({
             <div
               className="p-7 flex flex-col items-center"
             >
-            <div className="center-container">
-              <Image
-                src={logo}
-                width={240}
-                height={50}
-                alt="Metro Gaya Systems logo"
-              />
-              <h2 className="mt-6 font-bold text-scale-300 text-2xl">
-                {appTitle}
-              </h2>
-            </div>
+              <div className="center-container">
+                <Image
+                  src={logo}
+                  width={240}
+                  height={50}
+                  alt="Metro Gaya Systems logo"
+                />
+                <h2 className="mt-6 font-bold text-scale-300 text-2xl">
+                  {appTitle}
+                </h2>
+              </div>
             </div>
           </div>
 
