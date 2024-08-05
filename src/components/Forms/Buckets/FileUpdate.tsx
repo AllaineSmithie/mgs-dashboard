@@ -13,7 +13,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
 import * as yup from 'yup'
 import type { ModalProps } from '@webapps-common/UI/Modal'
-import { ModalForm } from '@webapps-common/UI/Form/ModalForm'
+import { ModalForm } from '../Common/ModalForm'
 
 export type FileUpdated = {
   bucket: string;
@@ -95,7 +95,7 @@ export default function FileUpdate({
           isSubmitting={isSubmitting}
           modalProps={({ backdrop: 'static', ...modalProps })}
         >
-          <Form.Group className="mb-3" controlId="name">
+          <Form.Group className="tw-mb-3" controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.FileInput
               name="file"

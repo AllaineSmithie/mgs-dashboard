@@ -14,7 +14,6 @@ import {
 } from 'recharts'
 
 type ReplicasCountGraphProps = {
-  autoscale: boolean;
   min: number;
   allocated: number;
   ready: number;
@@ -23,24 +22,14 @@ type ReplicasCountGraphProps = {
 }
 
 export default function ReplicasCountGraph({
-  autoscale,
-  min,
-  allocated,
-  ready,
-  max,
-  buffer,
+  min, allocated, ready, max, buffer,
 } : ReplicasCountGraphProps) {
-  const [activeGraphSector, setActiveGraphSector] = useState(-1)
+  const [activeGraphSector, setActiveGraphSector] = useState(0)
 
   const graphDiameter = 200
 
-  const realMax = autoscale ? max : min
-  if (realMax === 0) {
-    return null
-  }
-
-  const readinessTarget = autoscale ? Math.max(min, Math.min(max, allocated + buffer)) : min
-  const occupencyRate = allocated / realMax
+  const readinessTarget = Math.max(min, Math.min(max, allocated + buffer))
+  const occupencyRate = allocated / max
   let allocatedColor = '#4E9F3D'
   if (occupencyRate >= 0.8) {
     allocatedColor = '#850000'
@@ -85,10 +74,10 @@ export default function ReplicasCountGraph({
     })
   }
 
-  if (ready !== realMax) {
+  if (ready !== max) {
     data.push({
       name: 'Max allocation',
-      value: realMax,
+      value: max,
       isAbsolute: true,
       delta: 0,
       color: '#A2A2A2',
@@ -208,7 +197,6 @@ export default function ReplicasCountGraph({
         paddingAngle={1}
         dataKey="delta"
         onMouseEnter={(_, index) => setActiveGraphSector(index)}
-        onMouseLeave={() => setActiveGraphSector(-1)}
       >
         {
           data.map((entry) => (
@@ -216,17 +204,18 @@ export default function ReplicasCountGraph({
           ))
         }
       </Pie>
-      { autoscale
-        && renderThreshold(
-          {
-            cx: graphDiameter * 1.25,
-            cy,
-            midAngle: 180 - (180 * min) / realMax,
-            outerRadius: graphDiameter * 0.5,
-            fill: '#A2A2A2',
-            text: `Min ready: ${min}`,
-          },
-        )}
+      {
+          renderThreshold(
+            {
+              cx: graphDiameter * 1.25,
+              cy,
+              midAngle: 180 - (180 * min) / max,
+              outerRadius: graphDiameter * 0.5,
+              fill: '#A2A2A2',
+              text: `Min ready: ${min}`,
+            },
+          )
+        }
     </PieChart>
   )
 }

@@ -5,17 +5,17 @@
 /* SPDX-License-Identifier: AGPL-3.0-only                                */
 /*************************************************************************/
 
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 import cn from '../../utils/classNamesMerge'
 import Dropdown from './Dropdown'
 import type { ButtonProps } from '../Button'
 
 type DropdownButtonProps = {
-  title?: ReactNode;
+  title?: string;
   onSelect?: (eventKey?: string | number) => void;
   className?: string;
   placement?: 'right';
-} & PropsWithChildren & Omit<ButtonProps, 'title'>
+} & PropsWithChildren & ButtonProps
 
 export default function DropdownButton({
   title, variant, placement, children, className, onSelect,

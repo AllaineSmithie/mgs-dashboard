@@ -10,46 +10,35 @@ import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
 import {
   DeleteConfirmationForm,
   ConfirmationFormProps,
-} from '@webapps-common/UI/Form/ModalForm'
-import { AuthError } from '@supabase/supabase-js'
+} from '../Common/ModalForm'
 
-export type DeletedUser = {
+export type UserDeleted = {
   id: string;
   email?: string;
 }
 type UserDeleteProps = {
-  users: DeletedUser[];
+  deleted?: UserDeleted;
 } & Omit<
 ConfirmationFormProps,
 'execute' | 'failureMessage' | 'successMessage'
 >
-export default function UserDelete({ users, ...props }: UserDeleteProps) {
+export default function UserDelete({ deleted, ...props }: UserDeleteProps) {
   const supabase = useSupabaseClient()
-  if (!users) {
+  if (!deleted) {
     return null
   }
-
-  async function deleteUser(user: DeletedUser) {
-    const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
-    return (await supabaseAuthAdmin.deleteUser(user.id)).error
-  }
-
-  async function deleteUsers() {
-    const errors = (await Promise.all(users.map((l) => deleteUser(l))))
-      .filter((e) => (e !== null)) as AuthError[]
-    return errors
-  }
-
-  const userIDString = users.length === 1 ? users[0].email || users[0].id : ''
+  const userIDString = deleted.email || deleted.id
   return (
     <DeleteConfirmationForm
-      // eslint-disable-next-line react/jsx-no-bind
-      execute={deleteUsers}
-      failureMessage={users.length === 1 ? `Could not delete user: ${userIDString}` : 'Could not delete users.'}
-      successMessage={users.length === 1 ? `User ${userIDString} successfully deleted.` : 'Users successfully deleted.'}
+      execute={async () => {
+        const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
+        return (await supabaseAuthAdmin.deleteUser(deleted.id)).error
+      }}
+      failureMessage={`Could not delete user: ${userIDString}`}
+      successMessage={`User ${userIDString} successfully deleted.`}
       {...props}
     >
-      {users.length === 1 ? `Are you sure you want to delete user "${userIDString}" ?` : `Are you sure you want to delete ${users.length} users ?`}
+      {`Are you sure you want to delete user "${userIDString}" ?`}
     </DeleteConfirmationForm>
   )
 }

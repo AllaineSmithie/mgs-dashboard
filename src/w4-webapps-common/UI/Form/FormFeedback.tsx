@@ -19,9 +19,9 @@ export default function FormFeedback({ children, className, type }: FeedbackProp
 
   if (!isInvalid) return null
 
-  let classNames = 'text-sm text-foreground-muted'
+  let classNames = 'tw-text-sm tw-text-foreground-muted'
   if (type === 'invalid') {
-    classNames = cn(classNames, 'text-danger-600 dark:text-danger-400')
+    classNames = cn(classNames, 'tw-text-danger-600 dark:tw-text-danger-400')
   }
   return <div className={cn(classNames, className)}>{children}</div>
 }

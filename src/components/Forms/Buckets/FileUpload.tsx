@@ -14,7 +14,7 @@ import { Formik, FormikConfig } from 'formik'
 import * as yup from 'yup'
 import { isStorageError } from '@supabase/storage-js'
 import type { ModalProps } from '@webapps-common/UI/Modal'
-import { ModalForm } from '@webapps-common/UI/Form/ModalForm'
+import { ModalForm } from '../Common/ModalForm'
 
 export type FilesUploaded = {
   bucket: string;
@@ -137,7 +137,7 @@ export default function FileUpload({
           isSubmitting={isSubmitting}
           modalProps={({ backdrop: 'static', ...modalProps })}
         >
-          <Form.Group className="mb-3" controlId="file">
+          <Form.Group className="tw-mb-3" controlId="file">
             <Form.Label>File(s)</Form.Label>
             <Form.FileInput
               name="file"

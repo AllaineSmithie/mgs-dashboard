@@ -42,6 +42,8 @@
   "rules": {
     // Checks rules of Hooks
     "react-hooks/rules-of-hooks": "error",
+    // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn",
     // https://stackoverflow.com/questions/69928061/struggling-with-typescript-react-eslint-and-simple-arrow-functions-components
     "react/function-component-definition": [
       2,
@@ -67,7 +69,6 @@
     "react/jsx-props-no-spreading": "off",
     // Disable import/no-cycle, because importing types from related components often creates cycles
     "import/no-cycle": "off",
-    "react-hooks/exhaustive-deps": "off",
     "semi": [
       2,
       "never"

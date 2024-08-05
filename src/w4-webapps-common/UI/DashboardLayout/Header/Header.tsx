@@ -6,56 +6,55 @@
 /*************************************************************************/
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBars,
+} from '@fortawesome/free-solid-svg-icons'
 import { ReactNode } from 'react'
-import NotificationsDropdown, { NotificationsDropdownProps } from '../../Notifications/NotificationsDropdown'
 import { BreadcrumbHeader, BreadcrumbHeaderProps } from './HeaderBreadcrumb'
 import { HeaderNavDropdownMenu } from './HeaderNavDropdownMenu'
 import Button from '../../Button'
 import cn from '../../../utils/classNamesMerge'
 
 export type HeaderProps = {
-  notificationDropdownProps?: NotificationsDropdownProps;
   breadcrumbProps?: BreadcrumbHeaderProps;
   navDropdownMenuContent: ReactNode | undefined;
   showToggleSidebar: boolean;
   toggleSidebar: () => void;
 }
 export function Header({
-  notificationDropdownProps,
   breadcrumbProps,
   navDropdownMenuContent,
   showToggleSidebar,
   toggleSidebar,
 }: HeaderProps) {
   return (
-    <header
-      className={
-        cn(
-          'min-h-[4rem] border-b-[1px] border-b-border flex items-center ps-8 pe-4 py-2',
-          { 'ps-4': showToggleSidebar },
-        )
-      }
+    <header className={
+      cn(
+        'tw-min-h-[4rem] tw-border-b-[1px] tw-border-b-border tw-flex tw-items-center tw-ps-8 tw-pe-4 tw-py-2',
+        { 'tw-ps-4': showToggleSidebar },
+      )
+    }
     >
       <Button
         variant="no-background"
-        className={cn('px-4 me-2 hover:text-brand-200 bg-transparent hover:bg-transparent', !showToggleSidebar && 'hidden')}
+        className={cn('tw-px-4 tw-me-2 hover:tw-text-brand-200 tw-bg-transparent hover:tw-bg-transparent', {
+          'tw-hidden': !showToggleSidebar,
+        })}
         type="button"
         onClick={toggleSidebar}
       >
         <FontAwesomeIcon icon={faBars} />
       </Button>
 
-      {breadcrumbProps && (
+      {breadcrumbProps
+        && (
         <BreadcrumbHeader
-          {...breadcrumbProps}
+          breadcrumb={breadcrumbProps.breadcrumb}
+          breadcrumbCurrentText={breadcrumbProps.breadcrumbCurrentText}
         />
-      )}
-      <div className="grow" />
-      <div className="ms-2 flex">
-        {notificationDropdownProps && (
-          <NotificationsDropdown {...notificationDropdownProps} />
         )}
+      <div className="tw-grow" />
+      <div className="tw-ms-2">
         <HeaderNavDropdownMenu>
           {navDropdownMenuContent}
         </HeaderNavDropdownMenu>

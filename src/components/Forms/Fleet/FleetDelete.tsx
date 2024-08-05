@@ -10,7 +10,7 @@ import withSchema from 'src/utils/withSchema'
 import {
   DeleteConfirmationForm,
   ConfirmationFormProps,
-} from '@webapps-common/UI/Form/ModalForm'
+} from '../Common/ModalForm'
 
 export type FleetDeleted = {
   name: string;

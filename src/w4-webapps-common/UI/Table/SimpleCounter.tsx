@@ -13,7 +13,7 @@ export default function SimpleCounter({ total }: SimpleCounterCounter) {
     <span>
       Showing
       {' '}
-      <span className="font-semibold text-foreground-emphasized">{total}</span>
+      <span className="tw-font-semibold tw-text-foreground-emphasized">{total}</span>
       {' '}
       results
     </span>

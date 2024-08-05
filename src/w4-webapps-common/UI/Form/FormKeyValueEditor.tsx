@@ -5,8 +5,7 @@
 /* SPDX-License-Identifier: AGPL-3.0-only                                */
 /*************************************************************************/
 
-/* eslint-disable react/jsx-no-bind */
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronUp,
@@ -70,6 +69,7 @@ export default function FormKeyValueEditor({
       }))
       setItems(initialItems)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue])
 
   // When the items change, update the form value
@@ -89,6 +89,7 @@ export default function FormKeyValueEditor({
     }
     setItems((prev) => sortItems(prev))
     updateFormValue()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
   function addItem(newItem: Item) {
@@ -116,15 +117,15 @@ export default function FormKeyValueEditor({
     <div>
       <div
         className={cn(
-          'flex bg-control border border-border rounded-md p-1 justify-between',
-          showDropdown && 'rounded-b-none',
-          isInvalid && 'border-danger-500 dark:border-danger-500',
+          'tw-flex tw-bg-control tw-border tw-border-border tw-rounded-md tw-p-1 tw-justify-between',
+          showDropdown && 'tw-rounded-b-none',
+          isInvalid && 'tw-border-danger-500 dark:tw-border-danger-500',
         )}
       >
-        <div className="flex flex-wrap gap-1">
+        <div className="tw-flex tw-flex-wrap tw-gap-1">
           {items.length === 0 && (
             <div
-              className="text-foreground-muted flex items-center pl-1"
+              className="tw-text-foreground-muted tw-flex tw-items-center tw-pl-1"
               onClick={toggleDropdown}
               // For accessibility
               role="button"
@@ -146,11 +147,11 @@ export default function FormKeyValueEditor({
             />
           ))}
           {/* Placeholder to maintain the height when items are empty */}
-          <div className="h-[30px]" />
+          <div className="tw-h-[30px]" />
         </div>
         {/* Show/hide dropdown toggle */}
         <div
-          className="w-8 flex-none text-sm text-foreground-muted border-l flex items-center justify-center border-border cursor-pointer"
+          className="tw-w-8 tw-flex-none tw-text-sm tw-text-foreground-muted tw-border-l tw-flex tw-items-center tw-justify-center tw-border-border tw-cursor-pointer"
           onClick={toggleDropdown}
           // For accessibility
           role="button"
@@ -203,9 +204,9 @@ function SelectedItem({
     setShowDropdown(true)
   }
   return (
-    <div className="flex justify-center text-sm items-center cursor-default rounded-md text-brand-500 bg-brand-400/50 border border-brand-600/50 dark:text-brand-200 dark:border-brand-500 dark:bg-brand-600/40 whitespace-nowrap">
+    <div className="tw-flex tw-justify-center tw-text-sm tw-items-center tw-cursor-default tw-rounded-md tw-text-brand-500 tw-bg-brand-400/50 tw-border tw-border-brand-600/50 dark:tw-text-brand-200 dark:tw-border-brand-500 dark:tw-bg-brand-600/40 tw-whitespace-nowrap">
       <div
-        className="py-1 px-2 cursor-pointer"
+        className="tw-py-1 tw-px-2 tw-cursor-pointer"
         onClick={editItem}
         // For accessibility
         role="button"
@@ -217,7 +218,7 @@ function SelectedItem({
         {item.value}
       </div>
       {showDropdown && (
-      <div className="py-1 px-1 cursor-pointer border-l  border-brand-600/50 text-brand-500 dark:text-brand-200/50 dark:border-brand-500/50 hover:text-brand-400 dark:hover:text-brand-200 ">
+      <div className="tw-py-1 tw-px-1 tw-cursor-pointer tw-border-l  tw-border-brand-600/50 tw-text-brand-500 dark:tw-text-brand-200/50 dark:tw-border-brand-500/50 hover:tw-text-brand-400 dark:hover:tw-text-brand-200 ">
         <FontAwesomeIcon icon={faTimes} onClick={() => removeItem()} />
       </div>
       )}
@@ -250,43 +251,21 @@ function AddItemForm({
   autofillKeys = autofillKeys.filter((k) => k !== formKey)
   autofillKeys = autofillKeys.sort((a, b) => a.localeCompare(b))
   const keyAlreadyExists = items.find((i) => i.key === formKey)
-  const keyRef = useRef<HTMLInputElement>(null)
-  const valueRef = useRef<HTMLInputElement>(null)
-
-  // When both inputs lose focus, save the item
-  const onBlurHandler = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { relatedTarget } = e // This is the element that is being focused next
-    const isKeyFocused = keyRef.current?.contains(relatedTarget)
-    const isValueFocused = valueRef.current?.contains(relatedTarget)
-    if (!isKeyFocused && !isValueFocused) {
-      save()
-    }
-  }
-
-  function save() {
-    if (!formKey || !formValue) return
-    addItem({ key: formKey, value: formValue })
-    setFormKey('')
-    setFormValue('')
-  }
-
   return (
-    <div className="flex gap-1 p-1 bg-control border border-border border-t-0 rounded-b-md">
-      <div className="flex">
-        <Dropdown className="w-full">
+    <div className="tw-flex tw-gap-1 tw-p-1 tw-bg-control tw-border tw-border-border tw-border-t-0 tw-rounded-b-md">
+      <div className="tw-flex">
+        <Dropdown className="tw-w-full">
           <Dropdown.Toggle as="div">
             <FormInput
-              ref={keyRef}
-              className="rounded-r-none border-r-[0.5px]"
+              className="tw-rounded-r-none tw-border-r-[0.5px]"
               placeholder="Key..."
               value={formKey}
               onChange={(e) => setFormKey(e.target.value)}
-              onBlur={onBlurHandler}
               autoComplete="off"
             />
           </Dropdown.Toggle>
           {autofillKeys.length > 0 && (
-            <Dropdown.Menu className="mt-0 max-h-40 overflow-y-auto">
+            <Dropdown.Menu className="tw-mt-0 tw-max-h-40 tw-overflow-y-auto">
               {autofillKeys.map((autofillKey: string) => (
                 <Dropdown.Item
                   key={autofillKey}
@@ -299,19 +278,20 @@ function AddItemForm({
           )}
         </Dropdown>
         <FormInput
-          ref={valueRef}
-          className="rounded-l-none border-l-[0.5px]"
+          className="tw-rounded-l-none tw-border-l-[0.5px]"
           placeholder="Value..."
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
-          onBlur={onBlurHandler}
           autoComplete="off"
         />
       </div>
       <Button
-        className="py-1 px-3"
-        onClick={save}
-        disabled={!formKey || !formValue}
+        className="tw-py-1 tw-px-3"
+        onClick={() => {
+          addItem({ key: formKey, value: formValue })
+          setFormKey('')
+          setFormValue('')
+        }}
       >
         {keyAlreadyExists ? (
           <>

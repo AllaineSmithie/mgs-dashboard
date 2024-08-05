@@ -12,7 +12,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
 import * as yup from 'yup'
 import type { ModalProps } from '@webapps-common/UI/Modal'
-import { ModalForm } from '@webapps-common/UI/Form/ModalForm'
+import { ModalForm } from '../Common/ModalForm'
 
 export type BucketUpdated = {
   name: string;
@@ -98,7 +98,7 @@ export default function BucketUpdate({
             name="name"
             value={initialValues.name}
           />
-          <Form.Group className="mb-3" controlId="public">
+          <Form.Group className="tw-mb-3" controlId="public">
             <Form.Checkbox
               label="Public"
               name="public"

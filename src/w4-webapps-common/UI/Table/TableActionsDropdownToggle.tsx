@@ -19,12 +19,12 @@ function TableActionsDropdownToggleRoot(
   { disabled, children, className }:TableActionsDropdownToggleProps,
 ) {
   return (
-    <Dropdown className="w-8">
+    <Dropdown className="tw-w-8">
       <Dropdown.Toggle
         as="div"
         className={cn(
-          'flex w-8 h-8 items-center justify-center rounded-full hover:bg-surface-200',
-          disabled && 'dark:hover:bg-transparent cursor-default',
+          'tw-flex tw-w-8 tw-h-8 tw-items-center tw-justify-center tw-rounded-full hover:tw-bg-surface-200',
+          disabled && 'dark:hover:tw-bg-transparent tw-cursor-default',
           className,
         )}
         disabled={disabled}

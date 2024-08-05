@@ -54,17 +54,17 @@ export function SidebarNavItem({
     <li
       className={
         cn(
-          'py-2 ps-4 pe-4 text-scale-400 hover:bg-brand-500 hover:text-scale-200',
-          { 'bg-brand-800/50': activeLink },
-          { 'ps-8': context },
+          'tw-py-2 tw-ps-4 tw-pe-4 tw-text-scale-400 hover:tw-bg-brand-500 hover:tw-text-scale-200',
+          { 'tw-bg-brand-800/50': activeLink },
+          { 'tw-ps-8': context },
         )
       }
     >
-      <Link href={href} className="flex items-center no-underline !text-inherit">
-        <div className="basis-8 text-center me-4">
-          {icon ? <FontAwesomeIcon icon={icon} /> : <span className="basis-16" />}
+      <Link href={href} className="tw-flex tw-items-center tw-no-underline !tw-text-inherit">
+        <div className="tw-basis-8 tw-text-center tw-me-4">
+          {icon ? <FontAwesomeIcon icon={icon} /> : <span className="tw-basis-16" />}
         </div>
-        <div className="grow">
+        <div className="tw-grow">
           {children}
         </div>
       </Link>
@@ -76,7 +76,7 @@ export function SidebarNavTitle({
   children,
 }: PropsWithChildren) {
   return (
-    <li className="py-2 mt-3 ps-4 pe-4 uppercase font-bold text-sm text-scale-400">{children}</li>
+    <li className="tw-py-2 tw-mt-3 tw-ps-4 tw-pe-4 tw-uppercase tw-font-bold tw-text-sm tw-text-scale-400">{children}</li>
   )
 }
 
@@ -94,20 +94,20 @@ function SidebarNavGroupToggle({
   toggle,
 }: SidebarNavGroupToggleProps) {
   return (
-    <div className="py-2 ps-4 pe-4 text-scale-400 hover:bg-brand-500 hover:text-scale-200">
+    <div className="tw-py-2 tw-ps-4 tw-pe-4 tw-text-scale-400 hover:tw-bg-brand-500 hover:tw-text-scale-200">
       <button
         type="button"
-        className="w-full p-0 flex items-center text-start bg-transparent"
+        className="tw-w-full tw-p-0 tw-flex tw-items-center tw-text-start tw-bg-transparent"
         onClick={() => (toggle())}
       >
-        <div className="basis-8 text-center me-4">
-          {icon ? <FontAwesomeIcon icon={icon} /> : <span className="basis-16" />}
+        <div className="tw-basis-8 tw-text-center tw-me-4">
+          {icon ? <FontAwesomeIcon icon={icon} /> : <span className="tw-basis-16" />}
         </div>
-        <div className="grow">
+        <div className="tw-grow">
           {children}
         </div>
         <div>
-          <FontAwesomeIcon className={cn({ 'transition duration-300': animation })} size="xs" icon={faChevronUp} rotation={collapsed ? 180 : undefined} />
+          <FontAwesomeIcon className={cn({ 'tw-transition tw-duration-300': animation })} size="xs" icon={faChevronUp} rotation={collapsed ? 180 : undefined} />
         </div>
       </button>
     </div>
@@ -137,8 +137,8 @@ export function SidebarNavGroup({
   return (
     <SideBarNavGroupContext.Provider value={newContext}>
       <li className={cn(
-        'duration-0',
-        { 'bg-[#00000033]': isShow },
+        'tw-duration-0',
+        { 'tw-bg-[#00000033]': isShow },
       )}
       >
         <SidebarNavGroupToggle

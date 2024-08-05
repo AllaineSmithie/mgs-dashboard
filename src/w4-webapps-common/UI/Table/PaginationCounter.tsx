@@ -16,24 +16,20 @@ export default function PaginationCounter({
   total,
 }: PaginationCounterProps) {
   return (
-    total <= 0 ? (
-      <span>No results</span>
-    ) : (
-      <span>
-        Showing
-        {' '}
-        <span className="font-semibold text-foreground-emphasized">{from}</span>
-        {' '}
-        to
-        {' '}
-        <span className="font-semibold text-foreground-emphasized">{to}</span>
-        {' '}
-        of
-        {' '}
-        <span className="font-semibold text-foreground-emphasized">{total}</span>
-        {' '}
-        results
-      </span>
-    )
+    <span>
+      Showing
+      {' '}
+      <span className="tw-font-semibold tw-text-foreground-emphasized">{from}</span>
+      {' '}
+      to
+      {' '}
+      <span className="tw-font-semibold tw-text-foreground-emphasized">{to}</span>
+      {' '}
+      of
+      {' '}
+      <span className="tw-font-semibold tw-text-foreground-emphasized">{total}</span>
+      {' '}
+      results
+    </span>
   )
 }

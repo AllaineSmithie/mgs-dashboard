@@ -11,8 +11,8 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
 import * as yup from 'yup'
 import Form from '@webapps-common/UI/Form/Form'
-import { ModalForm } from '@webapps-common/UI/Form/ModalForm'
 import type { ModalProps } from '@webapps-common/UI/Modal'
+import { ModalForm } from '../Common/ModalForm'
 
 type BucketCreateProps = {
   show: boolean;
@@ -85,7 +85,7 @@ export default function BucketCreate({
             isSubmitting={isSubmitting}
             modalProps={({ backdrop: 'static', ...modalProps })}
           >
-            <Form.Group className="mb-3" controlId="name">
+            <Form.Group className="tw-mb-3" controlId="name">
               <Form.Label>Bucket name</Form.Label>
               <Form.Input
                 name="name"
@@ -97,7 +97,7 @@ export default function BucketCreate({
                 {errors.name}
               </Form.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="public">
+            <Form.Group className="tw-mb-3" controlId="public">
               <Form.Checkbox
                 label="Public"
                 name="public"

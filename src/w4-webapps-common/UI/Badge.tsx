@@ -16,22 +16,22 @@ type BadgeProps = {
 export default function Badge({ children, bg = 'primary', className }: BadgeProps) {
   let variantClasses = ''
   if (bg === 'primary') {
-    variantClasses += 'bg-brand-500 text-brand-100'
+    variantClasses += 'tw-bg-brand-500 tw-text-brand-100'
   }
   if (bg === 'secondary') {
-    variantClasses += 'bg-scale-500 text-scale-100'
+    variantClasses += 'tw-bg-scale-500 tw-text-scale-100'
   }
   if (bg === 'success') {
-    variantClasses += 'bg-success-500 text-success-100'
+    variantClasses += 'tw-bg-success-500 tw-text-success-100'
   }
   if (bg === 'danger') {
-    variantClasses += 'bg-danger-500 text-danger-50'
+    variantClasses += 'tw-bg-danger-500 tw-text-danger-50'
   }
   if (bg === 'warning') {
-    variantClasses += 'bg-warning-500 text-warning-50'
+    variantClasses += 'tw-bg-warning-500 tw-text-warning-50'
   }
   return (
-    <div className={cn('px-2 py-1 overflow-hidden rounded-full text-center inline-block text-xs font-bold', variantClasses, className)}>
+    <div className={cn('tw-px-2 tw-py-1 tw-overflow-hidden tw-rounded-full tw-inline-flex tw-items-center tw-justify-center tw-text-xs tw-font-bold tw-gap-2', variantClasses, className)}>
       { children }
     </div>
   )

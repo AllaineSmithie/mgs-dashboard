@@ -10,24 +10,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import cn from '../utils/classNamesMerge'
 
-export type PaginationProps = {
+type PaginationProps = {
   pageOffset: number;
   pageCount: number;
-  marginPagesDisplayed?: number;
-  pageRangeDisplayed?: number;
-  autoHide?: boolean;
+  marginPagesDisplayed: number;
+  pageRangeDisplayed: number;
   onPageChange: (currentPage: number) => void;
-  className?: string;
 }
 
 export default function Pagination({
   pageOffset,
   pageCount,
-  pageRangeDisplayed = 3,
-  marginPagesDisplayed = 1,
-  autoHide = true,
+  pageRangeDisplayed,
+  marginPagesDisplayed,
   onPageChange,
-  className = '',
 }: PaginationProps) {
   const currentPage = pageOffset + 1
   const pagesAroundCurrent = Math.floor(pageRangeDisplayed / 2)
@@ -43,8 +39,14 @@ export default function Pagination({
       pageNumbers.push('ellipsis-before')
     }
     // Add the range around the current page
-    const startRange = Math.max(marginPagesDisplayed + 1, currentPage - pagesAroundCurrent)
-    const endRange = Math.min(pageCount - marginPagesDisplayed, currentPage + pagesAroundCurrent)
+    const startRange = Math.max(
+      marginPagesDisplayed + 1,
+      currentPage - pagesAroundCurrent,
+    )
+    const endRange = Math.min(
+      pageCount - marginPagesDisplayed,
+      currentPage + pagesAroundCurrent,
+    )
     for (let i = startRange; i <= endRange; i++) {
       pageNumbers.push(i.toString())
     }
@@ -60,16 +62,8 @@ export default function Pagination({
     return pageNumbers.filter((num, index, self) => self.indexOf(num) === index)
   }
 
-  if (autoHide && pageCount <= 1) {
-    return null
-  }
-
   return (
-    <div className={cn(
-      'inline-flex rounded-md overflow-hidden border border-solid border-border',
-      className,
-    )}
-    >
+    <div className="tw-inline-flex tw-rounded-md tw-overflow-hidden tw-border tw-border-solid tw-border-border">
       <PageButton
         disabled={pageOffset === 0}
         onClick={() => onPageChange(pageOffset - 1)}
@@ -78,8 +72,8 @@ export default function Pagination({
       </PageButton>
       {getPageNumbers().map((pageNumber) => (
         <PageButton
-          // Adding ${currentPage} forces the buttons to fully rerender,
-          // which prevents the rendering glitch
+            // Adding ${currentPage} forces the buttons to fully rerender,
+            // which prevents the rendering glitch
           key={`${pageNumber}-${currentPage}`}
           disabled={pageNumber.includes('ellipsis')}
           active={currentPage.toString() === pageNumber}
@@ -88,7 +82,10 @@ export default function Pagination({
           {pageNumber.includes('ellipsis') ? '...' : pageNumber}
         </PageButton>
       ))}
-      <PageButton disabled={currentPage === pageCount} onClick={() => onPageChange(pageOffset + 1)}>
+      <PageButton
+        disabled={currentPage === pageCount}
+        onClick={() => onPageChange(pageOffset + 1)}
+      >
         <FontAwesomeIcon icon={faChevronRight} />
       </PageButton>
     </div>
@@ -109,10 +106,10 @@ function PageButton({
       type="button"
       disabled={disabled}
       className={cn(
-        'flex justify-center items-center w-9 h-9 border-0 border-solid border-r last:border-r-0 bg-transparent border-border hover:bg-surface-2/30',
+        'flex tw-justify-center tw-items-center tw-w-9 tw-h-9 tw-border-0 tw-border-solid tw-border-r last:tw-border-r-0 tw-bg-transparent tw-border-border hover:tw-bg-surface-2/30',
         active
-          && 'bg-brand-600 text-white hover:bg-brand-600 cursor-default',
-        disabled && 'hover:bg-transparent',
+          && 'tw-bg-brand-600 tw-text-white hover:tw-bg-brand-600 tw-cursor-default',
+        disabled && 'hover:tw-bg-transparent',
       )}
       onClick={onClick}
     >

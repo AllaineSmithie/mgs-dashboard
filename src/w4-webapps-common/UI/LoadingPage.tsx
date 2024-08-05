@@ -17,8 +17,8 @@ const globalStyle = globalCss({
 export default function LoadingPage() {
   globalStyle()
   return (
-    <div className="flex items-center justify-center w-full h-full">
-      <Spinner large className="dark:border-brand-600/30 dark:border-t-brand-600" />
+    <div className="tw-flex tw-items-center tw-justify-center tw-w-full tw-h-full">
+      <Spinner large className="dark:tw-border-brand-600/30 dark:tw-border-t-brand-600" />
     </div>
   )
 }

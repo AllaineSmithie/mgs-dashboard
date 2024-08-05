@@ -6,20 +6,13 @@
 /*************************************************************************/
 
 import Table from '@webapps-common/UI/Table/Table'
-import React, { useCallback, useState } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import SimpleCounter from '@webapps-common/UI/Table/SimpleCounter'
 import withSchema from 'src/utils/withSchema'
 import MainLayout from '@components/MainLayout'
 import cn from '@webapps-common/utils/classNamesMerge'
-import {
-  KeyValueSearchContextProvider,
-  OnCompletedCallback,
-  OnSearchArgs,
-} from '@webapps-common/UI/Table/KeyValueSearch/KeyValueSearchContextProvider'
-import KeyValueSearchBar from '@webapps-common/UI/Table/KeyValueSearch/KeyValueSearchBar'
-import { PostgrestSingleResponse } from '@supabase/supabase-js'
 
 export default function Clusters() {
   return (
@@ -46,86 +39,58 @@ function ClusterList() {
 
   const supabase = useSupabaseClient()
 
-  const onSearch = useCallback(({
-    searchTerms,
-    keyValues,
-  }: OnSearchArgs) => {
-    let query = withSchema(supabase, 'w4online').from('cluster').select('*')
-    // Search
-    if (searchTerms.length > 0) {
-      searchTerms.forEach((term) => {
-        query = query.ilike('name', `%${term}%`)
-      })
-    }
-    // Sort
-    if (keyValues.sort?.length === 1) {
-      const [key, sortType] = keyValues.sort[0].split('-')
-      query = query.order(key, { ascending: sortType === 'asc' })
-    } else {
-      // Default sorting if no sort filter is provided
-      query = query.order('deleted').order('name')
-    }
-    return query
-  }, [supabase])
-
-  const onCompleted : OnCompletedCallback<PostgrestSingleResponse<unknown>> = ({ result }) => {
-    if (result.error) {
-      toast.error(`Request failed: ${result.error?.message}`)
+  const fetchListElements = useCallback(async () => {
+    const res = await withSchema(supabase, 'w4online').from('cluster').select('*').order('deleted')
+      .order('name')
+    if (res.error) {
+      toast.error(`Request failed: ${res.error?.message}`)
       setClusterList([])
       return
     }
-    const resClusterList = result.data as Cluster[]
-    setClusterList(resClusterList)
+    setClusterList(res.data as Cluster[])
+
     // Pagination
-    setTotalCount(resClusterList.length)
-  }
+    setTotalCount(res.data.length)
+  }, [supabase])
+
+  useEffect(() => {
+    fetchListElements()
+  }, [fetchListElements])
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-3">
+      <div className="tw-flex tw-justify-between tw-items-center tw-mb-3">
         <SimpleCounter
           total={totalCount}
         />
       </div>
-      {/* eslint-disable-next-line react/jsx-no-bind */}
-      <KeyValueSearchContextProvider
-        onSearch={onSearch}
-        onCompleted={onCompleted}
-        isResultAbortError={(result) => (result.error && result.error.code === '20') as boolean}
-      >
-        <KeyValueSearchBar />
-        <Table className="mt-2">
-          <Table.Header>
-            <Table.HeaderRow>
-              <Table.SortAndFilterHeaderCell
-                keyName="name"
-                sortable
-              >
-                Name
-              </Table.SortAndFilterHeaderCell>
-            </Table.HeaderRow>
-          </Table.Header>
-          <Table.Body>
-            {clusterList.map((cluster) => (
-              <Table.Row
-                key={cluster.name}
-                aria-controls="collapse"
-                className={cn({ 'text-scale-500': cluster.deleted })}
-              >
-                {!cluster.deleted
-                  ? <Table.DataCell>{cluster.name}</Table.DataCell>
-                  : (
-                    <Table.DataCell>
-                      {cluster.name}
-                      {' '}
-                      (deleted)
-                    </Table.DataCell>
-                  )}
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </KeyValueSearchContextProvider>
+
+      <Table>
+        <Table.Header>
+          <Table.HeaderRow>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+          </Table.HeaderRow>
+        </Table.Header>
+        <Table.Body>
+          {clusterList.map((cluster) => (
+            <Table.Row
+              key={cluster.name}
+              aria-controls="collapse"
+              className={cn({ 'tw-text-scale-500': cluster.deleted })}
+            >
+              {!cluster.deleted
+                ? <Table.DataCell>{cluster.name}</Table.DataCell>
+                : (
+                  <Table.DataCell>
+                    {cluster.name}
+                    {' '}
+                    (deleted)
+                  </Table.DataCell>
+                )}
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
     </div>
   )
 }

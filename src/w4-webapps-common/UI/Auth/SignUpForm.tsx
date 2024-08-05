@@ -85,8 +85,8 @@ export function SignUpForm({
       autoRedirectToHomeIfAlreadyLoggedIn={autoRedirectToHomeIfAlreadyLoggedIn}
       homeHref={homePageHref}
     >
-      <div className="mb:grow flex flex-col">
-        <div className="grow">
+      <div className="mb:tw-grow tw-flex tw-flex-col">
+        <div className="tw-grow">
           <Formik
             key={JSON.stringify(initialValues)} // Hack to force a rerender :/
             enableReinitialize
@@ -119,7 +119,7 @@ export function SignUpForm({
                   </Form.Feedback>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="password">
+                <Form.Group className="tw-mb-3" controlId="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Input
                     name="password"
@@ -133,7 +133,7 @@ export function SignUpForm({
                   </Form.Feedback>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="terms_of_services_accepted">
+                <Form.Group className="tw-mb-3" controlId="terms_of_services_accepted">
                   <Form.Checkbox
                     label={
                       (
@@ -150,14 +150,14 @@ export function SignUpForm({
                     isInvalid={
                       touched.terms_of_services_accepted && !!errors.terms_of_services_accepted
                     }
-                    className={cn(touched.terms_of_services_accepted && !!errors.terms_of_services_accepted ? 'is-invalid' : '', 'text-scale-700 text-sm')}
+                    className={cn(touched.terms_of_services_accepted && !!errors.terms_of_services_accepted ? 'is-invalid' : '', 'tw-text-scale-700 tw-text-sm')}
                   />
                   <Form.Feedback type="invalid">
                     {errors.terms_of_services_accepted}
                   </Form.Feedback>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="privacy_policy_accepted">
+                <Form.Group className="tw-mb-3" controlId="privacy_policy_accepted">
                   <Form.Checkbox
                     label={
                       (
@@ -172,31 +172,31 @@ export function SignUpForm({
                     checked={values.privacy_policy_accepted}
                     onChange={handleChange}
                     isInvalid={touched.privacy_policy_accepted && !!errors.privacy_policy_accepted}
-                    className={cn(touched.privacy_policy_accepted && !!errors.privacy_policy_accepted ? 'is-invalid' : '', 'text-scale-700 text-sm')}
+                    className={cn(touched.privacy_policy_accepted && !!errors.privacy_policy_accepted ? 'is-invalid' : '', 'tw-text-scale-700 tw-text-sm')}
                   />
                   <Form.Feedback type="invalid">
                     {errors.privacy_policy_accepted}
                   </Form.Feedback>
                 </Form.Group>
 
-                <div className="mb-3">
+                <div className="tw-mb-3">
                   <SubmitButton
                     isSubmitting={isSubmitting}
                     submittingText={successMessage ? 'Redirecting...' : 'Submitting...'}
-                    className="w-full mt-6 mb-3"
+                    className="tw-w-full tw-mt-6 tw-mb-3"
                   >
                     Sign up
                   </SubmitButton>
                 </div>
                 {errorMessage
                 && (
-                  <div className="text-center mb-3">
+                  <div className="tw-text-center tw-mb-3">
                     <Alert variant="danger">{errorMessage}</Alert>
                   </div>
                 )}
                 {successMessage
                 && (
-                  <div className="text-center mb-3">
+                  <div className="tw-text-center tw-mb-3">
                     <Alert variant="success">{successMessage}</Alert>
                   </div>
                 )}
@@ -207,9 +207,9 @@ export function SignUpForm({
         </div>
         {loginPageHref
         && (
-          <div className="text-center flex-none">
+          <div className="tw-text-center tw-flex-none">
             <Link href={loginPageHref}>
-              <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
+              <FontAwesomeIcon icon={faChevronLeft} className="tw-me-2" />
               Back to login page
             </Link>
           </div>

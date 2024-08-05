@@ -6,14 +6,12 @@
 /*************************************************************************/
 
 import {
-  ReactNode, useEffect, useLayoutEffect, useRef, useState,
+  ReactNode, useEffect, useRef, useState,
 } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import cn from '../../utils/classNamesMerge'
 import { useFormGroup } from './FormGroup'
-import Portal from '../Portal'
-import getCumulativeZIndex from '../Dropdown/utils'
 
 type FormSelectProps = {
   name: string;
@@ -47,10 +45,7 @@ export default function FormSelect({
   ...props
 }: FormSelectProps) {
   const [showDropdown, setShowDropdown] = useState(false)
-  const [dropdownStyles, setDropdownStyles] = useState({})
   const wrapperRef = useRef<HTMLDivElement>(null)
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  const [isRendered, setIsRendered] = useState(false)
 
   // Set the context's isInvalid when the Control's prop changes
   const { setIsInvalid, controlId } = useFormGroup()
@@ -64,61 +59,17 @@ export default function FormSelect({
     if (items.length === 0) return
     setShowDropdown((prev) => !prev)
   }
-
   function selectItem(item: FormSelectItem) {
     // Mimic a standard HTML select event
     onChange({ target: { name, value: item.value ? item.value : '' } })
     setShowDropdown(false)
   }
-
-  // Position the dropdown below the control
-  const updateDropdownPosition = () => {
-    if (!wrapperRef.current || !dropdownRef.current) return
-
-    const wrapperRect = wrapperRef.current.getBoundingClientRect()
-    const zIndex = getCumulativeZIndex(wrapperRef.current)
-
-    setDropdownStyles({
-      top: `${wrapperRect.bottom + window.scrollY}px`,
-      left: `${wrapperRect.left + window.scrollX}px`,
-      width: `${wrapperRect.width}px`,
-      zIndex: zIndex + 1,
-    })
-  }
-
-  useEffect(() => {
-    // Trigger re-render once the select menu is opened to ensure refs are set
-    // (otherwise dropdownRef.current is null, preventing the menu from being positioned)
-    setIsRendered(showDropdown)
-  }, [showDropdown])
-
-  // Position the dropdown as soon as it's opened and rendered
-  useEffect(() => {
-    if (isRendered) {
-      updateDropdownPosition()
-    }
-  }, [isRendered])
-
-  // Update the dropdown position when the window is scrolled or resized
-  useLayoutEffect(() => {
-    if (showDropdown) {
-      window.addEventListener('scroll', updateDropdownPosition, true)
-      window.addEventListener('resize', updateDropdownPosition)
-    }
-    return () => {
-      window.removeEventListener('scroll', updateDropdownPosition, true)
-      window.removeEventListener('resize', updateDropdownPosition)
-    }
-  }, [showDropdown])
-
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
         wrapperRef.current
         && !wrapperRef.current.contains(event.target as Node)
-        && dropdownRef.current
-        && !dropdownRef.current.contains(event.target as Node)
       ) {
         setShowDropdown(false)
       }
@@ -131,7 +82,7 @@ export default function FormSelect({
   }, [])
 
   let selectedDisplay: ReactNode = (
-    <span className="text-scale-600">
+    <span className="tw-text-scale-600">
       {items.length > 0 ? placeholder : 'No items...'}
     </span>
   )
@@ -142,12 +93,12 @@ export default function FormSelect({
     selectedDisplay = found.name
   }
   return (
-    <div ref={wrapperRef} className="flex flex-col relative w-full">
+    <div ref={wrapperRef} className="tw-flex tw-flex-col tw-relative tw-w-full">
       <div
         className={cn(
-          'flex ring-1 ring-inset bg-control rounded-md py-1 pl-1 ring-border w-full',
-          showDropdown && 'rounded-b-none',
-          isInvalid && 'ring-danger-400 dark:ring-danger-400',
+          'tw-flex tw-ring-1 tw-ring-inset tw-bg-control tw-rounded-md tw-py-1 tw-pl-1 tw-ring-border tw-w-full',
+          showDropdown && 'tw-rounded-b-none',
+          isInvalid && 'tw-ring-danger-400 dark:tw-ring-danger-400',
         )}
         onClick={toggleDropdown}
         // For accessibility
@@ -156,15 +107,15 @@ export default function FormSelect({
         tabIndex={0} // Make the div focusable
       >
         {/* Selected item display */}
-        <div className="px-2 py-1 w-full" style={{ maxWidth: 'calc(100% - 32px)' }}>
-          <div className="whitespace-nowrap truncate">
+        <div className="tw-px-2 tw-py-1 tw-w-full" style={{ maxWidth: 'calc(100% - 32px)' }}>
+          <div className="tw-whitespace-nowrap tw-truncate">
             {selectedDisplay}
           </div>
         </div>
         {/* Show/hide dropdown toggle */}
         <div
           className={cn(
-            'text-sm text-scale-600 pl-2 pr-2.5 border-l flex items-center justify-center border-border',
+            'tw-text-sm tw-text-scale-600 tw-pl-2 tw-pr-2.5 tw-border-l tw-flex tw-items-center tw-justify-center tw-border-border',
           )}
         >
           {showDropdown ? (
@@ -176,24 +127,19 @@ export default function FormSelect({
       </div>
       {/* Dropdown */}
       {showDropdown && (
-        <Portal>
-          {/* top-0 is necessary here. Without it, after dropdown renders,
-          it's positioned at the end of the page, causing a scrollbar to appear for a
-          split second, which messes up the dropdown positioning calculation. */}
-          <div ref={dropdownRef} style={dropdownStyles} className={cn('absolute top-0 invisible', isRendered && 'visible')}>
-            <div className="shadow rounded-t-none border-t-0 bg-surface-100 z-40 w-full rounded overflow-hidden border border-border-secondary dark:border-border">
-              <div className="scrollbar-no-borders flex flex-col w-full max-h-64 overflow-y-auto overflow-x-hidden">
-                {items.map((item) => (
-                  <ListItem
-                    key={item.value || ''}
-                    item={item}
-                    onClick={() => selectItem(item)}
-                  />
-                ))}
-              </div>
+        <div className="tw-relative">
+          <div className="tw-absolute tw-shadow tw-rounded-t-none tw-border-t-0 tw-bg-surface-100 tw-z-40 tw-w-full tw-rounded tw-overflow-hidden tw-border tw-border-border-secondary dark:tw-border-border">
+            <div className="scrollbar-no-borders tw-flex tw-flex-col tw-w-full tw-max-h-64 tw-overflow-y-auto tw-overflow-x-hidden">
+              {items.map((item) => (
+                <ListItem
+                  key={item.value || ''}
+                  item={item}
+                  onClick={() => selectItem(item)}
+                />
+              ))}
             </div>
           </div>
-        </Portal>
+        </div>
       )}
       {/* Hidden Select */}
       <select
@@ -223,7 +169,7 @@ function ListItem({ item, onClick }: ListItemProps) {
   const depth = item.depth || 0
   if (item.type === 'header') {
     return (
-      <div className="flex w-full items-center py-0.5 px-2 border-border/50 border-b text-sm leading-6 text-scale-600 dark:text-scale-400 cursor-default font-bold">
+      <div className="tw-flex tw-w-full tw-items-center tw-py-0.5 tw-px-2 tw-border-border/50 tw-border-b tw-text-sm tw-leading-6 tw-text-scale-600 dark:tw-text-scale-400 tw-cursor-default tw-font-bold">
         <div style={{ paddingLeft: `${depth * 4}px` }}>
           {item.name}
         </div>
@@ -233,7 +179,7 @@ function ListItem({ item, onClick }: ListItemProps) {
   return (
     <div
       className={cn(
-        'cursor-pointer w-full border-border/50 border-b last:border-b-0 hover:bg-brand-400/50   dark:hover:bg-brand-600/40',
+        'tw-cursor-pointer tw-w-full tw-border-border/50 tw-border-b last:tw-border-b-0 hover:tw-bg-brand-400/50   dark:hover:tw-bg-brand-600/40',
         item.className,
       )}
       onClick={onClick}
@@ -244,12 +190,12 @@ function ListItem({ item, onClick }: ListItemProps) {
     >
       <div
         className={cn(
-          'flex w-full items-center py-2 border-transparent border-l-2 relative',
+          'tw-flex tw-w-full tw-items-center tw-py-2 tw-border-transparent tw-border-l-2 tw-relative',
         )}
       >
-        <div className="w-full items-center flex">
-          <div className="mx-2 leading-6 w-full">
-            <div className="whitespace-nowrap truncate pr-3" style={{ paddingLeft: `${depth * 4}px` }}>
+        <div className="tw-w-full tw-items-center tw-flex">
+          <div className="tw-mx-2 tw-leading-6 tw-w-full">
+            <div className="tw-whitespace-nowrap tw-truncate tw-pr-3" style={{ paddingLeft: `${depth * 4}px` }}>
               {item.name}
             </div>
           </div>

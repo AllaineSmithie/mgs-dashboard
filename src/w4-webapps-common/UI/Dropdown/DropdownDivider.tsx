@@ -13,7 +13,7 @@ type DividerProps = {
 
 export default function DropdownDivider({ children, className }:DividerProps) {
   return (
-    <div className={cn('border-t dark:border-border', className)}>
+    <div className={cn('tw-border-t dark:tw-border-border', className)}>
       {children}
     </div>
   )

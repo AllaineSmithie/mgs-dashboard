@@ -25,7 +25,7 @@ export default function TableCollapsibleRow({
 }: CollapsibleRowProps) {
   return (
     <tr className={cn('', className)}>
-      <td colSpan={colCount} className="p-0 m-0">
+      <td colSpan={colCount} className="tw-p-0 tw-m-0">
         <Collapse show={expanded}>
           <div id={id}>{children}</div>
         </Collapse>

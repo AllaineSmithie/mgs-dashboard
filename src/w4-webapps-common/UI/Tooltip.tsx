@@ -49,9 +49,9 @@ export default function Tooltip({
   }, [isVisible, align])
 
   return (
-    <div className="relative inline-block" ref={tooltipRef}>
+    <div className="tw-relative tw-inline-block" ref={tooltipRef}>
       <div
-        className="cursor-pointer"
+        className="tw-cursor-pointer"
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
         ref={childRef}
@@ -61,7 +61,7 @@ export default function Tooltip({
       {!disabled && isVisible && (
         <Portal>
           <div
-            className="absolute z-10 p-2 bg-overlay text-foreground-secondary rounded shadow text-center w-40"
+            className="tw-absolute tw-z-10 tw-p-2 tw-bg-overlay tw-text-foreground-secondary tw-rounded tw-shadow tw-text-center tw-w-40"
             style={{
               top: `${tooltipPosition.top}px`,
               left: `${tooltipPosition.left}px`,
@@ -72,8 +72,8 @@ export default function Tooltip({
             {/* Tooltip arrow */}
             <span
               className={cn(
-                'absolute bottom-full border-transparent border-b-overlay dark:border-b-overlay border-r-solid border-[6px] left-1/2 transform -translate-x-1/2',
-                align === 'right' && 'left-auto right-0 -translate-x-1/2',
+                'tw-absolute tw-bottom-full tw-border-transparent tw-border-b-overlay dark:tw-border-b-overlay tw-border-r-solid tw-border-[6px] tw-left-1/2 tw-transform tw--translate-x-1/2',
+                align === 'right' && 'tw-left-auto tw-right-0 tw--translate-x-1/2',
               )}
             />
           </div>

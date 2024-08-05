@@ -16,19 +16,19 @@ type SpinnerProps = {
 export default function Spinner({ large = false, light = true, className = '' }: SpinnerProps) {
   let classNames = ''
   if (large) {
-    classNames = cn(classNames, 'h-12 w-12 border-8')
+    classNames = cn(classNames, 'tw-h-12 tw-w-12 tw-border-8')
   }
   return (
-    <div className="inline-flex items-center justify-center">
+    <div className="tw-inline-flex tw-items-center tw-justify-center">
       <div
         className={cn(
-          'h-5 w-5 animate-spin rounded-full border-4 border-border/10 border-t-scale-800/80 dark:border-border/30 dark:border-t-scale-100',
-          light && 'border-border-secondary/50 border-t-scale-300',
+          'tw-h-5 tw-w-5 tw-animate-spin tw-rounded-full tw-border-4 tw-border-border/10 tw-border-t-scale-800/80 dark:tw-border-border/30 dark:tw-border-t-scale-100',
+          light && 'tw-border-border-secondary/50 tw-border-t-scale-300',
           classNames,
           className,
         )}
       />
-      <span className="invisible absolute inset-0">Loading...</span>
+      <span className="tw-invisible tw-absolute tw-inset-0">Loading...</span>
     </div>
   )
 }

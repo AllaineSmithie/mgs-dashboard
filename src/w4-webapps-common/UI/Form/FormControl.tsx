@@ -5,13 +5,12 @@
 /* SPDX-License-Identifier: AGPL-3.0-only                                */
 /*************************************************************************/
 
-import React, {
-  InputHTMLAttributes, TextareaHTMLAttributes, useEffect, forwardRef,
-} from 'react'
+import { InputHTMLAttributes, TextareaHTMLAttributes, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamationCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import cn from '../../utils/classNamesMerge'
 import { useFormGroup } from './FormGroup'
+
 // Extract the common code between FormInput and FormTextarea into a hook to avoid duplication
 type UseFormControl = {
   isInvalid?: boolean;
@@ -27,17 +26,17 @@ function useFormControl({ isInvalid, isValid, disabled }:UseFormControl) {
     }
   }, [isInvalid, setIsInvalid])
 
-  const baseClassNames = 'block h-full w-full rounded-md border py-2 px-3 text-foreground-secondary shadow-sm ring-inset border-border placeholder:text-foreground-muted focus:ring-2 focus:ring-inset focus:border-brand-600 focus:ring-brand-600 bg-scale-700'
+  const baseClassNames = 'tw-block tw-h-full tw-w-full tw-rounded-md tw-border tw-py-2 tw-px-3 tw-text-foreground-secondary tw-shadow-sm tw-ring-inset tw-border-border placeholder:tw-text-foreground-muted focus:tw-ring-2 focus:tw-ring-inset focus:tw-border-brand-600 focus:tw-ring-brand-600 tw-bg-control'
 
   let classNames = baseClassNames
   if (isInvalid) {
-    classNames = cn(classNames, 'ring-danger-500 dark:ring-danger-400 focus:ring focus:border-danger-500 dark:focus:border-danger-400 focus:ring-danger-500/20 focus:dark:ring-danger-500/40 focus:ring-offset-1 focus:ring-offset-danger-400')
+    classNames = cn(classNames, 'tw-ring-danger-500 dark:tw-ring-danger-400 focus:tw-ring focus:tw-border-danger-500 dark:focus:tw-border-danger-400 focus:tw-ring-danger-500/20 focus:dark:tw-ring-danger-500/40 focus:tw-ring-offset-1 focus:tw-ring-offset-danger-400')
   }
   if (isValid) {
-    classNames = cn(classNames, 'ring-success-500 dark:ring-success-600 focus:ring focus:border-success-500 dark:focus:border-success-400 focus:ring-success-500/20 focus:dark:ring-success-500/40 focus:ring-offset-1 focus:ring-offset-success-400')
+    classNames = cn(classNames, 'tw-ring-success-500 dark:tw-ring-success-600 focus:tw-ring focus:tw-border-success-500 dark:focus:tw-border-success-400 focus:tw-ring-success-500/20 focus:dark:tw-ring-success-500/40 focus:tw-ring-offset-1 focus:tw-ring-offset-success-400')
   }
   if (disabled) {
-    classNames = cn(classNames, 'bg-scale-100 text-foreground-muted cursor-not-allowed dark:bg-scale-700')
+    classNames = cn(classNames, 'tw-bg-scale-100 tw-text-foreground-muted tw-cursor-not-allowed dark:tw-bg-scale-700')
   }
 
   return { classNames }
@@ -49,55 +48,42 @@ type ControlProps = {
 }
 
 export type InputProps = {
-  onEnter?: () => void;
   type?: 'text' | 'password' | 'email' | 'number';
 } & ControlProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
 
-// eslint-disable-next-line react/display-name
-const FormInput = forwardRef<HTMLInputElement, InputProps>(({
-  id, type, className, disabled, isInvalid, isValid, onEnter, ...props
-}, ref) => {
+export function FormInput({
+  id, type, className, disabled, isInvalid, isValid, ...props
+}: InputProps) {
   const { controlId } = useFormGroup()
   const { classNames } = useFormControl({ isInvalid, isValid, disabled })
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && onEnter) {
-      onEnter()
-    }
-  }
-
   return (
-    <div className="relative w-full">
+    <div className="tw-relative tw-w-full">
       <input
-        ref={ref}
         id={id || controlId}
         type={type}
         className={cn(classNames, className)}
         disabled={disabled}
-        onKeyDown={handleKeyDown}
         {...props}
       />
       {isInvalid && type !== 'number' && (
-        <div className="absolute inset-y-0 right-0 pr-2 flex items-center">
+        <div className="tw-absolute tw-inset-y-0 tw-right-0 tw-pr-2 tw-flex tw-items-center">
           <FontAwesomeIcon
             icon={faExclamationCircle}
-            className="text-danger-500"
+            className="tw-text-danger-500"
           />
         </div>
       )}
       {isValid && type !== 'number' && (
-        <div className="absolute inset-y-0 right-0 pr-2 flex items-center">
+        <div className="tw-absolute tw-inset-y-0 tw-right-0 tw-pr-2 tw-flex tw-items-center">
           <FontAwesomeIcon
             icon={faCheckCircle}
-            className="text-success-500"
+            className="tw-text-success-500"
           />
         </div>
       )}
     </div>
   )
-})
-
-export { FormInput }
+}
 
 export type TextareaProps = ControlProps & TextareaHTMLAttributes<HTMLTextAreaElement>
 
@@ -107,10 +93,10 @@ export function FormTextarea({
   const { controlId } = useFormGroup()
   const { classNames } = useFormControl({ isInvalid, disabled })
   return (
-    <div className="relative w-full">
+    <div className="tw-relative tw-w-full">
       <textarea
         id={id || controlId}
-        className={cn(classNames, className, disabled && 'resize-none')}
+        className={cn(classNames, className, disabled && 'tw-resize-none')}
         disabled={disabled}
         {...props}
       />

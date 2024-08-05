@@ -14,9 +14,8 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
 import * as yup from 'yup'
 import withSchema from 'src/utils/withSchema'
-import JSONFormInput from '@webapps-common/JSON/JSONFormInput'
+import JSONFormInput from '@components/JSON/JSONFormInput'
 import Modal from '@webapps-common/UI/Modal'
-import JSONManager from '../JSONSchemas'
 
 export type BuildUpdated = {
   id: string;
@@ -112,7 +111,7 @@ export default function BuildUpdate({
             <Modal.Body>
               <input type="hidden" id="id" name="id" value={initialValues.id} />
 
-              <Form.Group className="mb-3" controlId="name">
+              <Form.Group className="tw-mb-3" controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Input
                   name="name"
@@ -125,14 +124,13 @@ export default function BuildUpdate({
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="props">
+              <Form.Group className="tw-mb-3" controlId="props">
                 <Form.Label>Properties</Form.Label>
                 <JSONFormInput
                   name="props"
                   defaultValue={values.props}
                   isInvalid={touched.props && !!errors.props}
                   setFieldValue={setFieldValue}
-                  jsonSchemaManager={JSONManager}
                 />
                 <Form.Feedback type="invalid">
                   {errors.props}

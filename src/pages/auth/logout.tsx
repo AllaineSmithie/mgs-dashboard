@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 
 import { LoadingPage } from '@webapps-common'
 
-export default function Logout() {
+export default function Login() {
   const router = useRouter()
   const supabaseClient = useSupabaseClient()
 

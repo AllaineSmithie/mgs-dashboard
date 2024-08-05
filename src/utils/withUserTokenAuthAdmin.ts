@@ -1,10 +1,3 @@
-/*************************************************************************/
-/*  withUserTokenAuthAdmin.ts                                            */
-/*************************************************************************/
-/* Copyright W4 Games Limited                                            */
-/* SPDX-License-Identifier: AGPL-3.0-only                                */
-/*************************************************************************/
-
 import { SupabaseClient, GoTrueAdminApi } from '@supabase/supabase-js'
 
 export default async function withUserTokenAuthAdmin<Database, SchemaName extends string & keyof Database = 'public' extends keyof Database ? 'public' : string & keyof Database>(

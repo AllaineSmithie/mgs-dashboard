@@ -6,7 +6,10 @@
 /*************************************************************************/
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import { DeleteConfirmationForm, DeleteConfirmationFormProps } from '@webapps-common/UI/Form/ModalForm'
+import {
+  DeleteConfirmationForm,
+  DeleteConfirmationFormProps,
+} from '../Common/ModalForm'
 
 export type BucketDeleted = {
   name: string;
@@ -24,13 +27,7 @@ export default function BucketDelete({ deleted, ...props }: BucketDeleteProps) {
   }
   return (
     <DeleteConfirmationForm
-      execute={async () => {
-        const { error } = await supabase.storage.emptyBucket(deleted.name)
-        if (error) {
-          return error
-        }
-        return (await supabase.storage.deleteBucket(deleted.name)).error
-      }}
+      execute={async () => ((await supabase.storage.deleteBucket(deleted.name)).error)}
       failureMessage={`Could not delete bucket: ${deleted.name}`}
       successMessage={`${deleted.name} successfully deleted.`}
       {...props}

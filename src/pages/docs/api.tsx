@@ -11,9 +11,6 @@ import MainLayout from '@components/MainLayout'
 import { useState } from 'react'
 import Button from '@webapps-common/UI/Button'
 import { useRuntimeEnvVars } from '@webapps-common/utils/runtimeEnvVarsEndpoint'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import { toast } from 'react-toastify'
 
 type APIProps = {
   anonKey: string;
@@ -36,30 +33,19 @@ function KeyBox({
   const [show, setShow] = useState<boolean>(false)
 
   return (
-    <div className="border-2 border-solid rounded-lg border-border mt-5">
-      <div className="border-0 border-b-2 border-solid border-border">
-        <div className="flex">
-          <h5 className="grow p-3 ms-2 m-auto">{title}</h5>
+    <div className="tw-border-2 tw-border-solid tw-rounded-lg tw-border-border tw-mt-5">
+      <div className="tw-border-0 tw-border-b-2 tw-border-solid tw-border-border">
+        <div className="tw-flex">
+          <h5 className="tw-grow tw-p-3 tw-ms-2 tw-m-auto">{title}</h5>
           <Button
-            className="shrink p-3 m-2 leading-none"
-            onClick={() => {
-              navigator.clipboard.writeText(value)
-              toast.info('Copied the key to the clipboard!')
-            }}
-          >
-            <FontAwesomeIcon icon={faCopy} />
-            {' '}
-            Copy
-          </Button>
-          <Button
-            className="shrink p-3 m-2 w-10"
+            className="tw-shrink tw-p-3 tw-m-2"
             onClick={() => { setShow(!show) }}
           >
-            <FontAwesomeIcon icon={show ? faEyeSlash : faEye} />
+            {show ? 'Hide' : 'Show'}
           </Button>
         </div>
       </div>
-      <div className="p-3 break-all">
+      <div className="tw-p-3 tw-break-all">
         {show ? value : '*'.repeat(value.length)}
       </div>
     </div>
@@ -76,8 +62,8 @@ export default function Api({ anonKey, serviceKey }: APIProps) {
         breadcrumbCurrentText: 'API',
       }}
     >
-      <div className="prose dark:prose-invert">
-        <h2 className="p-3">Documentation</h2>
+      <div className="tw-prose dark:tw-prose-invert">
+        <h2 className="tw-p-3">Documentation</h2>
 
         The w4gd documentation is available
         {' '}
@@ -85,8 +71,8 @@ export default function Api({ anonKey, serviceKey }: APIProps) {
           here
         </Link>
       </div>
-      <div className="mt-6">
-        <h3 className="p-3">API keys</h3>
+      <div className="tw-mt-6">
+        <h3 className="tw-p-3">API keys</h3>
         <KeyBox
           title="Anonymous API key"
           value={anonKey}

@@ -42,11 +42,11 @@ export default function DropdownItem({
   return (
     <ElementType
       className={cn(
-        'cursor-pointer block no-underline w-full py-2 px-4 hover:bg-surface-200 border-l-2 border-transparent align-baseline',
+        'tw-cursor-pointer tw-block tw-no-underline tw-w-full tw-py-2 tw-px-4 hover:tw-bg-surface-200 tw-border-l-2 tw-border-transparent tw-align-baseline',
         className,
-        active && ' dark:bg-brand-600/50 dark:hover:bg-brand-600/50 border-l-2 border-brand-600 dark:border-brand-400',
-        disabled && 'cursor-not-allowed opacity-50 hover:bg-transparent dark:hover:bg-transparent',
-        href && 'text-scale-800 dark:text-scale-300',
+        active && ' dark:tw-bg-brand-600/50 dark:hover:tw-bg-brand-600/50 tw-border-l-2 tw-border-brand-600 dark:tw-border-brand-400',
+        disabled && 'tw-cursor-not-allowed tw-opacity-50 hover:tw-bg-transparent dark:hover:tw-bg-transparent',
+        href && 'tw-text-scale-800 dark:tw-text-scale-300',
       )}
       onClick={handleClick}
       // For accessibility

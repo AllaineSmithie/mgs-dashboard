@@ -7,7 +7,7 @@
 
 import * as pathLib from 'path'
 import React, {
-  useEffect, useState, useCallback,
+  useEffect, useState, useCallback, MouseEventHandler,
 } from 'react'
 import { toast } from 'react-toastify'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
@@ -35,17 +35,12 @@ import FileUpload, {
   FilesUploaded,
 } from '@components/Forms/Buckets/FileUpload'
 import useOutsideClick from 'src/utils/useOutsideClick'
-import useEffectExceptOnMount from '@webapps-common/utils/useEffectExceptOnMount'
-import SelectedCounter from '@webapps-common/UI/Table/SelectedCounter'
-import SimpleCounter from '@webapps-common/UI/Table/SimpleCounter'
 import getFAIconFromExtension from './getFAIconFromExtension'
 
 type StorageExplorerListProps = {
   bucket: string;
   onRootClicked?: () => void;
   onSelectionChanged?: (folderPath: string, selection: FileObject[]) => void;
-  useMultiSelect?: boolean;
-  defaultSelected?: string;
   defaultPath?: string;
   allowedFileExtensions?: string[];
   createBucketIfNotExisting?: boolean;
@@ -55,8 +50,6 @@ export default function StorageExplorer({
   bucket,
   onRootClicked,
   onSelectionChanged = () => {},
-  useMultiSelect = false,
-  defaultSelected,
   defaultPath = '',
   allowedFileExtensions,
   createBucketIfNotExisting = false,
@@ -95,9 +88,7 @@ export default function StorageExplorer({
 
   // Avoid deselecting on some components.
   useOutsideClick(doNotDeselectClassName, () => {
-    if (!useMultiSelect) {
-      setSelected([])
-    }
+    setSelected([])
   })
 
   // Element List
@@ -107,7 +98,7 @@ export default function StorageExplorer({
   }
   const [sortColumn, setSortColumn] = useState<SortColumn>(SortColumn.Name)
   const [sortOrderAsc, setSortOrderAsc] = useState<boolean>(true)
-  const fetchListElements = useCallback(async (useDefaultSelected: boolean) => {
+  const fetchListElements = useCallback(async () => {
     setLoading(true)
     const mapping = ['name', 'created_at']
     let list: FileObject[] = []
@@ -151,20 +142,14 @@ export default function StorageExplorer({
         }
       }
     }
-    const filteredFiles = list.filter((el) => {
+
+    // Update files
+    setFiles(list.filter((el) => {
       if (showHiddenFile) {
         return true
       }
       return !el.name.startsWith('.')
-    })
-
-    // Update files.
-    setFiles(filteredFiles)
-
-    // Update selection.
-    if (useDefaultSelected) {
-      setSelected(filteredFiles.filter((el) => (el.name === defaultSelected)))
-    }
+    }))
 
     // Update breadcrumb
     setLoading(false)
@@ -176,16 +161,11 @@ export default function StorageExplorer({
     showHiddenFile,
     splitPath,
     allowedFileExtensions,
-    defaultSelected,
   ])
 
-  useEffectExceptOnMount(() => {
-    fetchListElements(false)
-  }, [fetchListElements])
-
   useEffect(() => {
-    fetchListElements(true)
-  }, [])
+    fetchListElements()
+  }, [fetchListElements])
 
   useEffect(() => {
     onSelectionChanged(pathLib.join(...splitPath), selected)
@@ -203,12 +183,10 @@ export default function StorageExplorer({
       <FileDelete
         show={fileDeleteVisible}
         deleted={filesToDelete}
-        onDone={() => {
-          setSelected([])
-          setFileDeleteVisible(false)
-        }}
+        onCancel={() => setFileDeleteVisible(false)}
         onSuccess={() => {
-          fetchListElements(false)
+          setFileDeleteVisible(false)
+          fetchListElements()
         }}
         modalProps={{
           className: doNotDeselectClassName,
@@ -221,7 +199,7 @@ export default function StorageExplorer({
         onCancel={() => setFileUploadVisible(false)}
         onSuccess={() => {
           setFileUploadVisible(false)
-          fetchListElements(false)
+          fetchListElements()
         }}
         allowedFileExtensions={allowedFileExtensions}
         modalProps={{
@@ -235,58 +213,23 @@ export default function StorageExplorer({
         onCancel={() => setFolderCreateVisible(false)}
         onSuccess={() => {
           setFolderCreateVisible(false)
-          fetchListElements(false)
+          fetchListElements()
         }}
         modalProps={{
           className: doNotDeselectClassName,
         }}
       />
 
-      <FolderBreadcrumbs
-        bucket={bucket}
-        folderChain={splitPath}
-        onRootClicked={onRootClicked}
-        onElementClick={(index) => {
-          setSplitPath(splitPath.slice(0, index))
-        }}
-      />
-
-      <div className={cn('flex justify-between items-center my-3 h-9 ps-3', doNotDeselectClassName)}>
-        { selected.length && useMultiSelect
-          ? (
-            <SelectedCounter
-              total={selected.length}
-              what={['item', 'items']}
-              deselect={() => setSelected([])}
-              className="min-w-[12rem]"
-              contextualActions={(
-                <Button
-                  variant="outline-secondary"
-                  className="p-2 border"
-                  onClick={() => {
-                    setFilesToDelete({
-                      bucket,
-                      path: pathLib.join(...splitPath),
-                      files: selected.map((file) => ({
-                        name: file.name,
-                        isDir: false,
-                      })),
-                    })
-                    setFileDeleteVisible(true)
-                  }}
-                >
-                  <FontAwesomeIcon icon={faTrash} fixedWidth />
-                  {' '}
-                  Delete selected
-                </Button>
-                )}
-            />
-          ) : (
-            <SimpleCounter
-              total={files.length}
-            />
-          )}
-        <div className="mx-auto" />
+      <div className={cn('tw-mb-3 tw-flex tw-justify-between tw-items-center', doNotDeselectClassName)}>
+        <FolderBreadcrumbs
+          bucket={bucket}
+          folderChain={splitPath}
+          onRootClicked={onRootClicked}
+          onElementClick={(index) => {
+            setSplitPath(splitPath.slice(0, index))
+          }}
+        />
+        <div className="tw-mx-auto" />
         <GlueRoundedGroup>
           <Button
             variant="primary"
@@ -306,7 +249,7 @@ export default function StorageExplorer({
           <DropdownButton
             title="Actions"
             variant="secondary"
-            className="rounded-l-none"
+            className="tw-rounded-l-none"
             placement="right"
             onSelect={(e) => {
               if (e === 'sort_by_name') {
@@ -323,6 +266,16 @@ export default function StorageExplorer({
                   setSortColumn(SortColumn.CreationDate)
                   setSortOrderAsc(true)
                 }
+              } else if (e === 'delete') {
+                setFilesToDelete({
+                  bucket,
+                  path: pathLib.join(...splitPath),
+                  files: selected.map((file) => ({
+                    name: file.name,
+                    isDir: false,
+                  })),
+                })
+                setFileDeleteVisible(true)
               } else if (e === 'create_folder') {
                 setFolderToCreate({
                   bucket,
@@ -335,6 +288,11 @@ export default function StorageExplorer({
               }
             }}
           >
+            <Dropdown.Item eventKey="delete" disabled={selected.length <= 0}>
+              <FontAwesomeIcon icon={faTrash} fixedWidth />
+              {' '}
+              Delete
+            </Dropdown.Item>
             <Dropdown.Item eventKey="create_folder">
               <FontAwesomeIcon icon={faFolderPlus} fixedWidth />
               {' '}
@@ -352,37 +310,20 @@ export default function StorageExplorer({
               Sort by creation date
             </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item eventKey="show_hidden" className="hover:bg-transparent dark:hover:bg-transparent">
+            <Dropdown.Item eventKey="show_hidden" className="hover:tw-bg-transparent dark:hover:tw-bg-transparent">
               <Form.Toggle checked={showHiddenFile} readOnly label="Show hidden files" />
             </Dropdown.Item>
           </DropdownButton>
         </GlueRoundedGroup>
       </div>
-      {loading ? <div className="flex items-center justify-center"><Spinner large /></div>
+      {loading ? <div className="tw-flex tw-items-center tw-justify-center"><Spinner large /></div>
         : (
           <Table className="file-list">
             <Table.Header className="border-bottom">
               <Table.HeaderRow>
-                {useMultiSelect
-                && (
-                  <Table.SelectAllHeaderCell
-                    state={
-                    // eslint-disable-next-line no-nested-ternary
-                    (selected.length > 0 && selected.length === files.length) ? 'checked'
-                      : (selected.length === 0 ? 'unchecked' : 'undetermined')
-                  }
-                    onPressed={() => {
-                      if (selected.length !== files.length) {
-                        setSelected(files)
-                      } else {
-                        setSelected([])
-                      }
-                    }}
-                  />
-                )}
                 <Table.HeaderCell>File</Table.HeaderCell>
                 <Table.HeaderCell>Size</Table.HeaderCell>
-                <Table.HeaderCell className="w-56">Created</Table.HeaderCell>
+                <Table.HeaderCell className="tw-w-56">Created</Table.HeaderCell>
                 <Table.HeaderCell />
               </Table.HeaderRow>
             </Table.Header>
@@ -393,19 +334,12 @@ export default function StorageExplorer({
                     key={file.name}
                     file={file}
                     selected={selected.includes(file)}
-                    showSelectBox={useMultiSelect}
-                    onSelected={() => {
-                      if (useMultiSelect) {
-                        if (selected.includes(file)) {
-                          setSelected(selected.filter((f) => (f !== file)))
-                        } else {
-                          setSelected([...selected, file])
-                        }
-                      } else {
-                        setSelected([file])
-                      }
+                    onSelected={(e) => {
+                      e.preventDefault()
+                      setSelected([file])
                     }}
-                    onActivated={async () => {
+                    onActivated={async (e) => {
+                      e.preventDefault()
                       const isDir = !file.id
                       if (isDir) {
                         // Open a given directory.
@@ -447,15 +381,13 @@ export default function StorageExplorer({
 type FileEntryProps = {
   file: FileObject;
   selected?: boolean;
-  showSelectBox: boolean;
-  onSelected?: () => void;
-  onActivated?: () => void;
+  onSelected?: MouseEventHandler<HTMLTableRowElement>;
+  onActivated?: MouseEventHandler<HTMLTableRowElement>;
   downloadAction: () => void;
 }
 function FileEntry({
   file,
   selected = false,
-  showSelectBox,
   onSelected,
   onActivated,
   downloadAction,
@@ -465,31 +397,14 @@ function FileEntry({
   const icon = isDir ? faFolder : getFAIconFromExtension(extension)
   return (
     <Table.Row
-      onClick={(e) => {
-        e.preventDefault()
-        if (onSelected) {
-          onSelected()
-        }
-      }}
-      onDoubleClick={(e) => {
-        e.preventDefault()
-        if (onActivated) {
-          onActivated()
-        }
-      }}
-      className="h-12"
+      onClick={onSelected}
+      onDoubleClick={onActivated}
+      className="tw-h-12"
       selected={selected}
       style={{
         cursor: 'pointer',
       }}
     >
-      {showSelectBox
-      && (
-        <Table.SelectDataCell
-          checked={selected}
-          onPressed={onSelected}
-        />
-      )}
       <Table.DataCell>
         <FontAwesomeIcon icon={icon} fixedWidth />
         {' '}
@@ -498,17 +413,18 @@ function FileEntry({
       <Table.DataCell>{isDir ? '-' : prettyBytes(file.metadata?.size)}</Table.DataCell>
       <Table.DataCell>{isDir ? '-' : file.created_at}</Table.DataCell>
       <Table.DataCell alignItems="right">
-        {!isDir && (
-        <Table.ActionButton
-          title="Download"
-          onClick={(e) => {
-            e.preventDefault()
-            downloadAction()
-          }}
-        >
-          <FontAwesomeIcon icon={faDownload} />
-        </Table.ActionButton>
-        )}
+        {isDir ? ''
+          : (
+            <Table.ActionButton
+              title="Download"
+              onClick={(e) => {
+                e.preventDefault()
+                downloadAction()
+              }}
+            >
+              <FontAwesomeIcon icon={faDownload} />
+            </Table.ActionButton>
+          )}
       </Table.DataCell>
     </Table.Row>
   )
@@ -526,13 +442,13 @@ function FolderBreadcrumbs({
   onElementClick,
 }: FolderBreadcrumbsProps) {
   return (
-    <ul className="inline-flex m-0 p-0 list-none folder-chain-breadcrumbs">
+    <ul className="tw-inline-flex tw-m-0 tw-p-0 tw-list-none folder-chain-breadcrumbs">
       {onRootClicked
         && (
         <li>
           <Button
             variant="no-background"
-            className="p-0"
+            className="tw-p-0"
             onClick={onRootClicked}
           >
             <FontAwesomeIcon icon={faHouse} fixedWidth />
@@ -546,8 +462,8 @@ function FolderBreadcrumbs({
             <Button
               variant="no-background"
               className={cn(
-                'p-0',
-                { "ms-2 before:content-['/']": index > 0 || onRootClicked },
+                'tw-p-0',
+                { "tw-ms-2 before:tw-content-['/']": index > 0 || onRootClicked },
               )}
               onClick={() => {
                 if (onElementClick) {

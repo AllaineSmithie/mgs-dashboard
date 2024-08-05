@@ -8,7 +8,10 @@
 import * as pathLib from 'path'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { toast } from 'react-toastify'
-import { ConfirmationFormProps, DeleteConfirmationForm } from '@webapps-common/UI/Form/ModalForm'
+import {
+  DeleteConfirmationForm,
+  ConfirmationFormProps,
+} from '../Common/ModalForm'
 
 export type FilesDeleted = {
   bucket: string;

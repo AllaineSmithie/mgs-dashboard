@@ -112,7 +112,7 @@ export default function UserInvite({
           </Modal.Header>
           <Form noValidate onSubmit={handleSubmit}>
             <Modal.Body>
-              <Form.Group className="mb-3" controlId="email">
+              <Form.Group className="tw-mb-3" controlId="email">
                 <Form.Label>Email address</Form.Label>
                 <Form.Input
                   name="email"
@@ -127,7 +127,7 @@ export default function UserInvite({
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="service_role">
+              <Form.Group className="tw-mb-3" controlId="service_role">
                 <Form.Checkbox
                   label="Admin"
                   name="service_role"

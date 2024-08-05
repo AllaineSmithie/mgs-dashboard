@@ -26,31 +26,14 @@ export default function HomeAutoRedirect({
   // Auto-redirect to the home page if the user is already logged in
   useEffect(() => {
     async function autoRedirect() {
-      if (autoRedirectToHomeIfAlreadyLoggedIn) {
-        setIsLoading(true)
-
-        // Check if the user is connected.
-        const { data } = await supabase.auth.getSession()
-        if (!data?.session?.user) {
-          setIsLoading(false)
-          return
-        }
-
-        // Check if they have the highest authentication level.
-        const res = await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
-        if (res.error) {
-          setIsLoading(false)
-          return
-        }
-        if (res.data.nextLevel === 'aal2' && res.data.nextLevel !== res.data.currentLevel) {
-          setIsLoading(false)
-          return
-        }
-
+      const { data } = await supabase.auth.getSession()
+      setIsLoading(false)
+      if (autoRedirectToHomeIfAlreadyLoggedIn && data?.session?.user) {
         router.push(homeHref)
       }
     }
     autoRedirect()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   if (isLoading) {
     return <LoadingPage />

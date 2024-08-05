@@ -18,9 +18,8 @@ import {
 } from 'formik'
 import * as yup from 'yup'
 import withSchema from 'src/utils/withSchema'
-import JSONFormInput from '@webapps-common/JSON/JSONFormInput'
+import JSONFormInput from '@components/JSON/JSONFormInput'
 import StorageFormInput from '@components/Storage/StorageFormInput'
-import JSONManager from '../JSONSchemas'
 
 type BuildCreateProps = {
   show: boolean;
@@ -110,7 +109,7 @@ export default function BuildCreate({
           <Form noValidate onSubmit={handleSubmit}>
             <Modal.Body>
 
-              <Form.Group className="mb-3" controlId="name">
+              <Form.Group className="tw-mb-3" controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Input
                   name="name"
@@ -123,7 +122,7 @@ export default function BuildCreate({
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="object_name">
+              <Form.Group className="tw-mb-3" controlId="object_name">
                 <Form.Label>File</Form.Label>
                 <StorageFormInput
                   name="object_name"
@@ -132,14 +131,10 @@ export default function BuildCreate({
                   bucket={process.env.NEXT_PUBLIC_BUCKET_GAMESERVER_BUILD || ''}
                   setFieldValue={
                     (field, value, ...props) => {
-                      // Automatically set the name if it is empty,
-                      // or corresponding to the old suggestion.
-                      const transformToName = (v : string) => (pathLib.parse(v as string).name)
-                      if (field === 'object_name' && value && (!values.name || values.name === transformToName(values.object_name))) {
-                        setFieldValue('name', transformToName(value as string))
+                      if (field === 'object_name' && value && !values.name) {
+                        // Automatically set the name if it is empty.
+                        setFieldValue('name', pathLib.parse(value as string).name)
                       }
-
-                      // Set the field as usual.
                       return setFieldValue(field, value, ...props)
                     }
                   }
@@ -152,14 +147,13 @@ export default function BuildCreate({
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="props">
+              <Form.Group className="tw-mb-3" controlId="props">
                 <Form.Label>Properties</Form.Label>
                 <JSONFormInput
                   name="props"
                   defaultValue={values.props}
                   isInvalid={touched.props && !!errors.props}
                   setFieldValue={setFieldValue}
-                  jsonSchemaManager={JSONManager}
                 />
                 <Form.Feedback type="invalid">
                   {errors.props}

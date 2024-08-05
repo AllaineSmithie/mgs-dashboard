@@ -93,6 +93,7 @@ export default function JoinsAndConstraintsEditor({
       setTableData(allTables)
     }
     fetchTables()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -131,12 +132,13 @@ export default function JoinsAndConstraintsEditor({
       constraints: constraintsFinalJson,
     }
     setFieldValue(name, JSON.stringify(finalJson))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [constraints])
   return (
     <div
       className={cn(
         '',
-        isInvalid && 'border border-danger-500 p-1 rounded-md',
+        isInvalid && 'tw-border tw-border-danger-500 tw-p-1 tw-rounded-md',
       )}
     >
       <Form.Label>Constraints</Form.Label>
@@ -202,6 +204,7 @@ function ConstraintForm({
       }
       return c
     }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [table, column, operator, value])
 
   // Reset value when changing the operator
@@ -213,6 +216,7 @@ function ConstraintForm({
     } else {
       setValue('')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [operator])
   function addConstraint() {
     setConstraints((prev: Constraint[]) => [
@@ -235,8 +239,8 @@ function ConstraintForm({
     setConstraints((prev: Constraint[]) => prev.filter((c) => c.id !== constraint?.id))
   }
   return (
-    <div className="mt-1 flex gap-1 test-sm justify-stretch">
-      <div className="w-1/4 flex-grow-0 flex-shrink-0">
+    <div className="tw-mt-1 tw-flex tw-gap-1 tw-test-sm tw-justify-stretch">
+      <div className="tw-w-1/4 tw-flex-grow-0 tw-flex-shrink-0">
         <Form.Select
           name="table"
           value={table}
@@ -252,7 +256,7 @@ function ConstraintForm({
           }}
         />
       </div>
-      <div className="w-1/4 flex-grow-0 flex-shrink-0 flex">
+      <div className="tw-w-1/4 tw-flex-grow-0 tw-flex-shrink-0 tw-flex">
         {table === 'ticket' ? (
           <Form.Input
             name="column"
@@ -278,9 +282,9 @@ function ConstraintForm({
         onChange={(e) => {
           setOperator(e.target.value as string)
         }}
-        className="text-sm"
+        className="tw-text-sm"
       />
-      <div className="flex gap-1 w-full">
+      <div className="tw-flex tw-gap-1 tw-w-full">
         {operator === 'between' ? (
           <>
             <Form.Input

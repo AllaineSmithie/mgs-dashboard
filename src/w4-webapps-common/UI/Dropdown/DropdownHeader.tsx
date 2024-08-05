@@ -13,7 +13,7 @@ type HeaderProps = {
 
 export default function DropdownHeader({ children, className }:HeaderProps) {
   return (
-    <div className={cn('py-2 px-4 text-sm text-scale-600 dark:text-scale-400', className)}>
+    <div className={cn('tw-py-2 tw-px-4 tw-text-sm tw-text-scale-600 dark:tw-text-scale-400', className)}>
       {children}
     </div>
   )

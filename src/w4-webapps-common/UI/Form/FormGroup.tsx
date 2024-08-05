@@ -45,7 +45,7 @@ export default function FormGroup({
     <FormGroupContext.Provider value={{ controlId, isInvalid, setIsInvalid }}>
       <div
         className={cn(
-          'mt-3 first:mt-0 flex flex-col gap-1',
+          'tw-mt-3 first:tw-mt-0 tw-flex tw-flex-col tw-gap-1',
           className,
         )}
       >

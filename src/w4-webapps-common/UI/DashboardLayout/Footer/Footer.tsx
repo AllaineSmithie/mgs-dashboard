@@ -9,7 +9,7 @@ import { PropsWithChildren } from 'react'
 
 export default function Footer({ children } : PropsWithChildren) {
   return (
-    <footer className="min-h-[3rem] border-t-[1px] border-t-border flex items-center px-8 py-2">
+    <footer className="tw-min-h-[3rem] tw-border-t-[1px] tw-border-t-border tw-flex tw-items-center tw-px-8 tw-py-2">
       <div>
         { children }
       </div>

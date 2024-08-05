@@ -118,7 +118,7 @@ export default function UserBan({
             </Modal.Header>
             <Form noValidate onSubmit={handleSubmit}>
               <Modal.Body>
-                <Form.Group className="mb-3" controlId="mainValue">
+                <Form.Group className="tw-mb-3" controlId="mainValue">
                   <Form.Label>Ban duration</Form.Label>
                   <Form.Select
                     name="mainValue"
@@ -139,9 +139,9 @@ export default function UserBan({
                   </Form.Feedback>
                 </Form.Group>
                 {values.mainValue as unknown === -1 && (
-                  <div className="flex gap-2 mt-3">
-                    <div className="w-3/5">
-                      <Form.Group className="mb-3" controlId="customValue">
+                  <div className="tw-flex tw-gap-2 tw-mt-3">
+                    <div className="tw-w-3/5">
+                      <Form.Group className="tw-mb-3" controlId="customValue">
                         <Form.Input
                           name="customValue"
                           type="number"
@@ -154,8 +154,8 @@ export default function UserBan({
                         </Form.Feedback>
                       </Form.Group>
                     </div>
-                    <div className="w-2/5">
-                      <Form.Group className="mb-3" controlId="customMultiplier">
+                    <div className="tw-w-2/5">
+                      <Form.Group className="tw-mb-3" controlId="customMultiplier">
                         <Form.Select
                           name="customMultiplier"
                           value={values.customMultiplier}

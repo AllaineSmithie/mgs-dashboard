@@ -98,7 +98,7 @@ export default function StorageFormInput({
         </Modal.Footer>
       </Modal>
       <div
-        className={cn('flex w-full', isInvalid && 'is-invalid', isValid && 'is-valid')}
+        className={cn('tw-flex tw-w-full', isInvalid && 'is-invalid', isValid && 'is-valid')}
       >
         <Form.Input
           aria-label="File selector"
@@ -107,13 +107,13 @@ export default function StorageFormInput({
           isValid={isValid}
           disabled
           placeholder="Select a file"
-          className="rounded-r-none w-full flex-1"
+          className="tw-rounded-r-none tw-w-full tw-flex-1"
         />
         <Button
           onClick={() => {
             setShowStorageExplorer(true)
           }}
-          className="rounded-l-none"
+          className="tw-rounded-l-none"
         >
           Select
         </Button>

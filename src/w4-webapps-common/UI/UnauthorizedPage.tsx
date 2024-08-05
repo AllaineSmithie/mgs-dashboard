@@ -19,15 +19,15 @@ export default function UnauthorizedPage() {
   const router = useRouter()
   globalStyle()
   return (
-    <div className="flex items-center justify-center w-full h-full">
-      <div className="flex flex-col flex-cols-1">
-        <h1 className="text-lg">Unauthorized</h1>
-        <p className="mt-3">
+    <div className="tw-flex tw-items-center tw-justify-center tw-w-full tw-h-full">
+      <div className="tw-flex tw-flex-col tw-flex-cols-1">
+        <h1 className="tw-text-lg">Unauthorized</h1>
+        <p className="tw-mt-3">
           You do not have the permissions required to use this application.
         </p>
-        <div className="flex justify-center">
+        <div className="tw-flex tw-justify-center">
           <Button
-            className="mt-3 basis-1/4"
+            className="tw-mt-3 tw-basis-1/4"
             onClick={() => router.push(addBasePath('/auth/logout'))}
           >
             Logout

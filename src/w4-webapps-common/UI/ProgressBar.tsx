@@ -14,12 +14,12 @@ export default function ProgressBar({ now, max }: ProgressBarProps) {
   const progressPercentage = Math.min(Math.max((now / max) * 100, 0), 100)
 
   return (
-    <div className="relative w-full h-4 bg-surface-200 rounded-md overflow-hidden">
+    <div className="tw-relative tw-w-full tw-h-4 tw-bg-surface-200 tw-rounded-md tw-overflow-hidden">
       <div
         style={{ width: `${progressPercentage}%` }}
-        className="h-full bg-success-600 transition-all duration-200"
+        className="tw-h-full tw-bg-success-600 tw-transition-all tw-duration-200"
       >
-        <span className="sr-only">
+        <span className="tw-sr-only">
           {progressPercentage}
           % Complete
         </span>

@@ -1,10 +1,3 @@
-/*************************************************************************/
-/*  withSchema.ts                                                        */
-/*************************************************************************/
-/* Copyright W4 Games Limited                                            */
-/* SPDX-License-Identifier: AGPL-3.0-only                                */
-/*************************************************************************/
-
 import { SupabaseClient } from '@supabase/supabase-js'
 import { PostgrestClient } from '@supabase/postgrest-js'
 

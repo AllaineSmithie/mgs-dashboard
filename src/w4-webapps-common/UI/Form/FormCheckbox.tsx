@@ -35,7 +35,7 @@ export default function FormCheckbox({
   }, [isInvalid, setIsInvalid])
 
   return (
-    <div className={cn('flex gap-2 items-center py-1', className)}>
+    <div className={cn('tw-flex tw-gap-2 tw-items-center tw-py-1', className)}>
       <input
         type="checkbox"
         name={name}
@@ -43,10 +43,10 @@ export default function FormCheckbox({
         value={value}
         checked={checked}
         className={cn(
-          'h-5 w-5 rounded-md bg-control text-brand-600 focus:ring-0 focus:ring-transparent focus:ring-offset-transparent',
-          { 'bg-brand-600': checked },
-          { 'ring-2 ring-danger-500 border-danger-500': isInvalid },
-          { 'cursor-not-allowed opacity-50': disabled },
+          'tw-h-5 tw-w-5 tw-rounded-md tw-bg-control tw-text-brand-600 focus:tw-ring-0 focus:tw-ring-transparent focus:tw-ring-offset-transparent',
+          { 'tw-bg-brand-600': checked },
+          { 'tw-ring-2 tw-ring-danger-500 tw-border-danger-500': isInvalid },
+          { 'tw-cursor-not-allowed tw-opacity-50': disabled },
         )}
         disabled={disabled}
         {...props}
@@ -54,7 +54,7 @@ export default function FormCheckbox({
       {label && (
         <label
           htmlFor={id || name}
-          className={cn('text-scale-800 dark:text-scale-400', { 'text-danger-500 dark:text-danger-400 ': isInvalid })}
+          className={cn('tw-text-scale-800 dark:tw-text-scale-400', { 'tw-text-danger-500 dark:tw-text-danger-400 ': isInvalid })}
         >
           {label}
         </label>

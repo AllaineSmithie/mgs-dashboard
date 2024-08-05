@@ -28,16 +28,16 @@ export default function SubmitButton({
         {...props}
       >
         {submittingText ? (
-          <div className="flex gap-2 items-center justify-center">
+          <div className="tw-flex tw-gap-2 tw-items-center tw-justify-center">
             <Spinner />
             {submittingText}
           </div>
         ) : (
           <>
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center">
               <Spinner />
             </div>
-            <div className="invisible">{children}</div>
+            <div className="tw-invisible">{children}</div>
           </>
         )}
       </Button>
@@ -47,7 +47,6 @@ export default function SubmitButton({
   return (
     <Button
       type="submit"
-      disabled={disabled}
       {...props}
     >
       {children}

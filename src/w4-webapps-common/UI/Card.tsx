@@ -14,7 +14,7 @@ type CardProps = {
 
 function CardMain({ children, className }: CardProps) {
   return (
-    <div className={cn('border bg-surface-100 border-border rounded-md overflow-hidden', className)}>
+    <div className={cn('tw-border tw-bg-surface-100 tw-border-border tw-rounded-md tw-overflow-hidden', className)}>
       { children }
     </div>
   )
@@ -26,7 +26,7 @@ type HeaderProps = {
 
 function Header({ children, className }: HeaderProps) {
   return (
-    <div className={cn('px-4 py-2 border-b bg-surface-200/50 border-border font-medium', className)}>
+    <div className={cn('tw-px-4 tw-py-2 tw-border-b tw-bg-surface-200/50 tw-border-border tw-font-medium', className)}>
       { children }
     </div>
   )
@@ -38,7 +38,7 @@ type TitleProps = {
 
 function Title({ children, className }: TitleProps) {
   return (
-    <h1 className={cn('text-2xl font-medium', className)}>
+    <h1 className={cn('tw-text-2xl tw-font-medium', className)}>
       { children }
     </h1>
   )
@@ -50,7 +50,7 @@ type BodyProps = {
 
 function Body({ children, className }: BodyProps) {
   return (
-    <div className={cn('p-4', className)}>
+    <div className={cn('tw-p-4', className)}>
       { children }
     </div>
   )

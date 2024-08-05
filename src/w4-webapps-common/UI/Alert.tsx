@@ -14,30 +14,30 @@ type AlertProps = {
 } & PropsWithChildren
 
 export default function Alert({ children, variant = 'primary', className }: AlertProps) {
-  let variantClasses = 'bg-opacity-20 text-opacity-80 border-opacity-80 '
+  let variantClasses = 'tw-bg-opacity-20 tw-text-opacity-80 tw-border-opacity-80 '
   if (variant === 'primary') {
-    variantClasses += 'bg-blue-800 text-blue-800 border-blue-800 '
-    variantClasses += 'dark:bg-opacity-20 dark:bg-blue-500 dark:text-blue-100 dark:border-blue-500'
+    variantClasses += 'tw-bg-blue-800 tw-text-blue-800 tw-border-blue-800 '
+    variantClasses += 'dark:tw-bg-opacity-20 dark:tw-bg-blue-500 dark:tw-text-blue-100 dark:tw-border-blue-500'
   }
   if (variant === 'secondary') {
-    variantClasses += 'bg-scale-800 text-scale-800 border-scale-800 '
-    variantClasses += 'dark:bg-opacity-20  dark:bg-scale-500 dark:text-scale-100 dark:border-scale-500'
+    variantClasses += 'tw-bg-scale-800 tw-text-scale-800 tw-border-scale-800 '
+    variantClasses += 'dark:tw-bg-opacity-20  dark:tw-bg-scale-500 dark:tw-text-scale-100 dark:tw-border-scale-500'
   }
   if (variant === 'success') {
-    variantClasses += 'bg-success-800 text-success-800 border-success-800 '
-    variantClasses += 'dark:bg-opacity-20  dark:bg-success-500 dark:text-success-100 dark:border-success-500'
+    variantClasses += 'tw-bg-success-800 tw-text-success-800 tw-border-success-800 '
+    variantClasses += 'dark:tw-bg-opacity-20  dark:tw-bg-success-500 dark:tw-text-success-100 dark:tw-border-success-500'
   }
   if (variant === 'danger') {
-    variantClasses += 'bg-danger-800 text-danger-800 border-danger-800 '
-    variantClasses += 'dark:bg-opacity-20  dark:bg-danger-500 dark:text-danger-100 dark:border-danger-500'
+    variantClasses += 'tw-bg-danger-800 tw-text-danger-800 tw-border-danger-800 '
+    variantClasses += 'dark:tw-bg-opacity-20  dark:tw-bg-danger-500 dark:tw-text-danger-100 dark:tw-border-danger-500'
   }
   if (variant === 'warning') {
-    variantClasses += 'bg-warning-800 text-warning-800 border-warning-800 '
-    variantClasses += 'dark:bg-opacity-20  dark:bg-warning-500 dark:text-warning-100 dark:border-warning-500'
+    variantClasses += 'tw-bg-warning-800 tw-text-warning-800 tw-border-warning-800 '
+    variantClasses += 'dark:tw-bg-opacity-20  dark:tw-bg-warning-500 dark:tw-text-warning-100 dark:tw-border-warning-500'
   }
 
   return (
-    <div className={cn('border rounded-md overflow-hidden p-4', variantClasses, className)}>
+    <div className={cn('tw-border tw-rounded-md tw-overflow-hidden tw-p-4', variantClasses, className)}>
       { children }
     </div>
   )

@@ -7,9 +7,8 @@
 
 import type { AppProps } from 'next/app'
 
-import { config, library, IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import { mgsIcon } from '@webapps-common/icons/mgs-icon'
 
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
 import { Session, SupabaseClient, createClient } from '@supabase/supabase-js'
@@ -19,21 +18,9 @@ import { ThemeProvider } from 'next-themes'
 
 // Tailwind styles
 import '@styles/globals.css'
-import '@webapps-common/styles/globals.css'
 
 import { LoadingPage } from '@webapps-common'
 import { RuntimeEnvVarsContextProvider, useRuntimeEnvVars } from '@webapps-common/utils/runtimeEnvVarsEndpoint'
-
-// Add Inter font
-import { Inter as FontSans } from 'next/font/google'
-import cn from '@webapps-common/utils/classNamesMerge'
-
-const fontSans = FontSans({
-  subsets: ['latin'],
-  variable: '--font-sans',
-})
-
-library.add(mgsIcon as IconDefinition)
 
 // You change this configuration value to false so that the Font Awesome core SVG library
 // will not try and insert <style> elements into the <head> of the page.
@@ -50,14 +37,12 @@ function WorkspaceDashboard({
   pageProps,
 }: WorkspaceDashboardProps) {
   return (
-    <ThemeProvider attribute="class" value={{ dark: 'dark', light: 'light' }}>
+    <ThemeProvider attribute="class" value={{ dark: 'tw-dark', light: 'tw-light' }}>
       <RuntimeEnvVarsContextProvider>
         <SupabaseSessionProvider
           initialSession={pageProps.initialSession}
         >
-          <main className={cn('font-sans', fontSans.variable)}>
-            <Component {...pageProps} />
-          </main>
+          <Component {...pageProps} />
         </SupabaseSessionProvider>
       </RuntimeEnvVarsContextProvider>
     </ThemeProvider>
@@ -83,14 +68,14 @@ function SupabaseSessionProvider({
     }
     if (envVars.error) {
       setError(envVars.error)
-    } else if (!supabaseClient) {
+    } else {
       const client = createClient(
         envVars.env.RUNTIME_PUBLIC_SUPABASE_URL,
         envVars.env.RUNTIME_PUBLIC_SUPABASE_ANON_KEY,
       )
       setSupabaseClient(client)
     }
-  }, [envVars, supabaseClient])
+  }, [envVars])
 
   let content = null
   if (error) {

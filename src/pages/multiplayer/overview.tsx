@@ -48,84 +48,84 @@ function MultiplayerOverviewContent() {
         is_in_game: null,
         is_created_by_matchmaker: null,
         is_private: null,
-        lobby_types: null,
+        is_webrtc: null,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: null,
         is_in_game: false,
         is_created_by_matchmaker: null,
         is_private: null,
-        lobby_types: null,
+        is_webrtc: null,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: null,
         is_in_game: true,
         is_created_by_matchmaker: null,
         is_private: null,
-        lobby_types: null,
+        is_webrtc: null,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: true,
         is_in_game: true,
         is_created_by_matchmaker: true,
         is_private: null,
-        lobby_types: null,
+        is_webrtc: null,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: false,
         is_in_game: null,
         is_created_by_matchmaker: null,
         is_private: null,
-        lobby_types: null,
+        is_webrtc: null,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: true,
         is_in_game: true,
         is_created_by_matchmaker: true,
         is_private: null,
-        lobby_types: [2, 3],
+        is_webrtc: true,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: true,
         is_in_game: true,
         is_created_by_matchmaker: true,
         is_private: null,
-        lobby_types: [1, 4],
+        is_webrtc: false,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: true,
         is_in_game: true,
         is_created_by_matchmaker: false,
         is_private: null,
-        lobby_types: null,
+        is_webrtc: null,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: true,
         is_in_game: true,
         is_created_by_matchmaker: false,
         is_private: true,
-        lobby_types: null,
+        is_webrtc: null,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: true,
         is_in_game: true,
         is_created_by_matchmaker: false,
         is_private: null,
-        lobby_types: [2, 3],
+        is_webrtc: true,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: true,
         is_in_game: true,
         is_created_by_matchmaker: false,
         is_private: null,
-        lobby_types: [1, 4],
+        is_webrtc: false,
       }),
       withSchema(supabase, 'w4online').rpc('players_count', {
         is_in_lobby: true,
         is_in_game: true,
         is_created_by_matchmaker: false,
         is_private: null,
-        lobby_types: [1, 4],
+        is_webrtc: false,
       }),
     ]
     const playerCountPerMatchmakingProfileRequest = withSchema(
@@ -218,20 +218,20 @@ function MultiplayerOverviewContent() {
     .reduce((a, b) => a + b, 0)
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="tw-flex tw-flex-col tw-gap-3">
       <Card>
         <Card.Header>Players</Card.Header>
         <Card.Body>
           <div>
-            <div className="flex flex-1 align-center gap-4">
-              <div className="flex flex-1 align-center gap-4">
+            <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Total"
                   color={0}
                   value={data.player_count}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Not in games"
                   color={0}
@@ -239,7 +239,7 @@ function MultiplayerOverviewContent() {
                   labels={['players', 'lobbies']}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="In games"
                   color={0}
@@ -255,8 +255,8 @@ function MultiplayerOverviewContent() {
         <Card.Header>Matchmaker</Card.Header>
         <Card.Body>
           <div>
-            <div className="flex flex-1 align-center gap-4">
-              <div className="flex flex-1 align-center gap-4">
+            <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Games created by the matchmaker"
                   color={0}
@@ -267,14 +267,14 @@ function MultiplayerOverviewContent() {
                   labels={['players', 'lobbies']}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Players waiting to get a lobby"
                   color={1}
                   value={data.players_matchmaker_w4lobby}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Peer-to-peer games"
                   color={2}
@@ -285,7 +285,7 @@ function MultiplayerOverviewContent() {
                   labels={['players', 'lobbies']}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Games on a hosted game server"
                   color={3}
@@ -297,7 +297,7 @@ function MultiplayerOverviewContent() {
                 />
               </div>
             </div>
-            <div className="flex flex-col justify-center gap-4">
+            <div className="tw-flex tw-flex-col tw-justify-center tw-gap-4">
               <h6>Players per matchmaker profile</h6>
               <PerMatchmakingProfilePlayerCountWidget
                 values={data.players_ingame_per_matchmaking_profile}
@@ -310,8 +310,8 @@ function MultiplayerOverviewContent() {
         <Card.Header>Created by users</Card.Header>
         <Card.Body>
           <div>
-            <div className="flex flex-1 align-center gap-4">
-              <div className="flex flex-1 align-center gap-4">
+            <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="In games created by users"
                   color={0}
@@ -322,7 +322,7 @@ function MultiplayerOverviewContent() {
                   labels={['players', 'lobbies']}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Private games"
                   color={1}
@@ -333,7 +333,7 @@ function MultiplayerOverviewContent() {
                   labels={['players', 'lobbies']}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Peer-to-peer games"
                   color={2}
@@ -344,7 +344,7 @@ function MultiplayerOverviewContent() {
                   labels={['players', 'lobbies']}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Games on a hosted game server"
                   color={3}
@@ -359,19 +359,19 @@ function MultiplayerOverviewContent() {
           </div>
         </Card.Body>
       </Card>
-      <Card className="mb4">
+      <Card className="tw-mb4">
         <Card.Header>Game servers</Card.Header>
         <Card.Body>
           <div>
-            <div className="flex flex-1 align-center gap-4">
-              <div className="flex flex-1 align-center gap-4">
+            <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Game servers running"
                   color={3}
                   value={readyGameservers}
                 />
               </div>
-              <div className="flex flex-1 align-center gap-4">
+              <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
                 <ValueWidget
                   title="Players on hosted game servers"
                   color={3}
@@ -383,8 +383,8 @@ function MultiplayerOverviewContent() {
                 />
               </div>
             </div>
-            <div className="flex flex-1 align-center gap-4">
-              <div className="flex flex-col justify-center gap-4 w-5/12">
+            <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
+              <div className="tw-flex tw-flex-col tw-justify-center tw-gap-4 tw-w-5/12">
                 <h6>Overall occupancy</h6>
                 <OverallOccupancy
                   allocated={allocatedGameservers}
@@ -392,7 +392,7 @@ function MultiplayerOverviewContent() {
                   max={maxGameservers}
                 />
               </div>
-              <div className="flex flex-col  flex-1 align-center gap-4 w-7/12">
+              <div className="tw-flex tw-flex-col  tw-flex-1 tw-align-center tw-gap-4 tw-w-7/12">
                 <h6>Occupancy per fleet</h6>
                 <PerFleetOccupancy fleets={data.fleets} />
               </div>
@@ -474,10 +474,10 @@ function ValueWidget({
   labels = [],
 }: ValueWidgetProps) {
   const colorClasses = [
-    'border-teal-500', // info
-    'border-success-500', // success
-    'border-orange-500', // warning
-    'border-danger-500', // danger
+    'tw-border-teal-500', // info
+    'tw-border-success-500', // success
+    'tw-border-orange-500', // warning
+    'tw-border-danger-500', // danger
   ]
 
   let valuesCleaned = values
@@ -487,23 +487,23 @@ function ValueWidget({
   valuesCleaned = valuesCleaned.map((v) => (v === null ? 'N/A' : v))
   const labelsCleaned = labels === undefined ? [] : labels
   return (
-    <div className={`border-l-4 px-3 mb-3 ${colorClasses[color]}`}>
+    <div className={`tw-border-l-4 tw-px-3 tw-mb-3 ${colorClasses[color]}`}>
       <small>{title}</small>
       <div style={{ paddingLeft: 0 }}>
-        <div className="flex flex-1 align-center gap-4">
+        <div className="tw-flex tw-flex-1 tw-align-center tw-gap-4">
           {valuesCleaned.map((valueCleaned, index) => {
             if (index < labelsCleaned.length) {
               return (
                 <div key={index.toString() + valueCleaned}>
-                  <span className="text-xl font-semibold">{valueCleaned}</span>
+                  <span className="tw-text-xl tw-font-semibold">{valueCleaned}</span>
                   {' '}
                   <span>{labelsCleaned[index]}</span>
                 </div>
               )
             }
             return (
-              <div className="flex justify-center gap-4" key={index.toString() + valueCleaned}>
-                <span className="text-xl font-semibold">{valueCleaned}</span>
+              <div className="tw-flex tw-justify-center tw-gap-4" key={index.toString() + valueCleaned}>
+                <span className="tw-text-xl tw-font-semibold">{valueCleaned}</span>
               </div>
             )
           })}
@@ -527,7 +527,7 @@ function PerMatchmakingProfilePlayerCountWidget({
   if (values.length === 0) {
     return (
       <Card>
-        <Card.Body className="text-center">
+        <Card.Body className="tw-text-center">
           No players in games created by an existing matchmaking profile
         </Card.Body>
       </Card>
@@ -536,9 +536,9 @@ function PerMatchmakingProfilePlayerCountWidget({
   return (
     <div>
       {values.map((value) => (
-        <div className="flex justify-center gap-4" key={value.id}>
-          <div className="flex-1 self-end">{value.name}</div>
-          <div className="w-10/12">
+        <div className="tw-flex tw-justify-center tw-gap-4" key={value.id}>
+          <div className="tw-flex-1 tw-self-end">{value.name}</div>
+          <div className="tw-w-10/12">
             <span>{value.playerCount}</span>
             <ProgressBar now={value.playerCount} max={max} />
           </div>
@@ -557,7 +557,7 @@ function OverallOccupancy({ allocated, ready, max }: OverallOccupancyProps) {
   if (max === 0) {
     return (
       <Card>
-        <Card.Body className="text-center">No configured fleet</Card.Body>
+        <Card.Body className="tw-text-center">No configured fleet</Card.Body>
       </Card>
     )
   }
@@ -638,16 +638,16 @@ function PerFleetOccupancy({
   if (fleets.length === 0) {
     return (
       <Card>
-        <Card.Body className="text-center">No configured fleet</Card.Body>
+        <Card.Body className="tw-text-center">No configured fleet</Card.Body>
       </Card>
     )
   }
   return (
     <div>
       {fleets.map((fleet) => (
-        <div className="flex justify-center gap-4" key={fleet.name}>
-          <div className="flex-1 self-end">{fleet.name}</div>
-          <div className="w-10/12">
+        <div className="tw-flex tw-justify-center tw-gap-4" key={fleet.name}>
+          <div className="tw-flex-1 tw-self-end">{fleet.name}</div>
+          <div className="tw-w-10/12">
             <span>
               {fleet.in_use}
               {' '}

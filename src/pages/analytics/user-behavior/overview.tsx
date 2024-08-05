@@ -21,23 +21,23 @@ export default function UserBehaviorOverview() {
   return (
     <MainLayout breadcrumb={{ breadcrumbCurrentText: 'Overview' }}>
       <div>
-        <div className="flex mb-3 gap-8 justify-between">
+        <div className="tw-flex tw-mb-3 tw-gap-8 tw-justify-between">
 
-          <div className="flex flex-1">
-            <div className="flex w-[42px] h-[42px] flex-shrink-0 bg-surface-100 border-r-0 rounded-md rounded-r-none items-center justify-center border-border-secondary dark:border-border border">
+          <div className="tw-flex tw-flex-1">
+            <div className="tw-flex tw-w-[42px] tw-h-[42px] tw-flex-shrink-0 tw-bg-surface-100 tw-border-r-0 tw-rounded-md tw-rounded-r-none tw-items-center tw-justify-center tw-border-border-secondary dark:tw-border-border tw-border">
               <FontAwesomeIcon icon={faSearch} fixedWidth />
             </div>
             <Form.Input
               placeholder="Filter"
               aria-label="Filter"
               aria-describedby="basic-addon1"
-              className="rounded-none h-[42px]"
+              className="tw-rounded-none tw-h-[42px]"
             />
             <DropdownButton
               variant="outline-secondary"
               title="Platform"
               id="input-group-dropdown-2"
-              className="rounded-none border-l-0 border-r-0"
+              className="tw-rounded-none tw-border-l-0 tw-border-r-0"
             >
               <Dropdown.Item href="#">
                 <Form.Checkbox label="PC" checked={false} onChange={() => {}} />
@@ -60,7 +60,7 @@ export default function UserBehaviorOverview() {
               variant="outline-secondary"
               title="Region"
               id="input-group-dropdown-2"
-              className="rounded-l-none"
+              className="tw-rounded-l-none"
             >
               <Dropdown.Item href="#">
                 <Form.Checkbox label="Africa" checked={false} onChange={() => {}} />
@@ -97,16 +97,16 @@ export default function UserBehaviorOverview() {
             </GlueRoundedGroup>
           </div>
         </div>
-        <div className="flex mb-3 gap-2">
-          <div className="flex-1">
+        <div className="tw-flex tw-mb-3 tw-gap-2">
+          <div className="tw-flex-1">
             <SessionStartedPerDay />
           </div>
-          <div className="flex-1">
+          <div className="tw-flex-1">
             <SessionTopPerCountry />
           </div>
         </div>
-        <div className="flex mb-3 gap-2">
-          <div className="flex-1">
+        <div className="tw-flex tw-mb-3 tw-gap-2">
+          <div className="tw-flex-1">
             <SessionDuration />
           </div>
         </div>

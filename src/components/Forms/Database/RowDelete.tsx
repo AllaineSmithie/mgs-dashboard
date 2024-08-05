@@ -10,63 +10,45 @@ import withSchema from 'src/utils/withSchema'
 import {
   DeleteConfirmationForm,
   ConfirmationFormProps,
-} from '@webapps-common/UI/Form/ModalForm'
-import { PostgrestError } from '@supabase/supabase-js'
+} from '../Common/ModalForm'
 
-export type DeletedRow = {
-  [key: string]: unknown;
-}
-
-export type DeletedRows = {
+export type RowDeleted = {
   schema: string;
   table: string;
-  rows: DeletedRow[];
+  row: {
+    [key: string]: unknown;
+  };
 }
 type RowDeleteProps = {
-  rows: DeletedRows;
+  deleted?: RowDeleted;
 } & Omit<
 ConfirmationFormProps,
 'execute' | 'failureMessage' | 'successMessage'
 >
-
-export default function RowDelete({ rows, ...props }: RowDeleteProps) {
+export default function RowDelete({ deleted, ...props }: RowDeleteProps) {
   const supabase = useSupabaseClient()
-  if (!rows) {
+  if (!deleted) {
     return null
   }
-
-  async function deleteRow(schema: string, table: string, deleted: DeletedRow) {
-    let req = withSchema(supabase, schema)
-      .from(table)
-      .delete()
-    Object.entries(deleted).forEach(([key, value]) => {
-      if (value == null) {
-        req = req.is(key, null)
-      } else {
-        req = req.eq(key, value)
-      }
-    })
-    Object.entries(deleted).forEach(([key]) => {
-      req = req.order(key)
-    })
-    return (await req.limit(1)).error
-  }
-
-  async function deleteRows() {
-    const errors = (await Promise.all(rows.rows.map((r) => deleteRow(rows.schema, rows.table, r))))
-      .filter((e) => (e !== null)) as PostgrestError[]
-    return errors
-  }
-
   return (
     <DeleteConfirmationForm
-      // eslint-disable-next-line react/jsx-no-bind
-      execute={deleteRows}
-      failureMessage={rows.rows.length === 1 ? 'Could not delete row' : 'Could not delete rows.'}
-      successMessage={rows.rows.length === 1 ? 'Row successfully deleted.' : `${rows.rows.length} rows successfully deleted.`}
+      execute={async () => {
+        let req = withSchema(supabase, deleted.schema)
+          .from(deleted.table)
+          .delete()
+        Object.entries(deleted.row).forEach(([key, value]) => {
+          req = req.eq(key, value)
+        })
+        Object.entries(deleted.row).forEach(([key]) => {
+          req = req.order(key)
+        })
+        return (await req.limit(1)).error
+      }}
+      failureMessage="Could not delete row."
+      successMessage="Row successfully deleted."
       {...props}
     >
-      {rows.rows.length === 1 ? 'Are you sure you want to delete this row ?' : `Are you sure you want to delete ${rows.rows.length} rows ?`}
+      Are you sure you want to delete this row ?
     </DeleteConfirmationForm>
   )
 }

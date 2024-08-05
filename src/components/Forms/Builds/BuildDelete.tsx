@@ -10,38 +10,31 @@ import withSchema from 'src/utils/withSchema'
 import {
   DeleteConfirmationForm,
   ConfirmationFormProps,
-} from '@webapps-common/UI/Form/ModalForm'
+} from '../Common/ModalForm'
 
-export type DeletedBuild = {
+export type BuildDeleted = {
   id: string;
   name: string;
 }
-export type BuildDeleteProps = {
-  builds: DeletedBuild[];
+type BuildDeleteProps = {
+  deleted?: BuildDeleted;
 } & Omit<
 ConfirmationFormProps,
 'execute' | 'failureMessage' | 'successMessage'
 >
-export default function BuildDelete({ builds, ...props }: BuildDeleteProps) {
+export default function BuildDelete({ deleted, ...props }: BuildDeleteProps) {
   const supabase = useSupabaseClient()
-  if (!builds) {
+  if (!deleted) {
     return null
   }
-
-  async function deleteBuilds() {
-    const { error } = await withSchema(supabase, 'w4online').from('gameserver_build').delete().in('name', builds.map((b) => b.name))
-    return error
-  }
-
   return (
     <DeleteConfirmationForm
-      // eslint-disable-next-line react/jsx-no-bind
-      execute={deleteBuilds}
-      failureMessage={builds.length === 1 ? `Could not delete build: ${builds[0].name}` : 'Could not delete builds.'}
-      successMessage={builds.length === 1 ? `Build ${builds[0].name} successfully deleted.` : 'Build successfully deleted.'}
+      execute={async () => (await withSchema(supabase, 'w4online').from('gameserver_build').delete().eq('name', deleted.name)).error}
+      failureMessage={`Could not delete build: ${deleted.name}`}
+      successMessage={`${deleted.name} successfully deleted.`}
       {...props}
     >
-      {builds.length === 1 ? `Are you sure you want to delete build "${builds[0].name}" ?` : `Are you sure you want to delete ${builds.length} builds ?`}
+      {`Are you sure you want to delete build "${deleted.name}" ?`}
     </DeleteConfirmationForm>
   )
 }

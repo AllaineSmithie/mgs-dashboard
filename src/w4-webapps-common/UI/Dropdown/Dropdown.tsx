@@ -24,8 +24,6 @@ type DropdownContextType = {
   toggle: (e: EventType) => void;
   close: (e: EventType) => void;
   onSelect?: (eventKey?: string | number) => void;
-  toggleRef?: React.MutableRefObject<HTMLDivElement | null>;
-  menuRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 const DropdownContext = createContext<DropdownContextType>({
@@ -48,14 +46,11 @@ function DropdownRoot({
 }:DropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const toggleRef = useRef<HTMLDivElement>(null)
-  const menuRef = useRef<HTMLDivElement>(null)
 
   // Handle outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)
-          && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
       }
     }
@@ -80,10 +75,10 @@ function DropdownRoot({
     // But the performance impact of that is negligible in this case, better to just disable it
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <DropdownContext.Provider value={{
-      isOpen, toggle, close, onSelect, toggleRef, menuRef,
+      isOpen, toggle, close, onSelect,
     }}
     >
-      <Component ref={dropdownRef} className={cn('relative', className)}>
+      <Component ref={dropdownRef} className={cn('tw-relative', className)}>
         {children}
       </Component>
     </DropdownContext.Provider>

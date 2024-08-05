@@ -125,7 +125,7 @@ export default function UserUpdate({
                 value={values.email}
               />
 
-              <Form.Group className="mb-3" controlId="password">
+              <Form.Group className="tw-mb-3" controlId="password">
                 <Form.Label>Password</Form.Label>
                 <Form.Input
                   name="password"
@@ -140,7 +140,7 @@ export default function UserUpdate({
                 </Form.Feedback>
               </Form.Group>
               {!updated?.email_confirmed_at && (
-                <Form.Group className="mb-3" controlId="email_confirm">
+                <Form.Group className="tw-mb-3" controlId="email_confirm">
                   <Form.Checkbox
                     label="Confirm email address"
                     name="email_confirm"
@@ -158,7 +158,7 @@ export default function UserUpdate({
                   </Form.Text>
                 </Form.Group>
               )}
-              <Form.Group className="mb-3" controlId="service_role">
+              <Form.Group className="tw-mb-3" controlId="service_role">
                 <Form.Checkbox
                   label="Admin"
                   name="service_role"

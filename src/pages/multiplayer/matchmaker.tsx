@@ -16,30 +16,17 @@ import {
   faChevronRight,
   faEdit,
 } from '@fortawesome/free-solid-svg-icons'
-import React, {
-  useEffect, useCallback, useState, useRef,
-} from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import withSchema from 'src/utils/withSchema'
 import SimpleCounter from '@webapps-common/UI/Table/SimpleCounter'
 import MainLayout from '@components/MainLayout'
-import JSONPanel from '@webapps-common/JSON/JSONPanel'
+import JSONPanel from '@components/JSON/JSONPanel'
 import MatchmakerProfileCreate from '@components/Forms/Matchmaker/MatchmakerProfileCreate'
 import MatchmakerProfileUpdate, { MatchmakerProfileUpdated } from '@components/Forms/Matchmaker/MatchmakerProfileUpdate'
 import MatchmakerProfileDelete, { MatchmakerProfileDeleted } from '@components/Forms/Matchmaker/MatchmakerProfileDelete'
-
-import {
-  KeyValueSearchContextProvider,
-  KeyValueSearchContextProviderRef,
-  OnCompletedCallback,
-  OnSearchCallback,
-} from '@webapps-common/UI/Table/KeyValueSearch/KeyValueSearchContextProvider'
-import KeyValueSearchBar from '@webapps-common/UI/Table/KeyValueSearch/KeyValueSearchBar'
-import { PostgrestSingleResponse } from '@supabase/supabase-js'
-
-import JSONManager from '@components/Forms/JSONSchemas'
 import { LobbyStates, LobbyTypes } from './lobbies'
 
 export default function MatchMaker() {
@@ -89,39 +76,22 @@ function MatchmakingProfilesList() {
 
   const supabase = useSupabaseClient()
 
-  // Ref to the key/value search context.
-  const keyValueSearchContextProviderRef = useRef<KeyValueSearchContextProviderRef>(null)
-
-  const onSearch = useCallback<OnSearchCallback<PostgrestSingleResponse<unknown>>>(({
-    searchTerms,
-    keyValues,
-  }) => {
-    let query = withSchema(supabase, 'w4online').from('matchmaker_profile').select('*')
-
-    // Search
-    if (searchTerms.length > 0) {
-      const searchFilter = searchTerms.map((term) => `name.ilike.%${term}%`).join('|')
-      query = query.or(searchFilter)
-    }
-    // Sort
-    if (keyValues.sort?.length === 1) {
-      const [filterType, sortType] = keyValues.sort[0].split('-')
-      if (filterType === 'name') {
-        query = query.order('name', { ascending: sortType === 'asc' })
-      }
-    }
-    return query
-  }, [supabase])
-
-  const onCompleted : OnCompletedCallback<PostgrestSingleResponse<unknown>> = ({ result }) => {
-    if (result.error) {
-      toast.error(`Request failed: ${result.error?.message}`)
+  const fetchListElements = useCallback(async () => {
+    const res = await withSchema(supabase, 'w4online').from('matchmaker_profile').select('*').order('name')
+    if (res.error) {
+      toast.error(`Request failed: ${res.error?.message}`)
       setListElements([])
       return
     }
-    setListElements(result.data as MatchmakerProfile[])
-    setTotalCount(result.count || 0)
-  }
+    setListElements(res.data as MatchmakerProfile[])
+
+    // Pagination
+    setTotalCount(res.data.length)
+  }, [supabase])
+
+  useEffect(() => {
+    fetchListElements()
+  }, [fetchListElements])
 
   useEffect(() => {
     const selected = router.query?.selected as string
@@ -137,7 +107,7 @@ function MatchmakingProfilesList() {
         onClose={() => setProfileCreateVisible(false)}
         onSave={() => {
           setProfileCreateVisible(false)
-          keyValueSearchContextProviderRef?.current?.triggerSearch()
+          fetchListElements()
         }}
       />
       <MatchmakerProfileUpdate
@@ -146,20 +116,19 @@ function MatchmakingProfilesList() {
         onClose={() => setProfileUpdateVisible(false)}
         onSave={() => {
           setProfileUpdateVisible(false)
-          keyValueSearchContextProviderRef?.current?.triggerSearch()
+          fetchListElements()
         }}
       />
       <MatchmakerProfileDelete
         show={profileDeleteVisible}
         deleted={profileToDelete}
         onCancel={() => setProfileDeleteVisible(false)}
-        onSuccess={() => {
-          setProfileDeleteVisible(false)
-          keyValueSearchContextProviderRef?.current?.triggerSearch()
-        }}
+        onSuccess={() => { setProfileDeleteVisible(false); fetchListElements() }}
       />
-      <div className="flex justify-between items-center mb-3">
-        <SimpleCounter total={totalCount} />
+      <div className="tw-flex tw-justify-between tw-items-center tw-mb-3">
+        <SimpleCounter
+          total={totalCount}
+        />
 
         <Button
           variant="primary"
@@ -172,166 +141,146 @@ function MatchmakingProfilesList() {
           New Matchmaking Profile
         </Button>
       </div>
-      {/* eslint-disable-next-line react/jsx-no-bind */}
-      <KeyValueSearchContextProvider
-        onSearch={onSearch}
-        onCompleted={onCompleted}
-        isResultAbortError={(result) => (result.error && result.error.code === '20') as boolean}
-        kvRef={keyValueSearchContextProviderRef}
-      >
-        <KeyValueSearchBar
-          defaultQuery="sort:name-asc"
-        />
-        <Table className="mt-2">
-          <Table.Header>
-            <Table.HeaderRow>
-              <Table.HeaderCell style={{ width: '2%' }}> </Table.HeaderCell>
-              <Table.SortAndFilterHeaderCell
-                keyName="name"
-                sortable
-              >
-                Name
-              </Table.SortAndFilterHeaderCell>
-              <Table.HeaderCell className="w-4" />
-            </Table.HeaderRow>
-          </Table.Header>
-          <Table.Body>
-            {listElements.map((listElement) => ([
-              <Table.Row
-                key={listElement.id}
-                onClick={() => { setExpanded(expanded === listElement.id ? '' : listElement.id) }}
-                aria-controls="collapse"
-                aria-expanded={expanded === listElement.id}
-                style={{ cursor: 'pointer' }}
-              >
-                <Table.DataCell>
-                  {
+
+      <Table>
+        <Table.Header>
+          <Table.HeaderRow>
+            <Table.HeaderCell style={{ width: '2%' }}> </Table.HeaderCell>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell className="tw-w-4" />
+          </Table.HeaderRow>
+        </Table.Header>
+        <Table.Body>
+          {listElements.map((listElement) => ([
+            <Table.Row
+              key={listElement.id}
+              onClick={() => { setExpanded(expanded === listElement.id ? '' : listElement.id) }}
+              aria-controls="collapse"
+              aria-expanded={expanded === listElement.id}
+              style={{ cursor: 'pointer' }}
+            >
+              <Table.DataCell>
+                {
                   expanded === listElement.id
                     ? <FontAwesomeIcon icon={faChevronDown} fixedWidth />
                     : <FontAwesomeIcon icon={faChevronRight} fixedWidth />
                 }
-                </Table.DataCell>
-                <Table.DataCell><b>{listElement.name}</b></Table.DataCell>
+              </Table.DataCell>
+              <Table.DataCell><b>{listElement.name}</b></Table.DataCell>
 
-                <Table.DataCell alignItems="right">
-                  <Table.ActionsDropdownToggle>
-                    <Table.ActionsDropdownToggle.Item onClick={(e) => {
-                      e.stopPropagation()
-                      setProfileToUpdate({
-                        ...listElement,
-                        query: JSON.stringify(listElement.query),
-                        lobby_props: JSON.stringify(listElement.lobby_props),
-                      })
-                      setProfileUpdateVisible(true)
-                    }}
-                    >
-                      <FontAwesomeIcon icon={faEdit} fixedWidth />
-                      {' '}
-                      Edit
-                    </Table.ActionsDropdownToggle.Item>
-                    <Table.ActionsDropdownToggle.Item onClick={(e) => {
-                      e.stopPropagation()
-                      setProfileToDelete(listElement)
-                      setProfileDeleteVisible(true)
-                    }}
-                    >
-                      <FontAwesomeIcon icon={faTrash} fixedWidth />
-                      {' '}
-                      Delete
-                    </Table.ActionsDropdownToggle.Item>
-                  </Table.ActionsDropdownToggle>
-                </Table.DataCell>
+              <Table.DataCell alignItems="right">
+                <Table.ActionsDropdownToggle>
+                  <Table.ActionsDropdownToggle.Item onClick={(e) => {
+                    e.stopPropagation()
+                    setProfileToUpdate({
+                      ...listElement,
+                      query: JSON.stringify(listElement.query),
+                      lobby_props: JSON.stringify(listElement.lobby_props),
+                    })
+                    setProfileUpdateVisible(true)
+                  }}
+                  >
+                    <FontAwesomeIcon icon={faEdit} fixedWidth />
+                    {' '}
+                    Edit
+                  </Table.ActionsDropdownToggle.Item>
+                  <Table.ActionsDropdownToggle.Item onClick={(e) => {
+                    e.stopPropagation()
+                    setProfileToDelete(listElement)
+                    setProfileDeleteVisible(true)
+                  }}
+                  >
+                    <FontAwesomeIcon icon={faTrash} fixedWidth />
+                    {' '}
+                    Delete
+                  </Table.ActionsDropdownToggle.Item>
+                </Table.ActionsDropdownToggle>
+              </Table.DataCell>
 
-              </Table.Row>,
-              <Table.CollapsibleRow
-                key={`${listElement.id}-collapse`}
-                colCount={6}
-                expanded={expanded === listElement.id}
-                id={`collapsible-${listElement.id}`}
-              >
-                <div className="p-6 flex gap-4 flex-col">
-                  <div>
-                    <Card>
-                      <Card.Header>Query</Card.Header>
-                      <Card.Body>
-                        {
+            </Table.Row>,
+            <Table.CollapsibleRow
+              key={`${listElement.id}-collapse`}
+              colCount={6}
+              expanded={expanded === listElement.id}
+              id={`collapsible-${listElement.id}`}
+            >
+              <div className="tw-p-6 tw-flex tw-gap-4 tw-flex-col">
+                <div>
+                  <Card>
+                    <Card.Header>Query</Card.Header>
+                    <Card.Body>
+                      {
                       listElement.query
-                        ? <JSONPanel value={listElement.query} jsonSchemaManager={JSONManager} />
+                        ? <JSONPanel value={listElement.query} />
                         : 'This lobby has no properties.'
                       }
-                      </Card.Body>
-                    </Card>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Card>
-                      <Card.Header>Players</Card.Header>
-                      <Card.Body>
-                        <div className="flex flex-col gap-2">
-                          <div>
-                            <span className="font-bold">Minimum players:</span>
-                            {' '}
-                            {listElement.min_players}
-                          </div>
-                          <div>
-                            <span className="font-bold">Maximum players:</span>
-                            {' '}
-                            {listElement.max_players}
-                          </div>
-                          <div>
-                            <span className="font-bold">Progressive:</span>
-                            {' '}
-                            {listElement.progressive ? 'Yes' : 'No'}
-                          </div>
+                    </Card.Body>
+                  </Card>
+                </div>
+                <div className="tw-grid tw-grid-cols-2 tw-gap-4">
+                  <Card>
+                    <Card.Header>Players</Card.Header>
+                    <Card.Body>
+                      <div className="tw-flex tw-flex-col tw-gap-2">
+                        <div>
+                          <span className="tw-font-bold">Minimum players:</span>
+                          {' '}
+                          {listElement.min_players}
                         </div>
-                      </Card.Body>
-                    </Card>
-                    <Card>
-                      <Card.Header>Lobby</Card.Header>
-                      <Card.Body>
-                        <div className="flex flex-col gap-2">
-                          <div>
-                            <span className="font-bold">Type:</span>
-                            {' '}
-                            {LobbyTypes[listElement.lobby_type]}
-                            <br />
-                          </div>
-                          <div>
-                            <span className="font-bold">Inital state:</span>
-                            {' '}
-                            {LobbyStates[listElement.lobby_state]}
-                            <br />
-                          </div>
-                          <div>
-                            <span className="font-bold">Hidden:</span>
-                            {' '}
-                            {listElement.lobby_hidden ? 'Yes' : 'No'}
-                            <br />
-                          </div>
-                          <div>
-                            <span className="font-bold">Properties:</span>
-                            <div className="mt-2">
-                              {
+                        <div>
+                          <span className="tw-font-bold">Maximum players:</span>
+                          {' '}
+                          {listElement.max_players}
+                        </div>
+                        <div>
+                          <span className="tw-font-bold">Progressive:</span>
+                          {' '}
+                          {listElement.progressive ? 'Yes' : 'No'}
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                  <Card>
+                    <Card.Header>Lobby</Card.Header>
+                    <Card.Body>
+                      <div className="tw-flex tw-flex-col tw-gap-2">
+                        <div>
+                          <span className="tw-font-bold">Type:</span>
+                          {' '}
+                          {LobbyTypes[listElement.lobby_type]}
+                          <br />
+                        </div>
+                        <div>
+                          <span className="tw-font-bold">Inital state:</span>
+                          {' '}
+                          {LobbyStates[listElement.lobby_state]}
+                          <br />
+                        </div>
+                        <div>
+                          <span className="tw-font-bold">Hidden:</span>
+                          {' '}
+                          {listElement.lobby_hidden ? 'Yes' : 'No'}
+                          <br />
+                        </div>
+                        <div>
+                          <span className="tw-font-bold">Properties:</span>
+                          <div className="tw-mt-2">
+                            {
                           listElement.lobby_props
-                            ? (
-                              <JSONPanel
-                                value={listElement.lobby_props}
-                                jsonSchemaManager={JSONManager}
-                              />
-                            )
+                            ? <JSONPanel value={listElement.lobby_props} />
                             : 'This lobby has no properties.'
                         }
-                            </div>
                           </div>
                         </div>
-                      </Card.Body>
-                    </Card>
-                  </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
                 </div>
-              </Table.CollapsibleRow>,
-            ]))}
-          </Table.Body>
-        </Table>
-      </KeyValueSearchContextProvider>
+              </div>
+            </Table.CollapsibleRow>,
+          ]))}
+        </Table.Body>
+      </Table>
     </div>
   )
 }

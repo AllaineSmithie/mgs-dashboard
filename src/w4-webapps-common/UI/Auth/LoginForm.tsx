@@ -106,11 +106,11 @@ export function LoginForm({
               </Form.Group>
 
               <Form.Group controlId="password">
-                <div className="flex">
-                  <Form.Label className="grow">Password</Form.Label>
+                <div className="tw-flex">
+                  <Form.Label className="tw-grow">Password</Form.Label>
                   {forgottedPasswordPageHref && (
                     <Link
-                      className="no-underline whitespace-nowrap block text-sm mb-2"
+                      className="tw-no-underline tw-whitespace-nowrap tw-block tw-text-sm tw-mb-2"
                       tabIndex={0}
                       href={forgottedPasswordPageHref}
                     >
@@ -134,14 +134,14 @@ export function LoginForm({
               <SubmitButton
                 isSubmitting={isSubmitting}
                 tabIndex={1}
-                className="w-full mt-6 mb-3"
+                className="tw-w-full tw-mt-6 tw-mb-3"
               >
                 Login
               </SubmitButton>
 
               {errorMessage
               && (
-                <div className="text-center mb-3">
+                <div className="tw-text-center tw-mb-3">
                   <Alert variant="danger">{errorMessage}</Alert>
                 </div>
               )}
@@ -153,15 +153,15 @@ export function LoginForm({
       {signUpPageHref
         && (
           <>
-            <div className="md:grow align-middle flex items-center">
-              <div className="grow h-[2px] border-0 bg-scale-500" />
-              <span className="flex-none mx-4 text-scale-500">or</span>
-              <div className="grow h-[2px] border-0 bg-scale-500" />
+            <div className="md:tw-grow tw-align-middle tw-flex tw-items-center">
+              <div className="tw-grow tw-h-[2px] tw-border-0 tw-bg-scale-500" />
+              <span className="tw-flex-none tw-mx-4 tw-text-scale-500">or</span>
+              <div className="tw-grow tw-h-[2px] tw-border-0 tw-bg-scale-500" />
             </div>
 
             <Button
               variant="primary"
-              className="w-full mt-3"
+              className="tw-w-full tw-mt-3"
               onClick={(() => { router.push(signUpPageHref) })}
               tabIndex={1}
             >

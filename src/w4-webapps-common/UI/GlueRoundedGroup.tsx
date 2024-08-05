@@ -23,15 +23,15 @@ export default function GlueRoundedGroup({ children, className, ...props }: Glue
     const isMiddle = !isFirst && !isLast
     const modifiedClassNames = cn(
       child.props.className,
-      isFirst && 'rounded-r-none border-r-0',
-      isLast && 'rounded-l-none border-l-0',
-      isMiddle && 'rounded-none',
+      isFirst && 'tw-rounded-r-none tw-border-r-0',
+      isLast && 'tw-rounded-l-none tw-border-l-0',
+      isMiddle && 'tw-rounded-none',
     )
     return cloneElement(child as ReactElement, { className: modifiedClassNames })
   })
 
   return (
-    <div className={cn('flex', className)} {...props}>
+    <div className={cn('tw-flex', className)} {...props}>
       {childrenWithProps}
     </div>
   )

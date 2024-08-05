@@ -2,7 +2,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const { createThemes } = require('tw-colors')
 const colors = require('tailwindcss/colors')
-const { fontFamily } = require('tailwindcss/defaultTheme')
 
 // Common colors used across all the themes
 const brand = {
@@ -45,13 +44,13 @@ const danger = colors.red
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  // Avoid naming conflicts with bootstrap
+  // https://tailwindcss.com/docs/configuration#prefix
+  prefix: 'tw-',
   darkMode: 'class',
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
-      },
       colors: {
         // Common colors used across all the themes
         brand,
@@ -67,7 +66,7 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            '--prose-code': theme('colors.slate.900'),
+            '--tw-prose-code': theme('colors.slate.900'),
             // Headings
             h1: {
               marginTop: '1em',
@@ -133,7 +132,7 @@ module.exports = {
         invert: {
           // https://github.com/tailwindlabs/tailwindcss-typography/blob/master/src/styles.js
           css: {
-            '--prose-code': '#e68585',
+            '--tw-prose-code': '#e68585',
             a: {
               color: '#aa8c8c',
             },
@@ -163,11 +162,6 @@ module.exports = {
         // Borders
         'border': scale[100], // Default border color
         'border-secondary': scale[50], // For less prominent borders
-        // Scrollbars
-        'scrollbar-thumb': '#C1C1C1',
-        'scrollbar-track': '#FAFAFA',
-        // Link
-        'link': '#727c7f',
       },
       dark: {
         // Text colors
@@ -186,11 +180,6 @@ module.exports = {
         // Borders
         'border': scale[700], // Default border color
         'border-secondary': scale[800], // For less prominent borders
-        // Scrollbars
-        'scrollbar-thumb': '#6B6B6B',
-        'scrollbar-track': '#2C2C2C',
-        // Link
-        'link': '#727c7f',
       },
     }),
     require('@tailwindcss/typography'), require('@tailwindcss/forms')],

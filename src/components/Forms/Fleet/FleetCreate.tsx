@@ -18,7 +18,7 @@ import withSchema from 'src/utils/withSchema'
 import { Build } from 'src/pages/multiplayer/builds'
 import { Cluster } from 'src/pages/multiplayer/clusters'
 import Modal from '@webapps-common/UI/Modal'
-import JSONManager from '../JSONSchemas'
+import JSONSchemaManager from '../JSONSchemaManager'
 
 type FleetCreateProps = {
   show: boolean;
@@ -81,47 +81,25 @@ export default function FleetCreate({
     labels: yup
       .object()
       .test({
-        test: (el) => JSONManager.validators['fleet-labels'](el),
+        test: (el) => JSONSchemaManager.validators['fleet-labels'](el),
         message: 'Labels format is invalid',
       })
       .json()
       .typeError('Not a valid JSON'),
     min_replicas: yup.number().required('Required').positive().integer(),
-    autoscale: yup.bool().default(false),
-    max_replicas: yup.number().when('autoscale', {
-      is: true,
-      then: (schema) => (
-        schema.required('Required')
-          .positive()
-          .integer()
-          .min(
-            yup.ref('min_replicas'),
-            'Must be higher than the "Minimum number of servers"',
-          )
-      ),
-    }),
-    buffer_size: yup.number().when('autoscale', {
-      is: true,
-      then: (schema) => (
-        schema.required('Required')
-          .positive()
-          .integer()
-          .lessThan(
-            yup.ref('max_replicas'),
-            'Must be lower that "Maximum number of servers"',
-          )
-          .max(
-            yup.ref('min_replicas'),
-            'Must be lower or equal to "Minimum number of servers"',
-          )
-      ),
-    }),
-    autoscaling_interval: yup.number().when('autoscale', {
-      is: true,
-      then: (schema) => (
-        schema.required('Required').positive().integer()
-      ),
-    }),
+    max_replicas: yup
+      .number()
+      .required('Required')
+      .positive()
+      .integer()
+      .min(yup.ref('min_replicas'), 'Must be higher than the "Mininum number of servers"'),
+    buffer_size: yup
+      .number()
+      .required('Required')
+      .positive()
+      .integer()
+      .lessThan(yup.ref('max_replicas'), 'Must be lower that "Maximum number of servers"'),
+    autoscaling_interval: yup.number().positive().integer(),
   }
   const schema = yup.object().shape(shape).noUnknown(true)
 
@@ -130,7 +108,6 @@ export default function FleetCreate({
     Object.fromEntries(Object.keys(shape).map((e) => ([e, '']))),
     {
       labels: '{}',
-      autoscale: false,
       min_replicas: '1',
       max_replicas: '5',
       buffer_size: '1',
@@ -142,11 +119,6 @@ export default function FleetCreate({
   const onSubmit : FormikConfig<typeof initialValues>['onSubmit'] = async (values, { resetForm }) => {
     // Create
     const preparedValues = schema.cast(prepareDataForValidation(values))
-    if (!preparedValues.autoscale) {
-      preparedValues.max_replicas = 0
-      preparedValues.buffer_size = 0
-      preparedValues.autoscaling_interval = 30
-    }
     const res = await withSchema(supabase, 'w4online').rpc(
       'fleet_create',
       preparedValues,
@@ -202,7 +174,7 @@ export default function FleetCreate({
                   fleet without assigning it a valid cluster.
                 </Alert>
               )}
-              <Form.Group className="mb-3" controlId="name">
+              <Form.Group className="tw-mb-3" controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Input
                   name="name"
@@ -220,7 +192,7 @@ export default function FleetCreate({
                   Choose it carefully, it cannot be modified later on.
                 </Form.Text>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="cluster">
+              <Form.Group className="tw-mb-3" controlId="cluster">
                 <Form.Label>Cluster</Form.Label>
                 <Form.Select
                   name="cluster"
@@ -237,7 +209,7 @@ export default function FleetCreate({
                   A fleet&apos;s cluster cannot be modified later on.
                 </Form.Text>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="build_id">
+              <Form.Group className="tw-mb-3" controlId="build_id">
                 <Form.Label>Build</Form.Label>
                 <Form.Select
                   name="build_id"
@@ -259,7 +231,7 @@ export default function FleetCreate({
                 value={initialValues.image || undefined}
               />
 
-              <Form.Group className="mb-3" controlId="port">
+              <Form.Group className="tw-mb-3" controlId="port">
                 <Form.Label>Port</Form.Label>
                 <Form.Input
                   name="port"
@@ -267,7 +239,6 @@ export default function FleetCreate({
                   value={values.port}
                   onChange={handleChange}
                   isInvalid={touched.port && !!errors.port}
-                  min={1}
                 />
                 <Form.Feedback type="invalid">
                   {errors.port}
@@ -281,7 +252,7 @@ export default function FleetCreate({
                 value={JSON.stringify(initialValues.env)}
               />
 
-              <Form.Group className="mb-3" controlId="labels">
+              <Form.Group className="tw-mb-3" controlId="labels">
                 <Form.Label>Labels</Form.Label>
                 <Form.KeyValueEditor
                   name="labels"
@@ -295,94 +266,72 @@ export default function FleetCreate({
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Separator />
-
-              <Form.Group className="mb-3" controlId="autoscale">
-                <Form.Checkbox
-                  label="Automatically scale the number of servers"
-                  name="autoscale"
-                  checked={values.autoscale}
-                  onChange={handleChange}
-                  isInvalid={touched.autoscale && !!errors.autoscale}
-                />
-                <Form.Feedback type="invalid">
-                  {errors.autoscale}
-                </Form.Feedback>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="min_replicas">
-                <Form.Label>{values.autoscale ? 'Minimum number of servers' : 'Number of servers'}</Form.Label>
+              <Form.Group className="tw-mb-3" controlId="min_replicas">
+                <Form.Label>Minimum number of servers</Form.Label>
                 <Form.Input
                   name="min_replicas"
                   type="number"
                   value={values.min_replicas}
                   onChange={handleChange}
                   isInvalid={touched.min_replicas && !!errors.min_replicas}
-                  min={1}
                 />
                 <Form.Feedback type="invalid">
                   {errors.min_replicas}
                 </Form.Feedback>
               </Form.Group>
-              {values.autoscale
-              && (
-                <>
-                  <Form.Group className="mb-3" controlId="max_replicas">
-                    <Form.Label>Maximum number of servers</Form.Label>
-                    <Form.Input
-                      name="max_replicas"
-                      type="number"
-                      value={values.max_replicas}
-                      onChange={handleChange}
-                      isInvalid={touched.max_replicas && !!errors.max_replicas}
-                      min={1}
-                    />
-                    <Form.Feedback type="invalid">
-                      {errors.max_replicas}
-                    </Form.Feedback>
-                  </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="buffer_size">
-                    <Form.Label>Buffer size</Form.Label>
-                    <Form.Input
-                      name="buffer_size"
-                      type="number"
-                      value={values.buffer_size}
-                      onChange={handleChange}
-                      isInvalid={touched.buffer_size && !!errors.buffer_size}
-                      min={1}
-                    />
-                    <Form.Feedback type="invalid">
-                      {errors.buffer_size}
-                    </Form.Feedback>
-                    <Form.Text>
-                      The number of extra servers to keep ready.
-                    </Form.Text>
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="autoscaling_interval">
-                    <Form.Label>Autoscaling interval (in seconds)</Form.Label>
-                    <Form.Input
-                      name="autoscaling_interval"
-                      type="number"
-                      value={values.autoscaling_interval}
-                      onChange={handleChange}
-                      isInvalid={
-                        touched.autoscaling_interval
-                        && !!errors.autoscaling_interval
-                      }
-                      placeholder="30"
-                      min={0}
-                    />
-                    <Form.Feedback type="invalid">
-                      {errors.autoscaling_interval}
-                    </Form.Feedback>
-                    <Form.Text>
-                      How often the autoscaler should count the number of servers
-                      and launch or shutdown some according to the rules above.
-                    </Form.Text>
-                  </Form.Group>
-                </>
-              )}
+              <Form.Group className="tw-mb-3" controlId="max_replicas">
+                <Form.Label>Maximum number of servers</Form.Label>
+                <Form.Input
+                  name="max_replicas"
+                  type="number"
+                  value={values.max_replicas}
+                  onChange={handleChange}
+                  isInvalid={touched.max_replicas && !!errors.max_replicas}
+                />
+                <Form.Feedback type="invalid">
+                  {errors.max_replicas}
+                </Form.Feedback>
+              </Form.Group>
+
+              <Form.Group className="tw-mb-3" controlId="buffer_size">
+                <Form.Label>Buffer size</Form.Label>
+                <Form.Input
+                  name="buffer_size"
+                  type="number"
+                  value={values.buffer_size}
+                  onChange={handleChange}
+                  isInvalid={touched.buffer_size && !!errors.buffer_size}
+                />
+                <Form.Feedback type="invalid">
+                  {errors.buffer_size}
+                </Form.Feedback>
+                <Form.Text>
+                  The number of extra servers to keep ready.
+                </Form.Text>
+              </Form.Group>
+
+              <Form.Group className="tw-mb-3" controlId="autoscaling_interval">
+                <Form.Label>Autoscaling interval (in seconds)</Form.Label>
+                <Form.Input
+                  name="autoscaling_interval"
+                  type="number"
+                  value={values.autoscaling_interval}
+                  onChange={handleChange}
+                  isInvalid={
+                    touched.autoscaling_interval
+                    && !!errors.autoscaling_interval
+                  }
+                  placeholder="30"
+                />
+                <Form.Feedback type="invalid">
+                  {errors.autoscaling_interval}
+                </Form.Feedback>
+                <Form.Text>
+                  How often the autoscaler should count the number of servers
+                  and launch or shutdown some according to the rules above.
+                </Form.Text>
+              </Form.Group>
             </Modal.Body>
             <Modal.Footer>
               <Button

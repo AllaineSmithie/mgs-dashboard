@@ -28,12 +28,12 @@ export function Sidebar({
     <>
       { /* Normal sidebar */ }
       <div className={cn(
-        'overflow-hidden h-screen min-w-[256px] transition-colors duration-300',
-        { 'basis-[256px] min-w-[256px]': !visibilityModeOverlay },
-        { 'basis-[0px] min-w-[0px]': visibilityModeOverlay },
+        'tw-overflow-hidden tw-h-screen tw-min-w-[256px] tw-transition-colors tw-duration-300',
+        { 'tw-basis-[256px] tw-min-w-[256px]': !visibilityModeOverlay },
+        { 'tw-basis-[0px] tw-min-w-[0px]': visibilityModeOverlay },
       )}
       >
-        <div className="h-full">
+        <div className="tw-h-full">
           <SidebarContent
             logoAltText={logoAltText}
             logoFullHref={logoFullHref}
@@ -47,18 +47,18 @@ export function Sidebar({
       <div
         className={
           cn(
-            'absolute w-screen h-screen flex z-10',
-            { 'pointer-events-none': !isShow },
+            'tw-absolute tw-w-screen tw-h-screen tw-flex tw-z-10',
+            { 'tw-pointer-events-none': !isShow },
           )
         }
       >
         <div className={cn(
-          'overflow-hidden transition-all duration-300',
-          { 'basis-[256px]': isShow },
-          { 'basis-[0px]': !isShow },
+          'tw-overflow-hidden tw-transition-all tw-duration-300',
+          { 'tw-basis-[256px]': isShow },
+          { 'tw-basis-[0px]': !isShow },
         )}
         >
-          <div className="h-full">
+          <div className="tw-h-full">
             <SidebarContent
               logoAltText={logoAltText}
               logoFullHref={logoFullHref}
@@ -76,9 +76,9 @@ export function Sidebar({
           aria-hidden
           className={
             cn(
-              'basis-0 grow bg-black/25 h-full transition-all duration-300',
-              { 'bg-black/40': isShow },
-              { 'bg-black/0': !isShow },
+              'tw-basis-0 tw-grow tw-bg-black/25 tw-h-full tw-transition-all tw-duration-300',
+              { 'tw-bg-black/40': isShow },
+              { 'tw-bg-black/0': !isShow },
             )
           }
           onClick={toggleSidebar}
@@ -98,9 +98,9 @@ function SidebarContent({
   children,
 } : SidebarContentProps) {
   return (
-    <div className="h-full flex flex-col min-w-[256px] bg-brand-600">
-      <div className="min-h-[4rem] p-2 bg-brand-800">
-        <div className="relative h-full w-full">
+    <div className="tw-h-full tw-flex tw-flex-col tw-min-w-[256px] tw-bg-brand-600">
+      <div className="tw-min-h-[4rem] tw-p-2 tw-bg-brand-800">
+        <div className="tw-relative tw-h-full tw-w-full">
           <Image
             fill
             alt={logoAltText}
@@ -109,7 +109,7 @@ function SidebarContent({
         </div>
       </div>
 
-      <div className="grow overflow-y-auto">
+      <div className="tw-grow tw-overflow-y-auto">
         <SidebarNav>
           { children }
         </SidebarNav>
@@ -117,7 +117,7 @@ function SidebarContent({
 
       <div
         className={cn(
-          'items-center min-h-[50px] bg-brand-800',
+          'tw-items-center tw-min-h-[50px] tw-bg-brand-800',
         )}
       />
     </div>

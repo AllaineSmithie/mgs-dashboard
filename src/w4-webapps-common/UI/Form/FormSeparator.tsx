@@ -7,8 +7,8 @@
 
 export default function FormSeparator() {
   return (
-    <div className="flex flex-col my-7 items-center">
-      <hr className="border-border border-t-[1px] min-w-[30%] opacity-100" />
+    <div className="tw-flex tw-flex-col tw-my-7 tw-items-center">
+      <hr className="tw-border-border tw-border-t-[1px] tw-min-w-[30%] tw-opacity-100" />
     </div>
   )
 }

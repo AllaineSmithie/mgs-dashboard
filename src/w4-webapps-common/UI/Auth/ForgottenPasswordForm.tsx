@@ -70,8 +70,8 @@ export function ForgottenPasswordForm({
       autoRedirectToHomeIfAlreadyLoggedIn={autoRedirectToHomeIfAlreadyLoggedIn}
       homeHref={homePageHref}
     >
-      <div className="grow flex flex-col">
-        <div className="md:grow">
+      <div className="tw-grow tw-flex tw-flex-col">
+        <div className="md:tw-grow">
           <Formik
             key={JSON.stringify(initialValues)} // Hack to force a rerender :/
             enableReinitialize
@@ -98,6 +98,7 @@ export function ForgottenPasswordForm({
                     value={values.email}
                     onChange={handleChange}
                     isInvalid={touched.email && !!errors.email}
+                    className="tw-bg-white"
                   />
                   <Form.Feedback type="invalid">
                     {errors.email}
@@ -106,21 +107,21 @@ export function ForgottenPasswordForm({
 
                 {successMessage
                   ? (
-                    <div className="text-center mb-3 mt-6">
+                    <div className="tw-text-center tw-mb-3 tw-mt-6">
                       <Alert variant="success">{successMessage}</Alert>
                     </div>
                   )
                   : (
                     <SubmitButton
                       isSubmitting={isSubmitting}
-                      className="w-full mt-6 mb-3"
+                      className="tw-w-full tw-mt-6 tw-mb-3"
                     >
                       Send recovery instruction
                     </SubmitButton>
                   )}
                 {errorMessage
                 && (
-                  <div className="text-center mb-3">
+                  <div className="tw-text-center tw-mb-3">
                     <Alert variant="danger">{errorMessage}</Alert>
                   </div>
                 )}
@@ -131,9 +132,9 @@ export function ForgottenPasswordForm({
         </div>
         {loginPageHref
       && (
-        <div className="text-center flex-none">
+        <div className="tw-text-center tw-flex-none">
           <Link href={loginPageHref}>
-            <FontAwesomeIcon icon={faChevronLeft} className="me-2" />
+            <FontAwesomeIcon icon={faChevronLeft} className="tw-me-2" />
             Back to login page
           </Link>
         </div>

@@ -24,11 +24,10 @@ export default function DropdownToggle({
   disabled,
   ...props
 }: DropdownToggleProps) {
-  const { toggle, toggleRef } = useDropdownContext()
+  const { toggle } = useDropdownContext()
   return (
     <Component
-      ref={toggleRef}
-      className={cn('cursor-pointer', className)}
+      className={cn('tw-cursor-pointer', className)}
       onClick={(e: EventType) => {
         if (disabled) {
           e.preventDefault()

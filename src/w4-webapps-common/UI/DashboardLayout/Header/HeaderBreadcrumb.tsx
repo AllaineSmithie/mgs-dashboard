@@ -5,6 +5,7 @@
 /* SPDX-License-Identifier: AGPL-3.0-only                                */
 /*************************************************************************/
 
+import { addBasePath } from 'next/dist/client/add-base-path'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 
@@ -23,7 +24,7 @@ export function BreadcrumbHeader({
     <ol>
       {
         breadcrumb && breadcrumb.map((element) => (
-          <span key={`${element.href}-${element.text}`} className="text-foreground-secondary">
+          <span key={`${element.href}-${element.text}`} className="tw-text-foreground-secondary">
             <BreadcrumbItem
               href={element.href}
             >
@@ -49,11 +50,11 @@ function BreadcrumbItem({
   href,
   children,
 } : BreadcrumbItemProps) {
-  const liClassName = 'inline text-foreground-secondary'
+  const liClassName = 'tw-inline tw-text-foreground-secondary'
 
   if (active || !href) {
     return <li className={liClassName}><span>{children}</span></li>
   }
 
-  return <li className={liClassName}><Link className="no-underline text-foreground-secondary" href={href}>{children}</Link></li>
+  return <li className={liClassName}><Link className="tw-no-underline tw-text-foreground-secondary" href={addBasePath(href)}>{children}</Link></li>
 }

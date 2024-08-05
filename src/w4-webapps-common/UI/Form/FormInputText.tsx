@@ -15,11 +15,11 @@ export default function FormInputText({
   return (
     <span
       className={cn(
-        'flex',
-        'rounded-md py-1 px-2',
-        'border-[1px] border-scale-600 dark:border-border',
-        'bg-scale-700',
-        'items-center justify-center',
+        'tw-flex',
+        'tw-rounded-md tw-py-1 tw-px-2',
+        'tw-border-[1px] tw-border-scale-600 dark:tw-border-border',
+        'tw-bg-scale-700',
+        'tw-items-center tw-justify-center',
         className,
       )}
       {...props}

@@ -49,9 +49,9 @@ export default function FormFileInput({
   }
 
   return (
-    <div className="relative flex items-center">
+    <div className="tw-relative tw-flex tw-items-center">
       <input
-        className={`absolute w-0 h-0 opacity-0 overflow-hidden ${className}`}
+        className={`tw-absolute tw-w-0 tw-h-0 tw-opacity-0 tw-overflow-hidden ${className}`}
         name={name}
         value={value}
         type="file"
@@ -61,22 +61,22 @@ export default function FormFileInput({
         multiple={multiple}
         {...props}
       />
-      <div className="flex bg-control w-full rounded-md border border-border">
+      <div className="tw-flex tw-bg-control tw-w-full tw-rounded-md tw-border tw-border-border">
         <label
           htmlFor={name}
-          className="flex items-center justify-center bg-scale-300/30 hover:bg-scale-300/60 dark:bg-scale-600/40 dark:hover:bg-scale-600/60  py-2 px-3 cursor-pointer border-r border-border"
+          className="tw-flex tw-items-center tw-justify-center tw-bg-scale-300/30 hover:tw-bg-scale-300/60 dark:tw-bg-scale-600/40 dark:hover:tw-bg-scale-600/60  tw-py-2 tw-px-3 tw-cursor-pointer tw-border-r tw-border-border"
         >
           Select
         </label>
-        <div className="py-2 px-3 cursor-default text-foreground-muted w-full">
+        <div className="tw-py-2 tw-px-3 tw-cursor-default tw-text-foreground-muted w-full">
           {fileNames}
         </div>
       </div>
       {isInvalid && (
-        <div className="absolute inset-y-0 right-0 pr-2 flex items-center">
+        <div className="tw-absolute tw-inset-y-0 tw-right-0 tw-pr-2 tw-flex tw-items-center">
           <FontAwesomeIcon
             icon={faExclamationCircle}
-            className=" text-danger-500"
+            className=" tw-text-danger-500"
           />
         </div>
       )}

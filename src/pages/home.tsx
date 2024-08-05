@@ -47,7 +47,7 @@ export default function Lobbies() {
       is_in_game: null,
       is_created_by_matchmaker: null,
       is_private: null,
-      lobby_types: null,
+      is_webrtc: null,
     })
     if (res.error) {
       toast.error(`Request failed: ${res.error?.message}`)
@@ -80,15 +80,15 @@ export default function Lobbies() {
         breadcrumbCurrentText: 'Home',
       }}
     >
-      <div className="flex flex-col gap-3 h-full">
-        <div className="prose dark:prose-invert">
+      <div className="tw-flex tw-flex-col tw-gap-3 tw-h-full">
+        <div className="tw-prose dark:tw-prose-invert">
           <h2>Welcome to your dashboard</h2>
         </div>
 
         <div>
-          <h3 className="text-xl mt-7">Players and data</h3>
+          <h3 className="tw-text-xl tw-mt-7">Players and data</h3>
         </div>
-        <div className="grid md:grid-cols-3 gap-3 justify-items-stretch">
+        <div className="tw-grid md:tw-grid-cols-3 tw-gap-3 tw-justify-items-stretch">
           <LinkCard
             title="Users"
             icon={faUsers}
@@ -99,7 +99,7 @@ export default function Lobbies() {
           <LinkCard
             title="Database"
             icon={faTable}
-            href="/data/database/tables"
+            href="/data/database/"
           >
             Manage tables and rows.
           </LinkCard>
@@ -112,30 +112,30 @@ export default function Lobbies() {
           </LinkCard>
         </div>
         <div>
-          <h3 className="text-xl mt-7">Multiplayer</h3>
+          <h3 className="tw-text-xl tw-mt-7">Multiplayer</h3>
         </div>
-        <div className="grid md:grid-cols-2 gap-3">
-          <div className="grid grid-cols-4 gap-3">
+        <div className="tw-grid md:tw-grid-cols-2 tw-gap-3">
+          <div className="tw-grid tw-grid-cols-4 tw-gap-3">
             <NumberCard count={userCount} text="Users in lobbies" zeroCountText="No user in lobbies" />
-            <Card className="col-span-3">
-              <Card.Body className="flex gap-3 h-full">
+            <Card className="tw-col-span-3">
+              <Card.Body className="tw-flex tw-gap-3 tw-h-full">
                 <div>
-                  <div className="min-w-[3rem] min-h-[3rem] flex items-center justify-center">
-                    <FontAwesomeIcon icon={faPeopleArrows} className="h-[2rem] w-[2rem]" />
+                  <div className="tw-min-w-[3rem] tw-min-h-[3rem] tw-flex tw-items-center tw-justify-center">
+                    <FontAwesomeIcon icon={faPeopleArrows} className="tw-h-[2rem] tw-w-[2rem]" />
                   </div>
                 </div>
-                <div className="grow">
-                  <div className="font-bold">Matchmaking</div>
+                <div className="tw-grow">
+                  <div className="tw-font-bold">Matchmaking</div>
                   Group your users together and bring them into a game.
-                  <div className="flex gap-2 mt-3">
+                  <div className="tw-flex tw-gap-2 tw-mt-3">
                     <Link href="/multiplayer/lobbies/">
-                      <Button className="px-2 py-1">
+                      <Button className="tw-px-2 tw-py-1">
                         <FontAwesomeIcon icon={faList} />
                         Lobbies list
                       </Button>
                     </Link>
                     <Link href="/multiplayer/fleets/">
-                      <Button className="px-2 py-1">
+                      <Button className="tw-px-2 tw-py-1">
                         <FontAwesomeIcon icon={faCog} />
                         Configure
                       </Button>
@@ -145,27 +145,27 @@ export default function Lobbies() {
               </Card.Body>
             </Card>
           </div>
-          <div className="grid grid-cols-4 gap-3">
-            <NumberCard count={gameserverCount} text="Active game servers" zeroCountText="No active game server" className="dark:bg-teal-800 bg-teal-700" />
-            <Card className="col-span-3">
-              <Card.Body className="flex gap-3 h-full">
+          <div className="tw-grid tw-grid-cols-4 tw-gap-3">
+            <NumberCard count={gameserverCount} text="Active game servers" zeroCountText="No active game server" className="dark:tw-bg-teal-800 tw-bg-teal-700" />
+            <Card className="tw-col-span-3">
+              <Card.Body className="tw-flex tw-gap-3 tw-h-full">
                 <div>
-                  <div className="min-w-[3rem] min-h-[3rem] flex items-center justify-center">
-                    <FontAwesomeIcon icon={faServer} className="h-[2rem] w-[2rem]" />
+                  <div className="tw-min-w-[3rem] tw-min-h-[3rem] tw-flex tw-items-center tw-justify-center">
+                    <FontAwesomeIcon icon={faServer} className="tw-h-[2rem] tw-w-[2rem]" />
                   </div>
                 </div>
-                <div className="grow flex flex-col">
-                  <div className="font-bold">Game servers</div>
-                  <div className="grow">Run your game servers on the W4Cloud infrastructure.</div>
-                  <div className="flex gap-2 mt-3">
+                <div className="tw-grow tw-flex tw-flex-col">
+                  <div className="tw-font-bold">Game servers</div>
+                  <div className="tw-grow">Run your game servers on the W4Cloud infrastructure.</div>
+                  <div className="tw-flex tw-gap-2 tw-mt-3">
                     <Link href="/multiplayer/servers/">
-                      <Button className="px-2 py-1">
+                      <Button className="tw-px-2 tw-py-1">
                         <FontAwesomeIcon icon={faList} />
                         Game servers list
                       </Button>
                     </Link>
                     <Link href="/multiplayer/matchmaker/">
-                      <Button className="px-2 py-1">
+                      <Button className="tw-px-2 tw-py-1">
                         <FontAwesomeIcon icon={faCog} />
                         Configure
                       </Button>
@@ -178,27 +178,27 @@ export default function Lobbies() {
         </div>
 
         <div>
-          <h3 className="text-xl mt-7">Getting started</h3>
+          <h3 className="tw-text-xl tw-mt-7">Getting started</h3>
         </div>
-        <div className="grid md:grid-cols-2 gap-3">
+        <div className="tw-grid md:tw-grid-cols-2 tw-gap-3">
           <LinkCard
             title="Documentation"
             icon={faBookOpen}
             href={envVars?.env.RUNTIME_PUBLIC_API_DOCS_URL || ''}
           >
-            The documentation for our workspace API and our Metro Gaya SDK.
+            The documentation for our workspace API and our Godot SDK.
           </LinkCard>
           <Card>
-            <Card.Body className="flex items-center gap-5">
-              <div className="grow">
+            <Card.Body className="tw-flex tw-items-center tw-gap-5">
+              <div className="tw-grow">
                 <Card.Title>GDscript SDK</Card.Title>
-                <div className="mt-2">
+                <div className="tw-mt-2">
                   Setup you project for the W4Could services.
                 </div>
               </div>
               <div>
                 <a href="https://gitlab.com/W4Games/sdk/w4gd/-/releases" target="_blank" rel="noopener noreferrer">
-                  <Button className="p-3">
+                  <Button className="tw-p-3">
                     Download
                     {' '}
                     <FontAwesomeIcon icon={faDownload} />
@@ -225,21 +225,21 @@ function LinkCard({
   children,
 } : LinkCardProps) {
   return (
-    <Link href={href} className="no-underline text-foreground">
-      <Card className="flex flex-col">
-        <Card.Body className="grow flex gap-5 hover:bg-surface-200 items-center transition-all">
+    <Link href={href} className="tw-no-underline tw-text-foreground">
+      <Card className="tw-flex tw-flex-col">
+        <Card.Body className="tw-grow tw-flex tw-gap-5 hover:tw-bg-surface-200 tw-items-center tw-transition-all">
           <div>
-            <div className="min-w-[3rem] min-h-[3rem] flex items-center justify-center">
-              <FontAwesomeIcon icon={icon} className="h-[2rem] w-[2rem]" />
+            <div className="tw-min-w-[3rem] tw-min-h-[3rem] tw-flex tw-items-center tw-justify-center">
+              <FontAwesomeIcon icon={icon} className="tw-h-[2rem] tw-w-[2rem]" />
             </div>
           </div>
-          <div className="grow">
+          <div className="tw-grow">
             <Card.Title>{title}</Card.Title>
-            <div className="mt-2">
+            <div className="tw-mt-2">
               {children}
             </div>
           </div>
-          <div className="place-self-start">
+          <div className="tw-place-self-start">
             <FontAwesomeIcon icon={faChevronRight} />
           </div>
         </Card.Body>
@@ -266,25 +266,25 @@ function NumberCard({
   } else if (!zeroCountText || count > 0) {
     content = (
       <>
-        <div className="text-6xl">
+        <div className="tw-text-6xl">
           {count}
         </div>
-        <div className="text-sm grow text-center uppercase">
+        <div className="tw-text-sm tw-grow tw-text-center tw-uppercase">
           {text}
         </div>
       </>
     )
   } else {
     content = (
-      <div className="text-sm grow text-center uppercase flex flex-col place-content-center">
+      <div className="tw-text-sm tw-grow tw-text-center tw-uppercase tw-flex tw-flex-col tw-place-content-center">
         {zeroCountText}
       </div>
     )
   }
 
   return (
-    <Card className={cn('basis-1/3 dark:bg-yellow-800 bg-yellow-700 text-white border-0', className)}>
-      <Card.Body className="flex flex-col h-full items-center gap-3">
+    <Card className={cn('tw-basis-1/3 dark:tw-bg-yellow-800 tw-bg-yellow-700 tw-text-white tw-border-0', className)}>
+      <Card.Body className="tw-flex tw-flex-col tw-h-full tw-items-center tw-gap-3">
         {content}
       </Card.Body>
     </Card>

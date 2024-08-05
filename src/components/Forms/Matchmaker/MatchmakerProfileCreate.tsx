@@ -15,11 +15,11 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
 import * as yup from 'yup'
 import withSchema from 'src/utils/withSchema'
-import JSONFormInput from '@webapps-common/JSON/JSONFormInput'
+import JSONFormInput from '@components/JSON/JSONFormInput'
 import { Cluster } from 'src/pages/multiplayer/clusters'
 import { LobbyStates, LobbyTypes } from 'src/pages/multiplayer/lobbies'
 import Modal from '@webapps-common/UI/Modal'
-import JSONManager from '../JSONSchemas'
+import JSONSchemaManager from '../JSONSchemaManager'
 import JoinsAndConstraintsEditor from './JoinsAndConstraintsEditor'
 
 type MatchmakerProfileCreateProps = {
@@ -59,7 +59,7 @@ export default function MatchmakerProfileCreate({
     query: yup
       .object()
       .test({
-        test: (el) => JSONManager.validators['matchmaking-profile-query'](el),
+        test: (el) => JSONSchemaManager.validators['matchmaking-profile-query'](el),
         message: 'Query format is invalid',
       })
       .json()
@@ -80,7 +80,7 @@ export default function MatchmakerProfileCreate({
     lobby_props: yup
       .object()
       .test({
-        test: (el) => JSONManager.validators['matchmaking-profile-lobby_props'](el),
+        test: (el) => JSONSchemaManager.validators['matchmaking-profile-lobby_props'](el),
         message: 'Lobby properties format is invalid',
       })
       .json()
@@ -153,7 +153,7 @@ export default function MatchmakerProfileCreate({
           </Modal.Header>
           <Form noValidate onSubmit={handleSubmit}>
             <Modal.Body>
-              <Form.Group className="mb-3" controlId="name">
+              <Form.Group className="tw-mb-3" controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Input
                   name="name"
@@ -168,7 +168,7 @@ export default function MatchmakerProfileCreate({
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="query">
+              <Form.Group className="tw-mb-3" controlId="query">
                 <JoinsAndConstraintsEditor
                   name="query"
                   defaultValue={values.query}
@@ -181,7 +181,7 @@ export default function MatchmakerProfileCreate({
               </Form.Group>
 
               <h4>Players</h4>
-              <Form.Group className="mb-3" controlId="min_players">
+              <Form.Group className="tw-mb-3" controlId="min_players">
                 <Form.Label>Minimum number of players</Form.Label>
                 <Form.Input
                   name="min_players"
@@ -189,14 +189,13 @@ export default function MatchmakerProfileCreate({
                   value={values.min_players}
                   onChange={handleChange}
                   isInvalid={touched.min_players && !!errors.min_players}
-                  min={0}
                 />
                 <Form.Feedback type="invalid">
                   {errors.min_players}
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="max_players">
+              <Form.Group className="tw-mb-3" controlId="max_players">
                 <Form.Label>Maximum number of players</Form.Label>
                 <Form.Input
                   name="max_players"
@@ -204,14 +203,13 @@ export default function MatchmakerProfileCreate({
                   value={values.max_players}
                   onChange={handleChange}
                   isInvalid={touched.max_players && !!errors.max_players}
-                  min={1}
                 />
                 <Form.Feedback type="invalid">
                   {errors.max_players}
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="progressive">
+              <Form.Group className="tw-mb-3" controlId="progressive">
                 <Form.Checkbox
                   label="Progressive"
                   value="progressive"
@@ -232,7 +230,7 @@ export default function MatchmakerProfileCreate({
 
               <h4>Lobby</h4>
 
-              <Form.Group className="mb-3" controlId="lobby_type">
+              <Form.Group className="tw-mb-3" controlId="lobby_type">
                 <Form.Label>Type</Form.Label>
                 <Form.Select
                   name="lobby_type"
@@ -249,14 +247,7 @@ export default function MatchmakerProfileCreate({
                   {errors.lobby_type}
                 </Form.Feedback>
               </Form.Group>
-              {
-                values.lobby_type === '4'
-                && (
-                <Alert variant="warning">
-                  This lobby type is experimental, its use is discouraged.
-                </Alert>
-                )
-              }
+
               {
                 values.lobby_type === '1'
                 && (
@@ -268,7 +259,7 @@ export default function MatchmakerProfileCreate({
                     </Alert>
                   )
                     : (
-                      <Form.Group className="mb-3" controlId="lobby_cluster">
+                      <Form.Group className="tw-mb-3" controlId="lobby_cluster">
                         <Form.Label>Cluster</Form.Label>
                         <Form.Select
                           name="lobby_cluster"
@@ -289,7 +280,7 @@ export default function MatchmakerProfileCreate({
                 )
               }
 
-              <Form.Group className="mb-3" controlId="lobby_props">
+              <Form.Group className="tw-mb-3" controlId="lobby_props">
                 <Form.Label>Lobby properties</Form.Label>
                 <JSONFormInput
                   name="lobby_props"
@@ -297,14 +288,13 @@ export default function MatchmakerProfileCreate({
                   isInvalid={touched.lobby_props && !!errors.lobby_props}
                   setFieldValue={setFieldValue}
                   jsonSchemaId="matchmaking-profile-lobby_props"
-                  jsonSchemaManager={JSONManager}
                 />
                 <Form.Feedback type="invalid">
                   {errors.lobby_props}
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="lobby_state">
+              <Form.Group className="tw-mb-3" controlId="lobby_state">
                 <Form.Label>Default lobby state</Form.Label>
                 <Form.Select
                   name="lobby_state"
@@ -322,7 +312,7 @@ export default function MatchmakerProfileCreate({
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="lobby_hidden">
+              <Form.Group className="tw-mb-3" controlId="lobby_hidden">
                 <Form.Checkbox
                   label="Private lobby"
                   value="lobby_hidden"
@@ -335,7 +325,7 @@ export default function MatchmakerProfileCreate({
                 </Form.Feedback>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="lobby_assign_creator">
+              <Form.Group className="tw-mb-3" controlId="lobby_assign_creator">
                 <Form.Checkbox
                   label="Assign creator"
                   value="lobby_assign_creator"

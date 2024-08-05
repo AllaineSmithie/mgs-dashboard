@@ -13,10 +13,8 @@ import { Header } from './Header/Header'
 import { BreadcrumbHeaderProps } from './Header/HeaderBreadcrumb'
 import { Sidebar } from './Sidebar/Sidebar'
 import Footer from './Footer/Footer'
-import { NotificationsDropdownProps } from '../Notifications/NotificationsDropdown'
 
 export type DashboardHeaderProps = {
-  notifications?: NotificationsDropdownProps;
   breadcrumb?: BreadcrumbHeaderProps;
   profileNavDropdownMenuContent?: ReactNode;
 }
@@ -66,7 +64,7 @@ export function DashboardLayout({
   const { ref } = useResizeDetector({ onResize })
 
   return (
-    <div ref={ref} className="flex transition-colors bg-background">
+    <div ref={ref} className="tw-flex tw-transition-colors tw-bg-background">
       <Sidebar
         visibilityModeOverlay={visibilityModeOverlay}
         isShow={isShowSidebar}
@@ -76,17 +74,16 @@ export function DashboardLayout({
       >
         {sidebar.content}
       </Sidebar>
-      <div className="grow h-screen w-full flex flex-col items-stretch min-w-0">
+      <div className="tw-grow tw-h-screen tw-w-full tw-flex tw-flex-col tw-items-stretch">
         <Header
           showToggleSidebar={visibilityModeOverlay}
           toggleSidebar={toggleIsShowSidebar}
-          notificationDropdownProps={header.notifications}
           breadcrumbProps={header.breadcrumb}
           navDropdownMenuContent={header.profileNavDropdownMenuContent}
         />
 
-        <div className="grow flex flex-col md:items-center items-start overflow-auto">
-          <div className="grow w-full md:p-8 p-4 max-w-[85rem]">
+        <div className="tw-grow tw-flex tw-flex-col md:tw-items-center tw-items-start tw-overflow-auto">
+          <div className="tw-grow tw-w-full md:tw-p-8 tw-p-4 tw-max-w-[85rem]">
             {children}
           </div>
         </div>

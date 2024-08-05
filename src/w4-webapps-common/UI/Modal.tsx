@@ -53,17 +53,17 @@ function ModalRoot({
         {/* Modal wrapper */}
         <div
           className={cn(
-            'fixed inset-0 z-[10000] flex items-start justify-center',
+            'tw-fixed tw-inset-0 tw-z-[10000] tw-flex tw-items-start tw-justify-center',
           )}
         >
           {/* Scrollable wrapper around the card */}
-          <div className="flex items-start md:py-8 justify-center absolute inset-0 overflow-y-auto z-10 ">
+          <div className="tw-flex tw-items-start md:tw-py-8 tw-justify-center tw-absolute tw-inset-0 tw-overflow-y-auto tw-z-10 ">
             {/* Modal card */}
             <div
               className={cn(
-                'bg-background md:rounded-lg shadow-md md:max-w-md w-full ',
-                size === 'medium' && 'md:max-w-3xl',
-                size === 'wide' && 'md:max-w-3xl',
+                'tw-bg-background md:tw-rounded-lg tw-shadow-md md:tw-max-w-md tw-w-full ',
+                size === 'medium' && 'md:tw-max-w-3xl',
+                size === 'wide' && 'md:tw-max-w-3xl',
                 className,
               )}
             >
@@ -72,7 +72,7 @@ function ModalRoot({
           </div>
           {/* Modal background */}
           <div
-            className="absolute inset-0 bg-black opacity-50"
+            className="tw-absolute tw-inset-0 tw-bg-black tw-opacity-50"
             role="presentation"
             onClick={() => {
               if (backdrop !== 'static') {
@@ -96,7 +96,7 @@ function Header({ children, className, closeButton }: HeaderProps) {
   return (
     <div
       className={cn(
-        'flex justify-between items-center p-4 relative border-b border-border-secondary dark:border-border',
+        'tw-flex tw-justify-between tw-items-center tw-p-4 tw-relative tw-border-b tw-border-border-secondary dark:tw-border-border',
         className,
       )}
     >
@@ -104,7 +104,7 @@ function Header({ children, className, closeButton }: HeaderProps) {
       {closeButton && (
         <button
           type="button"
-          className="close-button text-foreground-secondary bg-transparent hover:text-scale-500"
+          className="close-button tw-text-foreground-secondary tw-bg-transparent hover:tw-text-scale-500"
           onClick={onHide}
         >
           <FontAwesomeIcon icon={faTimes} />
@@ -120,7 +120,7 @@ type TitleProps = {
 
 function Title({ children, className }: TitleProps) {
   return (
-    <h1 className={cn('text-2xl font-medium', className)}>{children}</h1>
+    <h1 className={cn('tw-text-2xl tw-font-medium', className)}>{children}</h1>
   )
 }
 
@@ -129,7 +129,7 @@ type BodyProps = {
 } & PropsWithChildren
 
 function Body({ children, className }: BodyProps) {
-  return <div className={cn('p-4', className)}>{children}</div>
+  return <div className={cn('tw-p-4', className)}>{children}</div>
 }
 
 type FooterProps = {
@@ -140,7 +140,7 @@ function Footer({ children, className }: FooterProps) {
   return (
     <div
       className={cn(
-        'flex gap-2 justify-end p-4 border-t border-border-secondary dark:border-border',
+        'tw-flex tw-gap-2 tw-justify-end tw-p-4 tw-border-t tw-border-border-secondary dark:tw-border-border',
         className,
       )}
     >

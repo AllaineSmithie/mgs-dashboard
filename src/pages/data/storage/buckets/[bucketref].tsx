@@ -12,24 +12,20 @@ import StorageExplorer from '@components/Storage/StorageExplorer'
 
 export default function BucketFiles() {
   const router = useRouter()
-
-  const { bucketref, selected } = router.query
-
+  const { bucketref } = router.query
   return (
     <MainLayout
       breadcrumb={{
         breadcrumb: [
           { text: 'Data' },
-          { text: 'Files Storage', href: '/data/storage/buckets' },
+          { text: 'Buckets', href: '/data/storage/buckets' },
         ],
         breadcrumbCurrentText: bucketref as string,
       }}
     >
       <StorageExplorer
         bucket={bucketref as string}
-        defaultSelected={selected as string}
         onRootClicked={() => { router.push('/data/storage/buckets') }}
-        useMultiSelect
       />
     </MainLayout>
   )

@@ -77,8 +77,8 @@ export function UpdatePasswordForm({
   }
 
   return (
-    <div className="grow flex flex-col">
-      <div className="md:grow">
+    <div className="tw-grow tw-flex tw-flex-col">
+      <div className="md:tw-grow">
         <Formik
           key={JSON.stringify(initialValues)} // Hack to force a rerender :/
           enableReinitialize
@@ -120,7 +120,7 @@ export function UpdatePasswordForm({
                   : (
                     <SubmitButton
                       isSubmitting={isSubmitting}
-                      className="w-full mt-6 mb-3"
+                      className="tw-w-full tw-mt-6 tw-mb-3"
                     >
                       Send recovery instruction
                     </SubmitButton>
@@ -139,7 +139,7 @@ export function UpdatePasswordForm({
       {
         showHomePageLink
         && (
-        <div className="text-center">
+        <div className="tw-text-center">
           <Link href={homePageHref}>
             <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
             Back to home page

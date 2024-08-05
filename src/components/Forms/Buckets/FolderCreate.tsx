@@ -14,7 +14,7 @@ import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
 import * as yup from 'yup'
 import { isStorageError } from '@supabase/storage-js'
 import type { ModalProps } from '@webapps-common/UI/Modal'
-import { ModalForm } from '@webapps-common/UI/Form/ModalForm'
+import { ModalForm } from '../Common/ModalForm'
 
 export type FolderCreated = {
   bucket: string;
@@ -112,7 +112,7 @@ export default function FolderCreate({
           isSubmitting={isSubmitting}
           modalProps={({ backdrop: 'static', ...modalProps })}
         >
-          <Form.Group className="mb-3" controlId="name">
+          <Form.Group className="tw-mb-3" controlId="name">
             <Form.Label>Folder name</Form.Label>
             <Form.Input
               name="name"
