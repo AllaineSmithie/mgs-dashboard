@@ -193,7 +193,7 @@ export default function Lobbies() {
               <div className="tw-grow">
                 <Card.Title>GDscript SDK</Card.Title>
                 <div className="tw-mt-2">
-                  Setup you project for the MGS Could services.
+                  Setup you project for the MGS Cloud services.
                 </div>
               </div>
               <div>

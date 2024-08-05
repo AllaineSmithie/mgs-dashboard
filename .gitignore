@@ -43,6 +43,4 @@ yarn-error.log*
 src/pages/temp
 .DS_Store
 /.vs/mgs-dashboard
-/.vs/ProjectSettings.json
-/.vs/slnx.sqlite
-/.vs/VSWorkspaceState.json
+/.vs
