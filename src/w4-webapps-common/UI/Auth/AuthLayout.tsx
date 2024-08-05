@@ -22,7 +22,7 @@ export function AuthLayout({
   appTitle,
   headTitle = appTitle,
   title,
-  logoHref = '/assets/brand/w4games.svg',
+  logoHref = '/assets/brand/mgs.svg',
   backgroundImageHref = '/assets/img/snes-controllers.jpg',
   children,
 } : AuthLayoutProps) {
@@ -33,7 +33,7 @@ export function AuthLayout({
     <>
       <Head>
         <title>{headTitle}</title>
-        <meta name="description" content="W4 Dashboard" />
+        <meta name="description" content="MGS Dashboard" />
         <link rel="icon" href={addBasePath('/favicon.ico')} />
       </Head>
       <div
@@ -74,7 +74,7 @@ export function AuthLayout({
                 src={logo}
                 width={200}
                 height={50}
-                alt="W4Games logo"
+                alt="MGS logo"
               />
               <h2 className="tw-mt-6 tw-font-bold tw-text-scale-300 tw-text-2xl">
                 {appTitle}
@@ -102,7 +102,7 @@ export function AuthLayout({
                 src={logo}
                 width={200}
                 height={50}
-                alt="W4Games logo"
+                alt="MGS logo"
               />
             </div>
             <div className="tw-p-7 tw-h-full tw-flex tw-flex-col">
