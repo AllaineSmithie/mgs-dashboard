@@ -9,7 +9,7 @@ import type { AppProps } from 'next/app'
 
 import { config, library, IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import { godotIcon } from '@webapps-common/icons/godot-icon'
+import { mgsIcon } from '@webapps-common/icons/mgs-icon'
 
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
 import { Session, SupabaseClient, createClient } from '@supabase/supabase-js'
@@ -33,7 +33,7 @@ const fontSans = FontSans({
   variable: '--font-sans',
 })
 
-library.add(godotIcon as IconDefinition)
+library.add(mgsIcon as IconDefinition)
 
 // You change this configuration value to false so that the Font Awesome core SVG library
 // will not try and insert <style> elements into the <head> of the page.

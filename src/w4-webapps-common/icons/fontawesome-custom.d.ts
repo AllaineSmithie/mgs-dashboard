@@ -10,5 +10,5 @@ import { IconPrefix as OriginalIconPrefix, IconName as OriginalIconName } from '
 
 declare module '@fortawesome/fontawesome-common-types' {
   export type IconPrefix = OriginalIconPrefix | 'fac'
-  export type IconName = OriginalIconName | 'godot'
+  export type IconName = OriginalIconName | 'mgs'
 }
