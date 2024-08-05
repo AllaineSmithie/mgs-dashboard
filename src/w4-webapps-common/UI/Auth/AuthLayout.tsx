@@ -22,7 +22,7 @@ export function AuthLayout({
   appTitle,
   headTitle = appTitle,
   title,
-  logoHref = '/assets/brand/w4games.svg',
+  logoHref = '/assets/brand/mgs.svg',
   backgroundImageHref = '/assets/img/mgs-background.png',
   children,
 } : AuthLayoutProps) {

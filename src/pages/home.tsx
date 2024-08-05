@@ -186,7 +186,7 @@ export default function Lobbies() {
             icon={faBookOpen}
             href={envVars?.env.RUNTIME_PUBLIC_API_DOCS_URL || ''}
           >
-            The documentation for our workspace API and our Godot SDK.
+            The documentation for our workspace API and our Metro Gaya SDK.
           </LinkCard>
           <Card>
             <Card.Body className="flex items-center gap-5">
