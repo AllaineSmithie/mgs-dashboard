@@ -23,7 +23,7 @@ export function AuthLayout({
   headTitle = appTitle,
   title,
   logoHref = '/assets/brand/mgs.svg',
-  backgroundImageHref = '/assets/img/mgs-background.png,
+  backgroundImageHref = '/assets/img/mgs-background.png',
   children,
 } : AuthLayoutProps) {
   const contentBackground = addBasePath(backgroundImageHref)
