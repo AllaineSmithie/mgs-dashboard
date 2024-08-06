@@ -22,8 +22,8 @@ export function AuthLayout({
   appTitle,
   headTitle = appTitle,
   title,
-  logoHref = '/assets/brand/mgs.svg',
-  backgroundImageHref = '/assets/img/mgs-background.png',
+  logoHref = '/assets/brand/w4games.svg',
+  backgroundImageHref = '/assets/img/snes-controllers.jpg',
   children,
 } : AuthLayoutProps) {
   const contentBackground = addBasePath(backgroundImageHref)
@@ -33,13 +33,13 @@ export function AuthLayout({
     <>
       <Head>
         <title>{headTitle}</title>
-        <meta name="description" content="MGS Dashboard" />
+        <meta name="description" content="W4 Dashboard" />
         <link rel="icon" href={addBasePath('/favicon.ico')} />
       </Head>
       <div
         className={`
-          dark:tw-bg-[linear-gradient(to_right,_rgb(19,16,14)_35%,_rgb(44,43,43)_75%)]
-          tw-bg-[radial-gradient(circle_at_center,_rgb(200,194,194)_0%,_rgb(175,163,161)_100%)]
+          dark:tw-bg-[radial-gradient(circle_at_center,_rgb(46,44,59)_0%,_rgb(34,33,41)_100%)]
+          tw-bg-[radial-gradient(circle_at_center,_rgb(195,194,200)_0%,_rgb(163,161,175)_100%)]
           tw-bg-[position:center]
           tw-bg-[length:100%]
           tw-bg-no-repeat
@@ -65,7 +65,6 @@ export function AuthLayout({
             tw-hidden
             md:tw-flex tw-flex-col
             tw-items-center
-            tw-justify-center
             `}
           >
             <div
@@ -73,9 +72,9 @@ export function AuthLayout({
             >
               <Image
                 src={logo}
-                width={240}
+                width={200}
                 height={50}
-                alt="MGS logo"
+                alt="W4Games logo"
               />
               <h2 className="tw-mt-6 tw-font-bold tw-text-scale-300 tw-text-2xl">
                 {appTitle}
@@ -83,7 +82,7 @@ export function AuthLayout({
             </div>
           </div>
 
-          <div className="tw-flex-1 tw-bg-scale-900">
+          <div className="tw-flex-1 tw-bg-surface-100">
             <div
               style={{
                 '--content-background': `url(${contentBackground})`,
@@ -94,7 +93,6 @@ export function AuthLayout({
               tw-bg-cover
               tw-flex tw-flex-col
               tw-items-center
-              tw-justify-center
               tw-flex-1
               md:tw-hidden
               tw-visible
@@ -104,10 +102,10 @@ export function AuthLayout({
                 src={logo}
                 width={200}
                 height={50}
-                alt="MGS logo"
+                alt="W4Games logo"
               />
             </div>
-            <div className="tw-p-7 tw-h-full tw-flex tw-flex-col tw-justify-center">
+            <div className="tw-p-7 tw-h-full tw-flex tw-flex-col">
               <h3 className="tw-mb-2 tw-flex-none tw-font-bold tw-text-2xl">{title}</h3>
               <div className="tw-mb-3 tw-flex-none tw-text-center tw-border-t-2 tw-border-scale-500" />
               {children}

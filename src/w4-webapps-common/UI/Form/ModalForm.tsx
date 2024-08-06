@@ -15,8 +15,6 @@ import Form from './Form'
 import Modal from '../Modal'
 import type { ModalProps } from '../Modal'
 
-type Error = { message: string }
-
 export type ModalFormProps = {
   show : boolean;
   title?: string;
@@ -62,12 +60,11 @@ export function ModalForm({
 }
 
 export type ConfirmationFormProps = {
-  execute: () => Promise<Error | Error[] | null | undefined | void>;
+  execute: () => Promise<{ message: string } | null | undefined | void>;
   failureMessage?: string;
-  successMessage?: string | null;
+  successMessage?: string;
   onFailure?: () => void;
   onSuccess?: () => void;
-  onDone?: () => void;
 } & Omit<ModalFormProps, 'onSubmit' | 'isSubmitting'>
 export function ConfirmationForm({
   show,
@@ -79,7 +76,6 @@ export function ConfirmationForm({
   successMessage = 'Success!',
   onFailure = () => {},
   onSuccess = () => {},
-  onDone = () => {},
   children = 'Are you sure ?',
   modalProps,
 }: ConfirmationFormProps) {
@@ -89,28 +85,19 @@ export function ConfirmationForm({
       show={show}
       title={title}
       confirmButtonText={confirmButtonText}
-      onCancel={() => {
-        onCancel()
-        onDone()
-      }}
+      onCancel={onCancel}
       onSubmit={async (event: React.FormEvent) => {
         event.preventDefault()
         setSubmitting(true)
         const error = await execute()
         setSubmitting(false)
-        const errors = (Array.isArray(error) ? error : [error]).filter((x) => (typeof x === 'object' && !Array.isArray(x) && x !== null)) as Error[]
-        if (errors.length > 0) {
-          errors.forEach((e) => {
-            toast.error(`${failureMessage}. Error: ${e.message}`)
-          })
+        if (error) {
+          toast.error(`${failureMessage}. Error: ${error.message}`)
           onFailure()
         } else {
-          if (successMessage) {
-            toast.success(successMessage)
-          }
+          toast.success(successMessage)
           onSuccess()
         }
-        onDone()
       }}
       isSubmitting={submitting}
       modalProps={modalProps}
@@ -122,7 +109,7 @@ export function ConfirmationForm({
 
 export type DeleteConfirmationFormProps = {
   show: boolean;
-  execute: () => Promise<Error | Error[] | null | undefined | void>;
+  execute: () => Promise<{ message: string } | null | undefined | void>;
 } & Partial<ConfirmationFormProps>
 export function DeleteConfirmationForm({
   execute,

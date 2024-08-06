@@ -186,14 +186,14 @@ export default function Lobbies() {
             icon={faBookOpen}
             href={envVars?.env.RUNTIME_PUBLIC_API_DOCS_URL || ''}
           >
-            The documentation for our workspace API and the MGS-SDK.
+            The documentation for our workspace API and our Godot SDK.
           </LinkCard>
           <Card>
             <Card.Body className="tw-flex tw-items-center tw-gap-5">
               <div className="tw-grow">
                 <Card.Title>GDscript SDK</Card.Title>
                 <div className="tw-mt-2">
-                  Setup you project for the MGS Cloud services.
+                  Setup you project for the W4Could services.
                 </div>
               </div>
               <div>
