@@ -42,5 +42,4 @@ yarn-error.log*
 # Test pages
 src/pages/temp
 .DS_Store
-/.vs/mgs-dashboard
 /.vs
