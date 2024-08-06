@@ -109,7 +109,7 @@ export default function MainLayout({
     <>
       Powered by
       {' '}
-      <a className="tw-no-underline" href="https://w4games.com">W4Games</a>
+      <a className="tw-no-underline" href="https://deadline-entertainment.com">Metro Gaya Systems</a>
     </>
   )
 
@@ -122,7 +122,7 @@ export default function MainLayout({
     >
       <Head>
         <title>W4 Dashboard</title>
-        <meta name="description" content="W4 Dashboard" />
+        <meta name="description" content="MGS Dashboard" />
         <link rel="icon" href={addBasePath('/favicon.ico')} />
       </Head>
       <DashboardLayout
@@ -131,9 +131,9 @@ export default function MainLayout({
           breadcrumb,
         }}
         sidebar={{
-          logoAltText: 'W4games Logo',
-          logoFullHref: addBasePath('/assets/brand/w4games-workspace.svg'),
-          logoSmallHref: addBasePath('/assets/brand/w4games-small.svg'),
+          logoAltText: 'Metro Gaya Logo',
+          logoFullHref: addBasePath('/assets/brand/mgs-workspace.svg'),
+          logoSmallHref: addBasePath('/assets/brand/mgs-small.svg'),
           content: sidebarNav,
         }}
         footer={{

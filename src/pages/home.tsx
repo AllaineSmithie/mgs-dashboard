@@ -156,7 +156,7 @@ export default function Lobbies() {
                 </div>
                 <div className="tw-grow tw-flex tw-flex-col">
                   <div className="tw-font-bold">Game servers</div>
-                  <div className="tw-grow">Run your game servers on the W4Cloud infrastructure.</div>
+                  <div className="tw-grow">Run your game servers on the Metro Gaya Cloud infrastructure.</div>
                   <div className="tw-flex tw-gap-2 tw-mt-3">
                     <Link href="/multiplayer/servers/">
                       <Button className="tw-px-2 tw-py-1">
@@ -186,7 +186,7 @@ export default function Lobbies() {
             icon={faBookOpen}
             href={envVars?.env.RUNTIME_PUBLIC_API_DOCS_URL || ''}
           >
-            The documentation for our workspace API and our Godot SDK.
+            The documentation for our workspace API and the Metro Gaya SDK.
           </LinkCard>
           <Card>
             <Card.Body className="tw-flex tw-items-center tw-gap-5">

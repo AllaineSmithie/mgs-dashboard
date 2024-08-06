@@ -5,10 +5,10 @@
 @layer base {
   a {
     text-decoration: underline;
-    color: #493f72;
+    color: #72493f;
   }
   [data-bs-theme='dark'] a {
-    color: #928caa;
+    color: aa8c8c;
   }
   .scrollbar-no-borders::-webkit-scrollbar-track {
     background-color: #FAFAFA;
