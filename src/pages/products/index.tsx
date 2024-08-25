@@ -47,7 +47,7 @@ export default function Products() {
 function ProductList({ itemsPerPage = 30 }) {
   const router = useRouter()
   const sessionContext = useSessionContext()
-  const [products, setProducts] = useState<(Product & { banned_until?: string })[]>([])
+  //const [products, setProducts] = useState<(Product & { banned_until?: string })[]>([])
 
   // List counts
   const [pageOffset, setPageOffset] = useState(0)
@@ -71,7 +71,7 @@ function ProductList({ itemsPerPage = 30 }) {
     //})
     //if (res.error) {
     //  toast.error(`Could not access user list: ${res.error?.message}`)
-      setProducts([])
+      //setProducts([])
       setPageCount(1)
       setTotalCount(0)
       return
@@ -119,7 +119,7 @@ function ProductList({ itemsPerPage = 30 }) {
         onClose={() => setProductCreateVisible(false)}
         onSave={() => {
           setProductCreateVisible(false)
-          fetchProduct()
+          //fetchProduct()
         }}
       />
       <div className="tw-flex tw-justify-between tw-items-center tw-mb-3">
@@ -130,7 +130,7 @@ function ProductList({ itemsPerPage = 30 }) {
           {' '}
           to
           {' '}
-          <span className="tw-font-semibold">{pageOffset + products.length}</span>
+          <span className="tw-font-semibold">{pageOffset + 0}</span>
           {' '}
           of
           {' '}
@@ -164,50 +164,7 @@ function ProductList({ itemsPerPage = 30 }) {
           </Table.HeaderRow>
         </Table.Header>
         <Table.Body>
-          {products.map((product) => {
-            
-            return (
-              <Table.Row
-                key={product.id}
-                selected={selected === product.id}
-              >
-                <Table.DataCell className="tw-font-medium tw-text-foreground">
-                  {product.name}
-                </Table.DataCell>
-                <Table.DataCell>
-                  {dateFormat(product.created_at)}
-                </Table.DataCell>
-                <Table.DataCell>
-                  {product.state}
-                </Table.DataCell>
-                <Table.DataCell alignItems="right">
-                  <Table.ActionsDropdownToggle>
-                    
-                    <Table.ActionsDropdownToggle.Item
-                      onClick={() => {
-                        setProductToUpdate(product)
-                        setProductUpdateVisible(true)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faEdit} fixedWidth />
-                      {' '}
-                      Edit
-                    </Table.ActionsDropdownToggle.Item>
-                    <Table.ActionsDropdownToggle.Item
-                      onClick={() => {
-                        setProductToDelete(product)
-                        setProductDeleteVisible(true)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faTrash} fixedWidth />
-                      {' '}
-                      Delete
-                    </Table.ActionsDropdownToggle.Item>
-                  </Table.ActionsDropdownToggle>
-                </Table.DataCell>
-              </Table.Row>
-            )
-          })}
+          
         </Table.Body>
       </Table>
 
