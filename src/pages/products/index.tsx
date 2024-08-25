@@ -16,12 +16,12 @@ import Table from '@webapps-common/UI/Table/Table'
 import Pagination from '@webapps-common/UI/Pagination'
 // import { toast } from 'react-toastify'
 import {
-  useSessionContext,
+  // useSessionContext,
   useSupabaseClient,
 } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
-import { DateTime } from 'luxon'
-import humanizeDuration from 'humanize-duration'
+// import { DateTime } from 'luxon'
+// import humanizeDuration from 'humanize-duration'
 // import { User } from '@supabase/gotrue-js'
 // import { addBasePath } from 'next/dist/client/add-base-path'
 import ProductCreate from '@components/Forms/Products/ProductCreate'
@@ -82,21 +82,21 @@ function ProductList({ itemsPerPage = 30 }) {
   }, [fetchProducts])
 
   useEffect(() => {
-    const selectedFromQuery = router.query?.selected as string
+    // const selectedFromQuery = router.query?.selected as string
     // if (selectedFromQuery) {
     //  setSelected(selectedFromQuery)
     // }
   }, [router.query])
 
   // const dateFormat = (dateTimestamp: string) => {
-    // const date = DateTime.fromISO(dateTimestamp)
-    // const diff = DateTime.now().diff(date)
-    // return `${date.toFormat('kkkk-MM-dd')} at ${date.toFormat('HH:mm')} (${
-    //   humanizeDuration(diff.toMillis(), {
-    //     largest: 1,
-    //     round: true,
-    //     units: ['y', 'd', 'h', 'm', 's'],
-    //   })} ago )`
+  //   const date = DateTime.fromISO(dateTimestamp)
+  //   const diff = DateTime.now().diff(date)
+  //   return `${date.toFormat('kkkk-MM-dd')} at ${date.toFormat('HH:mm')} (${
+  //     humanizeDuration(diff.toMillis(), {
+  //       largest: 1,
+  //       round: true,
+  //       units: ['y', 'd', 'h', 'm', 's'],
+  //    })} ago )`
   // }
 
   // const isBanned = (bannedUntil: string) => {
@@ -145,7 +145,7 @@ function ProductList({ itemsPerPage = 30 }) {
             <FontAwesomeIcon icon={faPlus} fixedWidth />
             {' '}
             New product
-          </Button>          
+          </Button>
         </div>
       </div>
       <Table>
@@ -159,8 +159,6 @@ function ProductList({ itemsPerPage = 30 }) {
             <Table.HeaderCell className="tw-w-4" />
           </Table.HeaderRow>
         </Table.Header>
-        <Table.Body>
-        </Table.Body>
       </Table>
       <div className="tw-flex tw-justify-end tw-mt-3">
         <Pagination
