@@ -7,17 +7,17 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEdit,
-  faGavel,
+//  faEdit,
+//  faGavel,
   faPlus,
-  faTrash,
+//  faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import React, {
   useEffect, useState, useCallback,
 } from 'react'
 import Table from '@webapps-common/UI/Table/Table'
 import Pagination from '@webapps-common/UI/Pagination'
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 import {
   useSessionContext,
   useSupabaseClient,
@@ -25,8 +25,8 @@ import {
 import { useRouter } from 'next/router'
 import { DateTime } from 'luxon'
 import humanizeDuration from 'humanize-duration'
-import { User } from '@supabase/gotrue-js'
-import { addBasePath } from 'next/dist/client/add-base-path'
+// import { User } from '@supabase/gotrue-js'
+// import { addBasePath } from 'next/dist/client/add-base-path'
 import ProductCreate from '@components/Forms/Products/ProductCreate'
 import MainLayout from '@components/MainLayout'
 import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
@@ -64,21 +64,21 @@ function ProductList({ itemsPerPage = 30 }) {
   const supabase = useSupabaseClient()
 
   const fetchProducts = useCallback(async () => {
-    const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
-    //const res = await supabaseAuthAdmin.listUsers({
+    // const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
+    // const res = await supabaseAuthAdmin.listUsers({
     //  page: pageOffset + 1,
     //  perPage: itemsPerPage,
-    //})
-    //if (res.error) {
+    // })
+    // if (res.error) {
     //  toast.error(`Could not access user list: ${res.error?.message}`)
-      //setProducts([])
-      setPageCount(1)
-      setTotalCount(0)
-      return
-    //}
-    //setProducts(res.data.users)
-    //setPageCount(res.data.lastPage)
-    //setTotalCount(res.data.total)
+    //  setProducts([])
+    setPageCount(1)
+    setTotalCount(0)
+    return
+    // }
+    // setProducts(res.data.users)
+    // setPageCount(res.data.lastPage)
+    // setTotalCount(res.data.total)
   }, [pageOffset, itemsPerPage, supabase])
 
   useEffect(() => {
@@ -119,7 +119,7 @@ function ProductList({ itemsPerPage = 30 }) {
         onClose={() => setProductCreateVisible(false)}
         onSave={() => {
           setProductCreateVisible(false)
-          //fetchProduct()
+          // fetchProduct()
         }}
       />
       <div className="tw-flex tw-justify-between tw-items-center tw-mb-3">

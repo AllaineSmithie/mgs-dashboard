@@ -8,13 +8,13 @@
 import Button from '@webapps-common/UI/Button'
 import Form from '@webapps-common/UI/Form/Form'
 import React from 'react'
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 import {
   useSupabaseClient,
 } from '@supabase/auth-helpers-react'
 import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
 import * as yup from 'yup'
-import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
+// import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
 import Modal from '@webapps-common/UI/Modal'
 
 type ProductCreateProps = {
@@ -25,7 +25,7 @@ type ProductCreateProps = {
 export default function ProductCreate({
   show,
   onClose,
-  onSave = onClose,
+  // onSave = onClose,
 }: ProductCreateProps) {
   const supabase = useSupabaseClient()
 
@@ -49,25 +49,25 @@ export default function ProductCreate({
 
   // Submit the form to the server.
   const onSubmit : FormikConfig<typeof initialValues>['onSubmit'] = async (values, { resetForm }) => {
-    const preparedValues = schema.cast(prepareDataForValidation(values))
+    // const preparedValues = schema.cast(prepareDataForValidation(values))
 
     // To Do ->
     // Create a Product.
-    const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
-    //const res = await supabaseAuthAdmin.createUser({
+    // const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
+    // const res = await supabaseAuthAdmin.createUser({
     //  email: preparedValues.email,
     //  password: preparedValues.password,
     //  email_confirm: preparedValues.email_confirm ? true : undefined,
     //  role: preparedValues.service_role ? 'service_role' : 'authenticated',
-    //} as object)
+    // } as object)
 
-    //if (res.error) {
+    // if (res.error) {
     //  toast.error(`Could not create user: ${res.error?.message}`)
       return
-    //}
-    //toast.success('User successfully created')
-    //onSave()
-    resetForm()
+    // }
+    // toast.success('User successfully created')
+    // onSave()
+    // resetForm()
   }
 
   return (

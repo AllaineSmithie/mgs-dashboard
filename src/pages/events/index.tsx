@@ -7,17 +7,14 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEdit,
-  faGavel,
   faPlus,
-  faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import React, {
   useEffect, useState, useCallback,
 } from 'react'
 import Table from '@webapps-common/UI/Table/Table'
 import Pagination from '@webapps-common/UI/Pagination'
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 import {
   useSessionContext,
   useSupabaseClient,
@@ -25,11 +22,11 @@ import {
 import { useRouter } from 'next/router'
 import { DateTime } from 'luxon'
 import humanizeDuration from 'humanize-duration'
-import { User } from '@supabase/gotrue-js'
-import { addBasePath } from 'next/dist/client/add-base-path'
+// import { User } from '@supabase/gotrue-js'
+// import { addBasePath } from 'next/dist/client/add-base-path'
 import EventCreate from '@components/Forms/Events/EventCreate'
 import MainLayout from '@components/MainLayout'
-import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
+// import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
 import Button from '@webapps-common/UI/Button'
 
 export default function Events() {
@@ -64,21 +61,21 @@ function EventList({ itemsPerPage = 30 }) {
   const supabase = useSupabaseClient()
 
   const fetchEvents = useCallback(async () => {
-    const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
-    //const res = await supabaseAuthAdmin.listUsers({
+    // const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
+    // const res = await supabaseAuthAdmin.listUsers({
     //  page: pageOffset + 1,
     //  perPage: itemsPerPage,
-    //})
-    //if (res.error) {
+    // })
+    // if (res.error) {
     //  toast.error(`Could not access user list: ${res.error?.message}`)
-      //setEvents([])
-      setPageCount(1)
-      setTotalCount(0)
-      return
-    //}
-    //setEvents(res.data.users)
-    //setPageCount(res.data.lastPage)
-    //setTotalCount(res.data.total)
+    //  setEvents([])
+    setPageCount(1)
+    setTotalCount(0)
+    return
+    // }
+    // setEvents(res.data.users)
+    // setPageCount(res.data.lastPage)
+    // setTotalCount(res.data.total)
   }, [pageOffset, itemsPerPage, supabase])
 
   useEffect(() => {
@@ -119,7 +116,7 @@ function EventList({ itemsPerPage = 30 }) {
         onClose={() => setEventCreateVisible(false)}
         onSave={() => {
           setEventCreateVisible(false)
-          //fetchEvent()
+          // fetchEvent()
         }}
       />
       <div className="tw-flex tw-justify-between tw-items-center tw-mb-3">
