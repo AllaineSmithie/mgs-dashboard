@@ -9,9 +9,9 @@ import Button from '@webapps-common/UI/Button'
 import Form from '@webapps-common/UI/Form/Form'
 import React from 'react'
 // import { toast } from 'react-toastify'
-import {
-  useSupabaseClient,
-} from '@supabase/auth-helpers-react'
+// import {
+//   useSupabaseClient,
+// } from '@supabase/auth-helpers-react'
 import { Formik, FormikConfig } from 'formik'
 import * as yup from 'yup'
 // import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
@@ -27,7 +27,7 @@ export default function ProductCreate({
   onClose,
   // onSave = onClose,
 }: ProductCreateProps) {
-  const supabase = useSupabaseClient()
+  // const supabase = useSupabaseClient()
 
   // Set the form validation schema.
   const shape = {
@@ -49,10 +49,11 @@ export default function ProductCreate({
 
   // Submit the form to the server.
   const onSubmit : FormikConfig<typeof initialValues>['onSubmit'] = async (values, { resetForm }) => {
+    yup.printValue(values)
     // const preparedValues = schema.cast(prepareDataForValidation(values))
 
     // To Do ->
-    // Create a Product.
+    // Create an Event.
     // const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
     // const res = await supabaseAuthAdmin.createUser({
     //  email: preparedValues.email,
@@ -63,11 +64,11 @@ export default function ProductCreate({
 
     // if (res.error) {
     //  toast.error(`Could not create user: ${res.error?.message}`)
-    return
+    // return
     // }
     // toast.success('User successfully created')
     // onSave()
-    // resetForm()
+    resetForm()
   }
 
   return (
