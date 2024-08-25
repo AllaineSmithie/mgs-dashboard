@@ -11,7 +11,6 @@ import MainLayout from '@components/MainLayout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   IconDefinition,
-  faBarcode,
   faBookOpen,
   faChevronRight,
   faCog,
@@ -78,41 +77,137 @@ export default function Lobbies() {
   return (
     <MainLayout
       breadcrumb={{
-        breadcrumbCurrentText: 'Home',
+        breadcrumbCurrentText: 'Admin Main',
       }}
     >
       <div className="tw-flex tw-flex-col tw-gap-3 tw-h-full">
         <div className="tw-prose dark:tw-prose-invert">
-          <h2>Welcome to your dashboard</h2>
+          <h2>Admin Main Page</h2>
         </div>
 
         <div>
-          <h3 className="tw-text-xl tw-mt-7">Inventory and Events</h3>
+          <h3 className="tw-text-xl tw-mt-7">Players and data</h3>
         </div>
         <div className="tw-grid md:tw-grid-cols-3 tw-gap-3 tw-justify-items-stretch">
           <LinkCard
-            title="Products"
-            icon={faBarcode}
-            href="/products/"
-          >
-            Manage products.
-          </LinkCard>
-          <LinkCard
-            title="Events"
-            icon={faTable}
-            href="/events/"
-          >
-            Manage Events.
-          </LinkCard>
-          <LinkCard
-            title="Customers"
+            title="Users"
             icon={faUsers}
             href="/users/"
           >
-            Manage customers.
+            Manage users.
+          </LinkCard>
+          <LinkCard
+            title="Database"
+            icon={faTable}
+            href="/data/database/"
+          >
+            Manage tables and rows.
+          </LinkCard>
+          <LinkCard
+            title="Storage"
+            icon={faWarehouse}
+            href="/data/storage/buckets/"
+          >
+            Upload and manage files.
           </LinkCard>
         </div>
-        
+        <div>
+          <h3 className="tw-text-xl tw-mt-7">Multiplayer</h3>
+        </div>
+        <div className="tw-grid md:tw-grid-cols-2 tw-gap-3">
+          <div className="tw-grid tw-grid-cols-4 tw-gap-3">
+            <NumberCard count={userCount} text="Users in lobbies" zeroCountText="No user in lobbies" />
+            <Card className="tw-col-span-3">
+              <Card.Body className="tw-flex tw-gap-3 tw-h-full">
+                <div>
+                  <div className="tw-min-w-[3rem] tw-min-h-[3rem] tw-flex tw-items-center tw-justify-center">
+                    <FontAwesomeIcon icon={faPeopleArrows} className="tw-h-[2rem] tw-w-[2rem]" />
+                  </div>
+                </div>
+                <div className="tw-grow">
+                  <div className="tw-font-bold">Matchmaking</div>
+                  Group your users together and bring them into a game.
+                  <div className="tw-flex tw-gap-2 tw-mt-3">
+                    <Link href="/multiplayer/lobbies/">
+                      <Button className="tw-px-2 tw-py-1">
+                        <FontAwesomeIcon icon={faList} />
+                        Lobbies list
+                      </Button>
+                    </Link>
+                    <Link href="/multiplayer/fleets/">
+                      <Button className="tw-px-2 tw-py-1">
+                        <FontAwesomeIcon icon={faCog} />
+                        Configure
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </div>
+          <div className="tw-grid tw-grid-cols-4 tw-gap-3">
+            <NumberCard count={gameserverCount} text="Active game servers" zeroCountText="No active game server" className="dark:tw-bg-teal-800 tw-bg-teal-700" />
+            <Card className="tw-col-span-3">
+              <Card.Body className="tw-flex tw-gap-3 tw-h-full">
+                <div>
+                  <div className="tw-min-w-[3rem] tw-min-h-[3rem] tw-flex tw-items-center tw-justify-center">
+                    <FontAwesomeIcon icon={faServer} className="tw-h-[2rem] tw-w-[2rem]" />
+                  </div>
+                </div>
+                <div className="tw-grow tw-flex tw-flex-col">
+                  <div className="tw-font-bold">Game servers</div>
+                  <div className="tw-grow">Run your game servers on the Metro Gaya Cloud infrastructure.</div>
+                  <div className="tw-flex tw-gap-2 tw-mt-3">
+                    <Link href="/multiplayer/servers/">
+                      <Button className="tw-px-2 tw-py-1">
+                        <FontAwesomeIcon icon={faList} />
+                        Game servers list
+                      </Button>
+                    </Link>
+                    <Link href="/multiplayer/matchmaker/">
+                      <Button className="tw-px-2 tw-py-1">
+                        <FontAwesomeIcon icon={faCog} />
+                        Configure
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="tw-text-xl tw-mt-7">Getting started</h3>
+        </div>
+        <div className="tw-grid md:tw-grid-cols-2 tw-gap-3">
+          <LinkCard
+            title="Documentation"
+            icon={faBookOpen}
+            href={envVars?.env.RUNTIME_PUBLIC_API_DOCS_URL || ''}
+          >
+            The documentation for our workspace API and the Metro Gaya SDK.
+          </LinkCard>
+          <Card>
+            <Card.Body className="tw-flex tw-items-center tw-gap-5">
+              <div className="tw-grow">
+                <Card.Title>GDscript SDK</Card.Title>
+                <div className="tw-mt-2">
+                  Setup you project for the W4Could services.
+                </div>
+              </div>
+              <div>
+                <a href="https://gitlab.com/W4Games/sdk/w4gd/-/releases" target="_blank" rel="noopener noreferrer">
+                  <Button className="tw-p-3">
+                    Download
+                    {' '}
+                    <FontAwesomeIcon icon={faDownload} />
+                  </Button>
+                </a>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     </MainLayout>
   )

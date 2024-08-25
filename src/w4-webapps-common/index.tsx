@@ -5,15 +5,17 @@
 /* SPDX-License-Identifier: AGPL-3.0-only                                */
 /*************************************************************************/
 
-import { SidebarNavGroup, SidebarNavItem, SidebarNavTitle } from './UI/DashboardLayout/Sidebar/SidebarNav'
+import { SidebarNavGroup, SidebarNavGroupInner, SidebarNavItem, SidebarNavTitle, SidebarNavTitleInner } from './UI/DashboardLayout/Sidebar/SidebarNav'
 
 import LoadingPage from './UI/LoadingPage'
 import UnauthorizedPage from './UI/UnauthorizedPage'
 
 const SidebarNav = {
   Title: SidebarNavTitle,
+  TitleInner: SidebarNavTitleInner,
   Item: SidebarNavItem,
   Group: SidebarNavGroup,
+  GroupInner: SidebarNavGroupInner,
 }
 export {
   SidebarNav,
