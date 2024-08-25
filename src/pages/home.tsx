@@ -17,13 +17,13 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 import {
-  PropsWithChildren, ReactElement, useCallback, useEffect, useState,
+  PropsWithChildren, ReactElement, useCallback, useEffect,
 } from 'react'
 import withSchema from '@services/withSchema'
 import { toast } from 'react-toastify'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import cn from '@webapps-common/utils/classNamesMerge'
-import { useRuntimeEnvVars } from '@webapps-common/utils/runtimeEnvVarsEndpoint'
+//import { useRuntimeEnvVars } from '@webapps-common/utils/runtimeEnvVarsEndpoint'
 
 type Fleet = {
   name: number;
@@ -50,7 +50,7 @@ export default function Lobbies() {
     })
     if (res.error) {
       toast.error(`Request failed: ${res.error?.message}`)
-      return
+      // return
     }
     // setUserCount(res.data.players)
   }, [supabase])
@@ -62,9 +62,9 @@ export default function Lobbies() {
       return
     }
 
-    const readyGameservers = (res.data as Fleet[])
-      .map((fleet) => fleet.nb_replicas)
-      .reduce((a, b) => a + b, 0)
+    // const readyGameservers = (res.data as Fleet[])
+    //  .map((fleet) => fleet.nb_replicas)
+    //  .reduce((a, b) => a + b, 0)
     // setGameserverCount(readyGameservers)
   }, [supabase])
 
@@ -110,7 +110,6 @@ export default function Lobbies() {
             Manage customers.
           </LinkCard>
         </div>
-        
       </div>
     </MainLayout>
   )
@@ -148,48 +147,5 @@ function LinkCard({
         </Card.Body>
       </Card>
     </Link>
-  )
-}
-
-type NumberCardProps = {
-  count?: number;
-  text: string;
-  zeroCountText?: string;
-  className?: string;
-}
-function NumberCard({
-  count,
-  text,
-  zeroCountText,
-  className,
-} : NumberCardProps) {
-  let content : ReactElement | null
-  if (count == null) {
-    content = null
-  } else if (!zeroCountText || count > 0) {
-    content = (
-      <>
-        <div className="tw-text-6xl">
-          {count}
-        </div>
-        <div className="tw-text-sm tw-grow tw-text-center tw-uppercase">
-          {text}
-        </div>
-      </>
-    )
-  } else {
-    content = (
-      <div className="tw-text-sm tw-grow tw-text-center tw-uppercase tw-flex tw-flex-col tw-place-content-center">
-        {zeroCountText}
-      </div>
-    )
-  }
-
-  return (
-    <Card className={cn('tw-basis-1/3 dark:tw-bg-yellow-800 tw-bg-yellow-700 tw-text-white tw-border-0', className)}>
-      <Card.Body className="tw-flex tw-flex-col tw-h-full tw-items-center tw-gap-3">
-        {content}
-      </Card.Body>
-    </Card>
   )
 }
