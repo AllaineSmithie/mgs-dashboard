@@ -12,12 +12,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   IconDefinition,
   faBarcode,
-  faBookOpen,
   faChevronRight,
-  faCog,
-  faDownload, faList, faPeopleArrows, faServer, faTable, faUsers, faWarehouse,
+  faTable,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons'
-import Button from '@webapps-common/UI/Button'
 import {
   PropsWithChildren, ReactElement, useCallback, useEffect, useState,
 } from 'react'
@@ -35,10 +33,10 @@ type Fleet = {
 }
 
 export default function Lobbies() {
-  const [userCount, setUserCount] = useState<number | undefined>(undefined)
-  const [gameserverCount, setGameserverCount] = useState<number | undefined>(undefined)
+  // const [userCount, setUserCount] = useState<number | undefined>(undefined)
+  // const [gameserverCount, setGameserverCount] = useState<number | undefined>(undefined)
 
-  const envVars = useRuntimeEnvVars()
+  // const envVars = useRuntimeEnvVars()
 
   const supabase = useSupabaseClient()
 
@@ -54,7 +52,7 @@ export default function Lobbies() {
       toast.error(`Request failed: ${res.error?.message}`)
       return
     }
-    setUserCount(res.data.players)
+    // setUserCount(res.data.players)
   }, [supabase])
 
   const fetchGameserverCountCount = useCallback(async () => {
@@ -67,7 +65,7 @@ export default function Lobbies() {
     const readyGameservers = (res.data as Fleet[])
       .map((fleet) => fleet.nb_replicas)
       .reduce((a, b) => a + b, 0)
-    setGameserverCount(readyGameservers)
+    // setGameserverCount(readyGameservers)
   }, [supabase])
 
   useEffect(() => {

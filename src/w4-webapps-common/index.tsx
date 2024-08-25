@@ -6,12 +6,12 @@
 /*************************************************************************/
 
 import {
-   SidebarNavGroup, 
-   SidebarNavGroupInner, 
-   SidebarNavItem, 
-   SidebarNavTitle,
-   SidebarNavTitleInner 
-  } from './UI/DashboardLayout/Sidebar/SidebarNav'
+  SidebarNavGroup, 
+  SidebarNavGroupInner, 
+  SidebarNavItem, 
+  SidebarNavTitle,
+  SidebarNavTitleInner,
+} from './UI/DashboardLayout/Sidebar/SidebarNav'
 
 import LoadingPage from './UI/LoadingPage'
 import UnauthorizedPage from './UI/UnauthorizedPage'
