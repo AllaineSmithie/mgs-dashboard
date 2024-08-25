@@ -18,10 +18,8 @@ export default function Pages() {
   )
 }
 
-
 function PagesList() {
-    return (
-      <div>
-      </div>
-    )
+  return (
+    <div/>
+  )
 }
