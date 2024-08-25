@@ -17,21 +17,13 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 import {
-  PropsWithChildren, ReactElement, useCallback, useEffect,
+  PropsWithChildren, useCallback, useEffect,
 } from 'react'
 import withSchema from '@services/withSchema'
 import { toast } from 'react-toastify'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import cn from '@webapps-common/utils/classNamesMerge'
-//import { useRuntimeEnvVars } from '@webapps-common/utils/runtimeEnvVarsEndpoint'
-
-type Fleet = {
-  name: number;
-  in_use: number;
-  nb_replicas: number;
-  max_replicas: number;
-}
-
+// import cn from '@webapps-common/utils/classNamesMerge'
+// import { useRuntimeEnvVars } from '@webapps-common/utils/runtimeEnvVarsEndpoint'
 export default function Lobbies() {
   // const [userCount, setUserCount] = useState<number | undefined>(undefined)
   // const [gameserverCount, setGameserverCount] = useState<number | undefined>(undefined)
@@ -59,7 +51,7 @@ export default function Lobbies() {
     const res = await withSchema(supabase, 'w4online').rpc('fleet_get_all')
     if (res.error) {
       toast.error(`Request failed: ${res.error?.message}`)
-      return
+      // return
     }
 
     // const readyGameservers = (res.data as Fleet[])

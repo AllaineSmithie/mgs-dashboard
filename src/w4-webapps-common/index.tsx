@@ -6,9 +6,9 @@
 /*************************************************************************/
 
 import {
-  SidebarNavGroup, 
-  SidebarNavGroupInner, 
-  SidebarNavItem, 
+  SidebarNavGroup,
+  SidebarNavGroupInner,
+  SidebarNavItem,
   SidebarNavTitle,
   SidebarNavTitleInner,
 } from './UI/DashboardLayout/Sidebar/SidebarNav'
