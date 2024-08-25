@@ -198,10 +198,10 @@ function SidebarNavGroupInnerToggle({
   const context = useContext(SideBarNavGroupContext)
   return (
     <div className={cn(
-          'tw-py-2 tw-ps-4 tw-pe-4 tw-text-scale-400 hover:tw-bg-brand-500 hover:tw-text-scale-200',
-          { 'tw-ps-8': context },
-        )}
-        >
+      'tw-py-2 tw-ps-4 tw-pe-4 tw-text-scale-400 hover:tw-bg-brand-500 hover:tw-text-scale-200',
+      { 'tw-ps-8': context },
+    )}
+    >
       <button
         type="button"
         className="tw-w-full tw-p-0 tw-flex tw-items-center tw-text-start tw-bg-transparent"
