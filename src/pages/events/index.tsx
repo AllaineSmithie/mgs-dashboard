@@ -43,8 +43,8 @@ export default function Events() {
 
 function EventList({ itemsPerPage = 30 }) {
   const router = useRouter()
-  const sessionContext = useSessionContext()
-  //const [events, setEvents] = useState<(Event & { banned_until?: string })[]>([])
+  // const sessionContext = useSessionContext()
+  // const [events, setEvents] = useState<(Event & { banned_until?: string })[]>([])
 
   // List counts
   const [pageOffset, setPageOffset] = useState(0)
@@ -54,9 +54,8 @@ function EventList({ itemsPerPage = 30 }) {
   // Modals
   const [eventCreateVisible, setEventCreateVisible] = useState(false)
 
-
   // Selected
-  const [selected, setSelected] = useState<string>('')
+  // const [selected, setSelected] = useState<string>('')
 
   const supabase = useSupabaseClient()
 
@@ -71,7 +70,7 @@ function EventList({ itemsPerPage = 30 }) {
     //  setEvents([])
     setPageCount(1)
     setTotalCount(0)
-    return
+    // return
     // }
     // setEvents(res.data.users)
     // setPageCount(res.data.lastPage)
@@ -84,40 +83,40 @@ function EventList({ itemsPerPage = 30 }) {
 
   useEffect(() => {
     const selectedFromQuery = router.query?.selected as string
-    if (selectedFromQuery) {
-      setSelected(selectedFromQuery)
-    }
+    // if (selectedFromQuery) {
+    //  setSelected(selectedFromQuery)
+    // }
   }, [router.query])
 
-  const dateFormat = (dateTimestamp: string) => {
-    const date = DateTime.fromISO(dateTimestamp)
-    const diff = DateTime.now().diff(date)
-    return `${date.toFormat('kkkk-MM-dd')} at ${date.toFormat('HH:mm')} (${
-      humanizeDuration(diff.toMillis(), {
-        largest: 1,
-        round: true,
-        units: ['y', 'd', 'h', 'm', 's'],
-      })} ago )`
-  }
+  // const dateFormat = (dateTimestamp: string) => {
+    // const date = DateTime.fromISO(dateTimestamp)
+    // const diff = DateTime.now().diff(date)
+    // return `${date.toFormat('kkkk-MM-dd')} at ${date.toFormat('HH:mm')} (${
+    //   humanizeDuration(diff.toMillis(), {
+    //     largest: 1,
+    //     round: true,
+    //     units: ['y', 'd', 'h', 'm', 's'],
+    //   })} ago )`
+  // }
 
-  const isBanned = (bannedUntil: string) => {
-    if (!bannedUntil) {
-      return false
-    }
-    const bannedUntildate = DateTime.fromISO(bannedUntil)
-    // TODO: ideally, check against the server time instead, but requires changes to gotrue-js
-    return bannedUntildate > DateTime.now()
-  }
+  // const isBanned = (bannedUntil: string) => {
+  //   if (!bannedUntil) {
+  //     return false
+  //   }
+  //   const bannedUntildate = DateTime.fromISO(bannedUntil)
+  // TODO: ideally, check against the server time instead, but requires changes to gotrue-js
+  //   return bannedUntildate > DateTime.now()
+  // }
 
   return (
     <div>
       <EventCreate
         show={eventCreateVisible}
         onClose={() => setEventCreateVisible(false)}
-        onSave={() => {
-          setEventCreateVisible(false)
-          // fetchEvent()
-        }}
+        // onSave={() => {
+        //   setEventCreateVisible(false)
+        //  fetchEvent()
+        // }}
       />
       <div className="tw-flex tw-justify-between tw-items-center tw-mb-3">
         <div>
@@ -161,10 +160,8 @@ function EventList({ itemsPerPage = 30 }) {
           </Table.HeaderRow>
         </Table.Header>
         <Table.Body>
-          
         </Table.Body>
       </Table>
-
       <div className="tw-flex tw-justify-end tw-mt-3">
         <Pagination
           pageOffset={pageOffset}

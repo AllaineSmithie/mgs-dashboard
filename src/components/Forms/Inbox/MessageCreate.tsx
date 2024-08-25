@@ -12,7 +12,7 @@ import React from 'react'
 import {
   useSupabaseClient,
 } from '@supabase/auth-helpers-react'
-import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
+import { Formik, FormikConfig } from 'formik'
 import * as yup from 'yup'
 // import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
 import Modal from '@webapps-common/UI/Modal'
@@ -20,14 +20,14 @@ import Modal from '@webapps-common/UI/Modal'
 type MessageCreateProps = {
   show: boolean;
   onClose: () => void;
-  onSave: () => void;
+  // onSave: () => void;
 }
 export default function MessageCreate({
   show,
   onClose,
   // onSave = onClose,
 }: MessageCreateProps) {
-  const supabase = useSupabaseClient()
+  // const supabase = useSupabaseClient()
 
   // Set the form validation schema.
   const shape = {
@@ -63,7 +63,7 @@ export default function MessageCreate({
 
     // if (res.error) {
     //  toast.error(`Could not create user: ${res.error?.message}`)
-      return
+    return
     // }
     // toast.success('User successfully created')
     // onSave()
@@ -82,9 +82,9 @@ export default function MessageCreate({
         handleSubmit,
         handleChange,
         values,
-        touched,
+        // touched,
         isSubmitting,
-        errors,
+        // errors,
       }) => (
         <Modal
           show={show}
@@ -107,8 +107,6 @@ export default function MessageCreate({
                   placeholder="Enter message name"
                 />
               </Form.Group>
-
-              
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={onClose}>

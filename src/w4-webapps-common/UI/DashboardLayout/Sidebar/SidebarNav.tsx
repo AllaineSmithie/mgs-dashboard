@@ -92,7 +92,7 @@ export function SidebarNavTitleInner({
           { 'tw-ps-8': context },
         )
       }
-    >    
+    >
       <div className="tw-grow">
         {children}
       </div>
@@ -182,7 +182,6 @@ export function SidebarNavGroup({
   )
 }
 
-
 type SidebarNavGroupInnerToggleProps = {
   icon: IconDefinition;
   collapsed: boolean;
@@ -209,15 +208,15 @@ function SidebarNavGroupInnerToggle({
         className="tw-w-full tw-p-0 tw-flex tw-items-center tw-text-start tw-bg-transparent"
         onClick={() => (toggle())}
       >
-        <div className="tw-basis-8 tw-text-center tw-me-4">
-          {icon ? <FontAwesomeIcon icon={icon} /> : <span className="tw-basis-16" />}
-        </div>
-        <div className="tw-grow">
-          {children}
-        </div>
-        <div>
-          <FontAwesomeIcon className={cn({ 'tw-transition tw-duration-300': animation })} size="xs" icon={faChevronUp} rotation={collapsed ? 180 : undefined} />
-        </div>
+      <div className="tw-basis-8 tw-text-center tw-me-4">
+        {icon ? <FontAwesomeIcon icon={icon} /> : <span className="tw-basis-16" />}
+      </div>
+      <div className="tw-grow">
+        {children}
+      </div>
+      <div>
+        <FontAwesomeIcon className={cn({ 'tw-transition tw-duration-300': animation })} size="xs" icon={faChevronUp} rotation={collapsed ? 180 : undefined} />
+      </div>
       </button>
     </div>
   )

@@ -12,7 +12,7 @@ import React from 'react'
 import {
   useSupabaseClient,
 } from '@supabase/auth-helpers-react'
-import { Formik, FormikConfig, prepareDataForValidation } from 'formik'
+import { Formik, FormikConfig } from 'formik'
 import * as yup from 'yup'
 // import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
 import Modal from '@webapps-common/UI/Modal'
@@ -20,7 +20,7 @@ import Modal from '@webapps-common/UI/Modal'
 type ProductCreateProps = {
   show: boolean;
   onClose: () => void;
-  onSave: () => void;
+  // onSave: () => void;
 }
 export default function ProductCreate({
   show,
@@ -63,7 +63,7 @@ export default function ProductCreate({
 
     // if (res.error) {
     //  toast.error(`Could not create user: ${res.error?.message}`)
-      return
+    return
     // }
     // toast.success('User successfully created')
     // onSave()
@@ -82,9 +82,9 @@ export default function ProductCreate({
         handleSubmit,
         handleChange,
         values,
-        touched,
+        // touched,
         isSubmitting,
-        errors,
+        // errors,
       }) => (
         <Modal
           show={show}
@@ -107,8 +107,6 @@ export default function ProductCreate({
                   placeholder="Enter product name"
                 />
               </Form.Group>
-
-              
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={onClose}>

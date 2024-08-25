@@ -7,10 +7,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-//  faEdit,
-//  faGavel,
   faPlus,
-//  faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import React, {
   useEffect, useState, useCallback,
@@ -29,7 +26,7 @@ import humanizeDuration from 'humanize-duration'
 // import { addBasePath } from 'next/dist/client/add-base-path'
 import ProductCreate from '@components/Forms/Products/ProductCreate'
 import MainLayout from '@components/MainLayout'
-import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
+// import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
 import Button from '@webapps-common/UI/Button'
 
 export default function Products() {
@@ -46,8 +43,8 @@ export default function Products() {
 
 function ProductList({ itemsPerPage = 30 }) {
   const router = useRouter()
-  const sessionContext = useSessionContext()
-  //const [products, setProducts] = useState<(Product & { banned_until?: string })[]>([])
+  // const sessionContext = useSessionContext()
+  // const [products, setProducts] = useState<(Product & { banned_until?: string })[]>([])
 
   // List counts
   const [pageOffset, setPageOffset] = useState(0)
@@ -57,9 +54,8 @@ function ProductList({ itemsPerPage = 30 }) {
   // Modals
   const [productCreateVisible, setProductCreateVisible] = useState(false)
 
-
   // Selected
-  const [selected, setSelected] = useState<string>('')
+  // const [selected, setSelected] = useState<string>('')
 
   const supabase = useSupabaseClient()
 
@@ -74,7 +70,7 @@ function ProductList({ itemsPerPage = 30 }) {
     //  setProducts([])
     setPageCount(1)
     setTotalCount(0)
-    return
+    // return
     // }
     // setProducts(res.data.users)
     // setPageCount(res.data.lastPage)
@@ -87,40 +83,40 @@ function ProductList({ itemsPerPage = 30 }) {
 
   useEffect(() => {
     const selectedFromQuery = router.query?.selected as string
-    if (selectedFromQuery) {
-      setSelected(selectedFromQuery)
-    }
+    // if (selectedFromQuery) {
+    //  setSelected(selectedFromQuery)
+    // }
   }, [router.query])
 
-  const dateFormat = (dateTimestamp: string) => {
-    const date = DateTime.fromISO(dateTimestamp)
-    const diff = DateTime.now().diff(date)
-    return `${date.toFormat('kkkk-MM-dd')} at ${date.toFormat('HH:mm')} (${
-      humanizeDuration(diff.toMillis(), {
-        largest: 1,
-        round: true,
-        units: ['y', 'd', 'h', 'm', 's'],
-      })} ago )`
-  }
+  // const dateFormat = (dateTimestamp: string) => {
+    // const date = DateTime.fromISO(dateTimestamp)
+    // const diff = DateTime.now().diff(date)
+    // return `${date.toFormat('kkkk-MM-dd')} at ${date.toFormat('HH:mm')} (${
+    //   humanizeDuration(diff.toMillis(), {
+    //     largest: 1,
+    //     round: true,
+    //     units: ['y', 'd', 'h', 'm', 's'],
+    //   })} ago )`
+  // }
 
-  const isBanned = (bannedUntil: string) => {
-    if (!bannedUntil) {
-      return false
-    }
-    const bannedUntildate = DateTime.fromISO(bannedUntil)
-    // TODO: ideally, check against the server time instead, but requires changes to gotrue-js
-    return bannedUntildate > DateTime.now()
-  }
+  // const isBanned = (bannedUntil: string) => {
+  //   if (!bannedUntil) {
+  //     return false
+  //   }
+  //   const bannedUntildate = DateTime.fromISO(bannedUntil)
+  // TODO: ideally, check against the server time instead, but requires changes to gotrue-js
+  //   return bannedUntildate > DateTime.now()
+  // }
 
   return (
     <div>
       <ProductCreate
         show={productCreateVisible}
         onClose={() => setProductCreateVisible(false)}
-        onSave={() => {
-          setProductCreateVisible(false)
-          // fetchProduct()
-        }}
+        // onSave={() => {
+        //   setProductCreateVisible(false)
+        //  fetchProduct()
+        // }}
       />
       <div className="tw-flex tw-justify-between tw-items-center tw-mb-3">
         <div>
@@ -164,10 +160,8 @@ function ProductList({ itemsPerPage = 30 }) {
           </Table.HeaderRow>
         </Table.Header>
         <Table.Body>
-          
         </Table.Body>
       </Table>
-
       <div className="tw-flex tw-justify-end tw-mt-3">
         <Pagination
           pageOffset={pageOffset}
