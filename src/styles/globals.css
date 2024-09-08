@@ -32,4 +32,59 @@
     /* For some weird reason if I don't use this, the other scrollbar styles don't apply */
     width: 10px;
   }
+  select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='white'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
+      background-size: 12px;
+      background-position: 206px 17px;
+      padding-left: 12px !important;
+      background-repeat: no-repeat;
+      outline: none;
+  }
+  select:-moz-focusring {
+      transition-duration: 0s;
+      color: transparent;
+      text-shadow: 0 0 0 #fff;
+  }  
+  option {
+      background-color: var(--c-3);
+      color: var(--c-f);
+  }
+  .radio {
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0);
+
+  }
+  .radio__input {
+    display: none;
+  }
+  .radio__label {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-family: sans-serif;
+    color: #ffffff;
+    background: rgb(94, 30, 30);
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .radio__label:not(:last-of-type) {
+    border-right: 1px solid #006b50;
+  }
+  .radio__input:checked+.radio__label {
+    background: rgb(99, 99, 99);
+  }
+  a {
+      color: #fff;
+      cursor: pointer;
+      text-decoration: underline;
+  }
+  ol {
+      margin: auto;
+      text-align: left;
+      display: inline-block;
+  }
 }

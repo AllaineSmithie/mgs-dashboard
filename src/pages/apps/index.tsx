@@ -1,7 +1,7 @@
 /*************************************************************************/
 /*  index.tsx                                                            */
 /*************************************************************************/
-/* Copyright Deadline Entertainment Gbr                                  */
+/* Copyright W4 Games Limited                                            */
 /* SPDX-License-Identifier: AGPL-3.0-only                                */
 /*************************************************************************/
 
@@ -14,109 +14,57 @@ import React, {
 } from 'react'
 import Table from '@webapps-common/UI/Table/Table'
 import Pagination from '@webapps-common/UI/Pagination'
-// import { toast } from 'react-toastify'
 import {
-  // useSessionContext,
   useSupabaseClient,
 } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
-// import { DateTime } from 'luxon'
-// import humanizeDuration from 'humanize-duration'
-// import { User } from '@supabase/gotrue-js'
-// import { addBasePath } from 'next/dist/client/add-base-path'
-import EventCreate from '@components/Forms/Events/EventCreate'
+import AppCreate from '@components/Forms/Apps/AppCreate'
 import MainLayout from '@components/MainLayout'
-// import withUserTokenAuthAdmin from 'src/utils/withUserTokenAuthAdmin'
 import Button from '@webapps-common/UI/Button'
 
-export default function Events() {
+export default function Apps() {
   return (
     <MainLayout
       breadcrumb={{
-        breadcrumbCurrentText: 'Events',
+        breadcrumbCurrentText: 'Apps',
       }}
     >
-      <EventList />
+      <AppList />
     </MainLayout>
   )
 }
 
-function EventList({ itemsPerPage = 30 }) {
+function AppList({ itemsPerPage = 30 }) {
   const router = useRouter()
-  // const sessionContext = useSessionContext()
-  // const [events, setEvents] = useState<(Event & { banned_until?: string })[]>([])
-
   // List counts
   const [pageOffset, setPageOffset] = useState(0)
   const [pageCount, setPageCount] = useState(1)
   const [totalCount, setTotalCount] = useState(0)
 
   // Modals
-  const [eventCreateVisible, setEventCreateVisible] = useState(false)
+  const [appCreateVisible, setAppCreateVisible] = useState(false)
 
   // Selected
-  // const [selected, setSelected] = useState<string>('')
 
   const supabase = useSupabaseClient()
 
-  const fetchEvents = useCallback(async () => {
-    // const supabaseAuthAdmin = await withUserTokenAuthAdmin(supabase)
-    // const res = await supabaseAuthAdmin.listUsers({
-    //  page: pageOffset + 1,
-    //  perPage: itemsPerPage,
-    // })
-    // if (res.error) {
-    //  toast.error(`Could not access user list: ${res.error?.message}`)
-    //  setEvents([])
+  const fetchApps = useCallback(async () => {
     setPageCount(1)
     setTotalCount(0)
-    // return
-    // }
-    // setEvents(res.data.users)
-    // setPageCount(res.data.lastPage)
-    // setTotalCount(res.data.total)
   }, [pageOffset, itemsPerPage, supabase])
 
   useEffect(() => {
-    fetchEvents()
-  }, [fetchEvents])
+    fetchApps()
+  }, [fetchApps])
 
   useEffect(() => {
-    // const selectedFromQuery = router.query?.selected as string
-    // if (selectedFromQuery) {
-    //  setSelected(selectedFromQuery)
-    // }
   }, [router.query])
-
-  // const dateFormat = (dateTimestamp: string) => {
-  //   const date = DateTime.fromISO(dateTimestamp)
-  //   const diff = DateTime.now().diff(date)
-  //   return `${date.toFormat('kkkk-MM-dd')} at ${date.toFormat('HH:mm')} (${
-  //     humanizeDuration(diff.toMillis(), {
-  //       largest: 1,
-  //       round: true,
-  //       units: ['y', 'd', 'h', 'm', 's'],
-  //    })} ago )`
-  // }
-
-  // const isBanned = (bannedUntil: string) => {
-  //   if (!bannedUntil) {
-  //     return false
-  //   }
-  //   const bannedUntildate = DateTime.fromISO(bannedUntil)
-  // TODO: ideally, check against the server time instead, but requires changes to gotrue-js
-  //   return bannedUntildate > DateTime.now()
-  // }
 
   return (
     <div>
-      <EventCreate
-        show={eventCreateVisible}
-        onClose={() => setEventCreateVisible(false)}
-        // onSave={() => {
-        //   setEventCreateVisible(false)
-        //  fetchEvent()
-        // }}
+      <AppCreate
+        show={appCreateVisible}
+        onClose={() => setAppCreateVisible(false)}
       />
       <div className="tw-flex tw-justify-between tw-items-center tw-mb-3">
         <div>
@@ -138,13 +86,13 @@ function EventList({ itemsPerPage = 30 }) {
         <div className="tw-flex tw-gap-2">
           <Button
             onClick={() => {
-              setEventCreateVisible(true)
+              setAppCreateVisible(true)
             }}
             variant="secondary"
           >
             <FontAwesomeIcon icon={faPlus} fixedWidth />
             {' '}
-            New event
+            New app
           </Button>
         </div>
       </div>

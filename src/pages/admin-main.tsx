@@ -14,7 +14,7 @@ import {
   faBookOpen,
   faChevronRight,
   faCog,
-  faDownload, faList, faPeopleArrows, faServer, faTable, faUsers, faWarehouse,
+  faDownload, faList, faMicrochip, faMobileScreenButton, faPeopleArrows, faServer, faTable, faUsers, faWarehouse,
 } from '@fortawesome/free-solid-svg-icons'
 import Button from '@webapps-common/UI/Button'
 import {
@@ -109,6 +109,25 @@ export default function Lobbies() {
             href="/data/storage/buckets/"
           >
             Upload and manage files.
+          </LinkCard>
+        </div>
+        <div>
+          <h3 className="tw-text-xl tw-mt-7">Deployment</h3>
+        </div>
+        <div className="tw-grid md:tw-grid-cols-2 tw-gap-3 tw-justify-items-stretch">
+          <LinkCard
+            title="Apps"
+            icon={faMobileScreenButton}
+            href="/apps/"
+          >
+            Manage apps.
+          </LinkCard>
+          <LinkCard
+            title="Devices"
+            icon={faMicrochip}
+            href="/devices/"
+          >
+            Manage devices.
           </LinkCard>
         </div>
         <div>

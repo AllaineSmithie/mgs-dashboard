@@ -30,6 +30,11 @@ const nextConfig = {
             key: 'X-Frame-Options',
             value: 'ALLOW-FROM 192.168.49.2',
           },
+          // Set Permissions-Policy header to allow the Web Serial API
+          {
+            key: 'Permissions-Policy',
+            value: 'serial=(self)', // or specify domains like 'serial=(self https://example.com)'
+          },
         ],
       },
     ]
