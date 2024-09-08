@@ -14,11 +14,11 @@ import {
   faBookOpen,
   faChevronRight,
   faCog,
-  faDownload, 
-  faList, 
-  faMicrochip, 
-  faMobileScreenButton, 
-  faPeopleArrows, 
+  faDownload,
+  faList,
+  faMicrochip,
+  faMobileScreenButton,
+  faPeopleArrows,
   faServer, faTable, faUsers, faWarehouse,
 } from '@fortawesome/free-solid-svg-icons'
 import Button from '@webapps-common/UI/Button'
